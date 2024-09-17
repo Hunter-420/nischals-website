@@ -183,23 +183,23 @@ time {
     }
 
     p {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 
     li {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 
     li a{
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 
     .webtitle{
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 
     .container {
-        padding: 0.9rem;
+        padding: 1rem;
     }
 
     /* Make icons smaller */
