@@ -1,15 +1,18 @@
+/* General body styling */
 body {
     background-color: black;
     color: white;
     font-family: Arial, sans-serif;
 }
 
+/* Container */
 .container {
     width: 60%;
     margin: 0 auto;
     padding-top: 20px;
 }
 
+/* Header */
 h1 {
     color: red;
     text-align: center;
@@ -17,6 +20,7 @@ h1 {
     text-transform: uppercase;
 }
 
+/* Topics section styling */
 .topics {
     display: flex;
     flex-wrap: wrap;
@@ -25,6 +29,7 @@ h1 {
     border: dotted whitesmoke 0.3rem;
 }
 
+/* Topic link styling */
 .topics a {
     text-decoration: none; /* Removes underline */
     color: inherit; /* Inherits color from the topic class */
@@ -38,10 +43,10 @@ h1 {
     display: flex;
     align-items: center;
     margin: 2rem;
-    font-size:1.5rem;
+    font-size: 1.5rem;
 }
 
-.topic i{
+.topic i {
     font-size: 2rem;
     padding-right: 1rem;
 }
@@ -111,6 +116,10 @@ h1 {
     color: lightcoral; /* Updates-related color */
 }
 
+
+/* Add remaining colors for other topics (Linux, Personal, Philosophy, etc.) */
+
+/* Unordered list */
 ul {
     display: block;
     list-style-type: disc;
@@ -125,7 +134,6 @@ li {
     position: relative;
     padding-bottom: .5em;
     cursor: pointer;
-
 }
 
 li a {
@@ -133,7 +141,6 @@ li a {
     text-decoration: none;
     cursor: pointer;
     padding: 5px;
-    
 }
 
 /* Hover effect for the list items */
@@ -165,23 +172,81 @@ ul li::marker {
     color: whitesmoke;
 }
 
-time{
+time {
     color: gray;
 }
 
-h1 {
-    color: chocolate;
-    font-size: 3rem;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
+/* Header for sections */
 h2, h3 {
     color: sandybrown;
     text-align: center;
     font-size: 2.5rem;
 }
 
-p{
+p {
     font-size: 1.5rem;
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+    /* Adjust container width */
+    .container {
+        width: 90%;
+    }
+
+    /* Adjust font sizes for smaller screens */
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2, h3 {
+        font-size: 2rem;
+    }
+
+    p, li {
+        font-size: 1.2rem;
+    }
+
+    /* Reduce margins for topic section */
+    .topic {
+        margin: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .topic i {
+        font-size: 1.5rem;
+        padding-right: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* For very small screens like phones */
+    .container {
+        width: 100%;
+        padding: 0.5rem;
+    }
+
+    /* Adjust header font size */
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2, h3 {
+        font-size: 1.5rem;
+    }
+
+    p, li {
+        font-size: 1rem;
+    }
+
+    /* Make topics smaller */
+    .topic {
+        margin: 0.5rem;
+        font-size: 1rem;
+    }
+
+    .topic i {
+        font-size: 1.2rem;
+        padding-right: 0.3rem;
+    }
 }
