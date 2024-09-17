@@ -175,31 +175,31 @@ time {
 @media (max-width: 480px) {
     /* Further adjustments for very small screens */
     h1 {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
     }
 
     h2, h3 {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 
     p {
-        font-size: 0.7rem;
+        font-size: 0.9rem;
     }
 
     li {
-        font-size: 0.5rem;
+        font-size: 0.7rem;
     }
 
     li a{
-        font-size: 0.5rem;
+        font-size: 0.7rem;
     }
 
     .webtitle{
-        font-size: 0.5rem;
+        font-size: 0.7rem;
     }
 
     .container {
-        padding: 0.5rem;
+        padding: 0.7rem;
     }
 
     /* Make icons smaller */
