@@ -11,8 +11,8 @@ body {
 .container {
     max-width: 64rem;
     margin: 0 auto;
-    padding: 20px;
-    border-radius: 8px;
+    padding: 2rem;
+    border-radius: 1rem;
 }
 
 /* Header styling */
@@ -30,7 +30,7 @@ h2, h3 {
     font-size: 2.5rem;
 }
 
-p{
+p {
     font-size: 1.5rem;
 }
 
@@ -79,16 +79,15 @@ li {
     position: relative;
     padding-bottom: .5em;
     cursor: pointer;
-
 }
-.webtitle{
-    color:gray;
+
+.webtitle {
+    color: gray;
     font-size: 1.5rem;
-
 }
 
-.weblink{
-    color:green;
+.weblink {
+    color: green;
 }
 
 /* Link styling inside the list items */
@@ -97,7 +96,6 @@ li a {
     text-decoration: none;
     cursor: pointer;
     padding: 5px;
-    
 }
 
 /* Hover effect for the list items */
@@ -129,6 +127,88 @@ ul li::marker {
     color: whitesmoke;
 }
 
-time{
+time {
     color: gray;
+}
+
+/* Media Queries for Small Devices */
+@media (max-width: 768px) {
+    /* Adjust container padding */
+    .container {
+        padding: 1rem;
+        margin: auto;
+    }
+
+    /* Decrease header sizes */
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2, h3 {
+        font-size: 2rem;
+    }
+
+    p {
+        font-size: 1.2rem;
+    }
+
+    /* Decrease font size in the list items */
+    li {
+        font-size: 1.2rem;
+    }
+
+    /* Center the profile image and reduce its margins */
+    .profile-img {
+        margin-inline-start: 0;
+        margin-inline-end: 0;
+        margin: 1em auto;
+    }
+
+    /* Adjust icon bar */
+    .icon-bar img {
+        width: 40px;
+        height: 40px;
+        margin: 0 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Further adjustments for very small screens */
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2, h3 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 1.1rem;
+    }
+
+    li {
+        font-size: 1rem;
+    }
+
+    li a{
+        font-size: 1.5rem;
+    }
+
+    .container {
+        padding: 0.5rem;
+    }
+
+    /* Make icons smaller */
+    .icon-bar img {
+        width: 30px;
+        height: 30px;
+        margin: 0 3px;
+    }
+
+    /* Adjust margins and paddings for better fit */
+    .profile-img {
+        margin-inline-start: 0;
+        margin-inline-end: 0;
+        width: 100px;
+    }
 }
