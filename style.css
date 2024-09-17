@@ -175,27 +175,27 @@ time {
 @media (max-width: 480px) {
     /* Further adjustments for very small screens */
     h1 {
-        font-size: 2rem;
-    }
-
-    h2, h3 {
         font-size: 1.5rem;
     }
 
+    h2, h3 {
+        font-size: 1rem;
+    }
+
     p {
-        font-size: 1.1rem;
+        font-size: 0.7rem;
     }
 
     li {
-        font-size: 1rem;
+        font-size: 0.5rem;
     }
 
     li a{
-        font-size: 1rem;
+        font-size: 0.5rem;
     }
 
     .webtitle{
-        font-size: 1rem;
+        font-size: 0.5rem;
     }
 
     .container {
