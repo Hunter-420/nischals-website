@@ -1,0 +1,187 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 60%;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+h1 {
+    color: red;
+    text-align: center;
+    font-size: 36px;
+    text-transform: uppercase;
+}
+
+.topics {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0.5rem;
+    border: dotted whitesmoke 0.3rem;
+}
+
+.topics a {
+    text-decoration: none; /* Removes underline */
+    color: inherit; /* Inherits color from the topic class */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* General Topic Styling */
+.topic {
+    display: flex;
+    align-items: center;
+    margin: 2rem;
+    font-size:1.5rem;
+}
+
+.topic i{
+    font-size: 2rem;
+    padding-right: 1rem;
+}
+
+/* Specific Icon Colors */
+.topic.crypto i {
+    color: gold; /* Crypto-related color */
+}
+
+.topic.economics i {
+    color: green; /* Economics-related color */
+}
+
+.topic.language i {
+    color: orange; /* Language-related color */
+}
+
+.topic.lifestyle i {
+    color: teal; /* Lifestyle-related color */
+}
+
+.topic.linux i {
+    color: black; /* Linux-related color */
+}
+
+.topic.personal i {
+    color: purple; /* Personal-related color */
+}
+
+.topic.philosophy i {
+    color: darkred; /* Philosophy-related color */
+}
+
+.topic.politics i {
+    color: blue; /* Politics-related color */
+}
+
+.topic.recommended i {
+    color: lightgreen; /* Recommended-related color */
+}
+
+.topic.religion i {
+    color: violet; /* Religion-related color */
+}
+
+.topic.science i {
+    color: lightblue; /* Science-related color */
+}
+
+.topic.software i {
+    color: dodgerblue; /* Software-related color */
+}
+
+.topic.technology i {
+    color: navy; /* Technology-related color */
+}
+
+.topic.tradition i {
+    color: brown; /* Tradition-related color */
+}
+
+.topic.tutorial i {
+    color: coral; /* Tutorial-related color */
+}
+
+.topic.updates i {
+    color: lightcoral; /* Updates-related color */
+}
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+    unicode-bidi: isolate;
+}
+
+li {
+    font-size: 1.5rem;
+    position: relative;
+    padding-bottom: .5em;
+    cursor: pointer;
+
+}
+
+li a {
+    color: #33bbff;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 5px;
+    
+}
+
+/* Hover effect for the list items */
+li:hover {
+    color: #d4e157; /* Change text color on hover */
+    background-color: #3a3a3a; /* Change background color on hover */
+    border: 1px dotted #f28500; /* Add border on hover */
+}
+
+/* Bullet point hover effect */
+li:hover {
+    color: #d4e157; /* Change bullet point color when hovered */
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #444;
+    margin: 20px 0;
+}
+
+ul li::marker {
+    unicode-bidi: isolate;
+    font-variant-numeric: tabular-nums;
+    text-transform: none;
+    text-indent: 0px !important;
+    text-align: start !important;
+    text-align-last: start !important;
+    color: whitesmoke;
+}
+
+time{
+    color: gray;
+}
+
+h1 {
+    color: chocolate;
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+h2, h3 {
+    color: sandybrown;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+p{
+    font-size: 1.5rem;
+}
