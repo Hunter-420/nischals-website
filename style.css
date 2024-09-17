@@ -39,10 +39,14 @@ p {
     display: block;
     margin-block-start: 1em;
     margin-block-end: 1em;
-    margin-inline-start: 40px;
-    margin-inline-end: 40px;
+    margin-left: auto;
+    margin-right: auto;
     unicode-bidi: isolate;
+    width: 40%; /* Keeps the image at 30% of the container width */
+    align-items: center;
+    border-radius: 10%;
 }
+
 
 /* Icon bar styling */
 .icon-bar {
@@ -159,9 +163,15 @@ time {
 
     /* Center the profile image and reduce its margins */
     .profile-img {
-        margin-inline-start: 0;
-        margin-inline-end: 0;
-        margin: 1em auto;
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-left: auto;
+        margin-right: auto;
+        unicode-bidi: isolate;
+        width: 40%; /* Keeps the image at 30% of the container width */
+        align-items: center;
+        border-radius: 10%;
     }
 
     /* Adjust icon bar */
@@ -211,8 +221,14 @@ time {
 
     /* Adjust margins and paddings for better fit */
     .profile-img {
-        margin-inline-start: 0;
-        margin-inline-end: 0;
-        width: 100px;
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-left: auto;
+        margin-right: auto;
+        unicode-bidi: isolate;
+        width: 60%; /* Keeps the image at 30% of the container width */
+        align-items: center;
+        border-radius: 10%;
     }
 }
