@@ -1,0 +1,134 @@
+/* General body styling */
+body {
+    background-color: #1b1b1b;
+    color: #dcdcdc;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Container for content */
+.container {
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Header styling */
+h1 {
+    color: chocolate;
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Section header styling */
+h2, h3 {
+    color: sandybrown;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+p{
+    font-size: 1.5rem;
+}
+
+/* Profile image styling */
+.profile-img {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 40px;
+    margin-inline-end: 40px;
+    unicode-bidi: isolate;
+}
+
+/* Icon bar styling */
+.icon-bar {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.icon-bar img {
+    width: 50px;
+    height: 50px;
+    margin: 0 10px;
+}
+
+/* Section styling */
+.section {
+    text-align: left;
+}
+
+/* Unordered list and list item styling */
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+    unicode-bidi: isolate;
+}
+
+li {
+    margin: 10px 0;
+    font-size: 1.5rem;
+    position: relative;
+    padding-bottom: .5em;
+    cursor: pointer;
+
+}
+.webtitle{
+    color:gray;
+    font-size: 1.5rem;
+
+}
+
+.weblink{
+    color:green;
+}
+
+/* Link styling inside the list items */
+li a {
+    color: #33bbff;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 5px;
+    
+}
+
+/* Hover effect for the list items */
+li:hover {
+    color: #d4e157; /* Change text color on hover */
+    background-color: #3a3a3a; /* Change background color on hover */
+    border: 1px dotted #f28500; /* Add border on hover */
+}
+
+/* Bullet point hover effect */
+li:hover {
+    color: #d4e157; /* Change bullet point color when hovered */
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #444;
+    margin: 20px 0;
+}
+
+ul li::marker {
+    unicode-bidi: isolate;
+    font-variant-numeric: tabular-nums;
+    text-transform: none;
+    text-indent: 0px !important;
+    text-align: start !important;
+    text-align-last: start !important;
+    color: whitesmoke;
+}
+
+time{
+    color: gray;
+}
