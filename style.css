@@ -106,7 +106,6 @@ li a {
 li:hover {
     color: #d4e157; /* Change text color on hover */
     background-color: #3a3a3a; /* Change background color on hover */
-    border: 1px dotted #f28500; /* Add border on hover */
 }
 
 /* Bullet point hover effect */
