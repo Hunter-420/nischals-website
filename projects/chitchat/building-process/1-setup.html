@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ChitChat Setup Instructions</title>
+        <link rel="stylesheet" href="../../../style.css" />
+        <style>
+            code {
+                color: gray;
+                padding: 3px 5px;
+                border-radius: 3px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>ChitChat Setup Instructions</h1>
+        <div>
+            <h3>Project Directory Structure of frontend </h3>
+            <pre>
+frontend
+    ├── next.config.mjs
+    ├── next-env.d.ts
+    ├── package.json
+    ├── package-lock.json
+    ├── postcss.config.mjs
+    ├── README.md
+    ├── src
+    │   └── pages
+    │       ├── _app.tsx
+    │       └── index.tsx
+    ├── tailwind.config.ts
+    └── tsconfig.json
+</pre>
+        </div>
+
+        <div class="card">
+            <h4>Step 1: Create Project Directory</h4>
+            <p>Open your terminal and run the following commands:</p>
+            <pre>
+mkdir ChitChat
+cd ChitChat
+    </pre
+            >
+        </div>
+
+        <div class="card">
+            <h4>Step 2: Create Next.js Frontend</h4>
+            <p>Create a new Next.js app without TypeScript:</p>
+            <pre>
+npx create-next-app frontend
+    </pre
+            >
+        </div>
+
+        <div class="card">
+            <h4>Step 3: Navigate to the Frontend Directory</h4>
+            <pre>
+cd frontend
+    </pre
+            >
+        </div>
+
+        <div class="card">
+            <h4>Step 4: Clean Up the Directory</h4>
+            <p>
+                Delete the <code>src</code> or <code>app</code> directory if it
+                exists, as well as the <code>styles</code> directory:
+            </p>
+            <pre>
+rm -rf src styles
+    </pre
+            >
+        </div>
+
+        <div class="card">
+            <h4>Step 5: Create a New Source Directory</h4>
+            <pre>
+mkdir src
+    </pre
+            >
+        </div>
+
+        <div class="card">
+            <h4>Step 6: Create Pages Directory</h4>
+            <p>
+                Inside the <code>src</code> directory, create a new
+                <code>pages</code> directory:
+            </p>
+            <pre>
+mkdir src/pages
+    </pre
+            >
+        </div>
+
+        <div class="card">
+            <h4>Step 7: Create index.js File</h4>
+            <p>
+                Inside the <code>pages</code> directory, create a file called
+                <code>index.js</code>:
+            </p>
+            <pre>
+touch src/pages/index.js
+    </pre
+            >
+        </div>
+
+        <div class="card">
+            <h4>Step 8: Add HTML to index.js</h4>
+            <p>
+                Open <code>src/pages/index.js</code> and add the following code:
+            </p>
+            <pre>
+const Home = () => {
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;Hello Home Page&lt;/h1&gt;
+            &lt;p&gt;Welcome to ChitChat!&lt;/p&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default Home;
+    </pre
+            >
+        </div>
+
+        <div class="card">
+            <h4>Step 9: Start the Development Server</h4>
+            <p>You can now start your development server:</p>
+            <pre>
+npm run dev
+    </pre
+            >
+        </div>
+
+        <div class="card">
+            <h4>Your Next.js app should now be set up and running!</h4>
+            <p>
+                It will display "Hello Home Page" at
+                <code>http://localhost:3000</code>. You can add more HTML
+                components as needed directly in the JSX format.
+            </p>
+        </div>
+    </body>
+</html>
