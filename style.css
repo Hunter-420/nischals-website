@@ -1,7 +1,7 @@
 /* General body styling */
 body {
-    background-color: #1b1b1b;
-    color: #dcdcdc;
+    background-color: #ecf8f8;
+    color: #2d232e;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
@@ -17,7 +17,7 @@ body {
 
 /* Header styling */
 h1 {
-    color: chocolate;
+    color: #00296b;
     font-size: 3rem;
     margin-bottom: 10px;
     text-align: center;
@@ -26,7 +26,7 @@ h1 {
 /* Section header styling */
 h2,
 h3 {
-    color: sandybrown;
+    color: #003f88;
     text-align: center;
     font-size: 2.5rem;
 }
@@ -86,17 +86,17 @@ li {
 }
 
 .webtitle {
-    color: gray;
+    color: #15616d;
     font-size: 1.5rem;
 }
 
 .weblink {
-    color: green;
+    color: #43aa8b;
 }
 
 /* Link styling inside the list items */
 li a {
-    color: #33bbff;
+    color: #144552;
     text-decoration: none;
     cursor: pointer;
     padding: 5px;
@@ -104,12 +104,12 @@ li a {
 
 /* Hover effect for the list items */
 li:hover {
-    color: #d4e157; /* Change text color on hover */
+    color: #20a4f3; /* Change text color on hover */
 }
 
 /* Bullet point hover effect */
 li:hover {
-    color: #d4e157; /* Change bullet point color when hovered */
+    color: #20a4f3; /* Change bullet point color when hovered */
 }
 
 hr {
@@ -126,7 +126,7 @@ ul li::marker {
     text-indent: 0px !important;
     text-align: start !important;
     text-align-last: start !important;
-    color: whitesmoke;
+    color: #a1c181;
 }
 
 time {
