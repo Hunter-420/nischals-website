@@ -178,12 +178,37 @@ time {
 
 @media (max-width: 480px) {
     /* Further adjustments for very small screens */
-      li:hover {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2,
+    h3 {
+        font-size: 1.6rem;
+    }
+
+    p {
+        font-size: 1.3rem;
+    }
+
+    li {
+        font-size: 1.3rem;
+    }
+
+    li:hover {
         border: none;
     }
 
-      .container {
-        padding: 1rem;
+    li a {
+        font-size: 1.3rem;
+    }
+
+    .webtitle {
+        font-size: 1.3rem;
+    }
+
+    .container {
+        padding: 0rem;
     }
 
     /* Make icons smaller */
