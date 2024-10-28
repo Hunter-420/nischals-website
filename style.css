@@ -116,6 +116,11 @@ li a {
     padding: 5px;
 }
 
+.heighlight {
+    color: #144552;
+    font-weight: 500;
+}
+
 /* Hover effect for the list items */
 li:hover {
     color: #20a4f3; /* Change text color on hover */
