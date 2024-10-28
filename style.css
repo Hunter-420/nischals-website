@@ -1,8 +1,9 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700|Lora|Playfair+Display:700i,900");
 /* General body styling */
 body {
     background-color: #ecf8f8;
     color: #2d232e;
-    font-family: Arial, sans-serif;
+    font-family: serif;
     margin: 0;
     padding: 20px;
 }
@@ -17,22 +18,34 @@ body {
 
 /* Header styling */
 h1 {
-    color: #00296b;
+      color: rgba(0, 0, 0, 0.84);
+
     font-size: 3rem;
     margin-bottom: 10px;
     text-align: center;
+    font-family: "Playfair Display", serif;
+    margin-bottom: 0.5rem;
 }
 
 /* Section header styling */
 h2,
 h3 {
-    color: #003f88;
-    text-align: center;
-    font-size: 2.5rem;
+      color: rgba(0, 0, 0, 0.84);
+   margin-bottom:0.5rem;
+    text-align: left;
+    font-size: 2.2rem;
+    font-family: "Lato", sans-serif;
+    letter-spacing: -0.45px;
+    font-weight: 700;
+    line-height: 2.15625rem;
 }
 
 p {
+    font-family: "Lora";
+    margin-top: 1.3125rem;
     font-size: 1.5rem;
+    letter-spacing: -0.03px;
+    line-height: 1.58;
 }
 
 /* Profile image styling */
@@ -83,6 +96,7 @@ li {
     position: relative;
     padding-bottom: 0.5em;
     cursor: pointer;
+    font-family: "Lora";
 }
 
 .webtitle {
@@ -141,26 +155,7 @@ time {
         margin: auto;
     }
 
-    /* Decrease header sizes */
-    h1 {
-        font-size: 2.5rem;
-    }
-
-    h2,
-    h3 {
-        font-size: 2rem;
-    }
-
-    p {
-        font-size: 1.2rem;
-    }
-
-    /* Decrease font size in the list items */
-    li {
-        font-size: 1.2rem;
-    }
-
-    /* Center the profile image and reduce its margins */
+      /* Center the profile image and reduce its margins */
     .profile-img {
         display: block;
         margin-block-start: 1em;
@@ -183,36 +178,11 @@ time {
 
 @media (max-width: 480px) {
     /* Further adjustments for very small screens */
-    h1 {
-        font-size: 1.6rem;
-    }
-
-    h2,
-    h3 {
-        font-size: 1.1rem;
-    }
-
-    p {
-        font-size: 1rem;
-    }
-
-    li {
-        font-size: 1rem;
-    }
-
-    li:hover {
+      li:hover {
         border: none;
     }
 
-    li a {
-        font-size: 1rem;
-    }
-
-    .webtitle {
-        font-size: 1rem;
-    }
-
-    .container {
+      .container {
         padding: 1rem;
     }
 
@@ -238,7 +208,7 @@ time {
 }
 
 pre {
-    color:black;
+    color: black;
     background-color: #eaeaea;
     padding: 10px;
     font-size: 1rem;
@@ -250,4 +220,3 @@ h4 {
     font-size: 1.5rem;
     color: sandybrown;
 }
-
