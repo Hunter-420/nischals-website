@@ -1,0 +1,209 @@
+<!DOCTYPE >
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>REST to GraphQL</title>
+        <link href="../../style.css" rel="stylesheet" />
+
+        <!-- Open Graph Meta Tags -->
+        <meta property="og:title" content="Why I Moved from REST to GraphQL" />
+        <meta
+            property="og:description"
+            content="Discover the challenges of REST APIs and how GraphQL offers a more efficient solution for data fetching. Learn about over-fetching, under-fetching, and the benefits of a single endpoint."
+        />
+        <meta
+            property="og:image"
+            content="https://preview.redd.it/graphql-meme-rest-v0-ebc9zbuoll9b1.jpg?width=800&format=pjpg&auto=webp&s=025b1a6437700031d51d1588c9f24e95bed9b223"
+        />
+        <meta
+            property="og:url"
+            content="https://khanalnischal.com.np/blogs/blogs/graphql.html"
+        />
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="Nischal Khanal" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Why I Moved from REST to GraphQL</h1>
+
+            <img
+                src="https://preview.redd.it/graphql-meme-rest-v0-ebc9zbuoll9b1.jpg?width=800&format=pjpg&auto=webp&s=025b1a6437700031d51d1588c9f24e95bed9b223"
+                style="width: 100%"
+            />
+
+            <p>
+                As a developer, I often used REST APIs to build applications.
+                While REST has its advantages, I faced some big challenges while
+                working on different projects, including
+                <a href="../../projects/chitchat/chitchat.html">
+                    ChitChat, a real-time chat app</a
+                >. Two common problems were
+                <span class="heighlight"> over-fetching</span> and
+                <span class="heighlight"> under-fetching</span>, which slowed me
+                down. Additionally, managing many different endpoints in REST
+                became a hassle. That’s when I discovered
+                <span class="heighlight"
+                    ><a href="https://graphql.org/learn/"> GraphQL</a></span
+                >, which offered simple solutions to these issues.
+            </p>
+            <h2>Over-fetching: Getting Extra Data I Didn’t Need</h2>
+            <p>
+                With REST, sometimes I’d get way more data than I actually
+                needed. Imagine I want only a user’s id and firstName to display
+                in my app. In REST, a request like GET /users/123 might give me
+                everything: id, firstName, lastName, email, password, and more.
+            </p>
+            <p>
+                <span class="heighlight">How GraphQL Fixes It:</span> With
+                GraphQL, I can request only the exact data I need. If I just
+                want id and firstName, I ask for only those:
+            </p>
+            <pre>
+query {
+  user(id: 123) {
+    id
+    firstName
+  }
+}
+    </pre
+            >
+            <p>
+                The server sends only what I asked for, which keeps things
+                simple and fast.
+            </p>
+
+            <h2>Under-fetching: Not Getting Enough Data in One Request</h2>
+            <p>
+                The opposite problem is under-fetching, where I don’t get all
+                the data I need in one go. With REST, if I need both a user’s
+                details and their recent messages, I have to make multiple
+                requests:
+            </p>
+            <ol>
+                <li>GET /users/123 to get user details.</li>
+                <li>GET /users/123/messages to get their messages.</li>
+            </ol>
+            <p>
+                This back-and-forth means more requests and slows down the app.
+            </p>
+            <p>
+                <span class="heighlight">How GraphQL Fixes It:</span> In
+                GraphQL, I can ask for all the related data in a single query.
+                If I need both the user info and recent messages, I just request
+                both together:
+            </p>
+            <pre>
+query {
+  user(id: 123) {
+    id
+    firstName
+    messages {
+      content
+      timestamp
+    }
+  }
+}
+</pre
+            >
+
+            <h2>Single Endpoint for Everything</h2>
+            <p>
+                One of the standout features of GraphQL is its ability to
+                operate through a single endpoint, ie. /graphql. In REST APIs, I
+                had to create multiple endpoints for various actions. For
+                instance, if I wanted to manage user data, I would need separate
+                endpoints like /users for fetching the list of users, /users/123
+                for getting details about a specific user, and
+                /users/123/messages for retrieving a user’s messages. This
+                fragmentation meant that as the project grew, so did the
+                complexity of managing these numerous endpoints. It became
+                increasingly challenging to keep track of which endpoint did
+                what, especially when collaborating with others or scaling the
+                application.
+            </p>
+
+            <p>
+                With GraphQL, everything revolves around a single endpoint. This
+                means that whether I want to fetch data, update information, or
+                delete records, I can do it all through the same URL. The
+                requests I send to this endpoint are structured in terms of
+                queries and mutations.
+            </p>
+
+            <br />
+            <p>
+                <span class="heighlight">Queries</span> are used to fetch data.
+                They allow me to specify exactly what information I want from
+                the server. For example, if I want to get a user’s id and
+                firstName, I can write a query like this:
+            </p>
+            <pre>
+query {
+  user(id: 123) {
+    id
+    firstName
+  }
+}
+</pre
+            >
+
+            <p>
+                This request will return only the specified fields, making it
+                efficient and tailored to my needs.
+            </p>
+
+            <br />
+            <p>
+                <span class="heighlight">Mutations</span>, on the other hand,
+                are used to modify data. For instance, when updating a user’s
+                name, I can send a mutation request to the same /graphql
+                endpoint without worrying about where that request needs to go:
+            </p>
+            <p></p>
+
+            <pre>
+mutation {
+  updateUser(id: 123, firstName: "Raj") {
+    id
+    firstName
+  }
+}
+</pre
+            >
+
+            <p>
+                This simplicity significantly streamlines the development
+                process. Instead of writing separate functions for each endpoint
+                and method (like GET, POST, PUT, and DELETE), I can focus on
+                crafting queries and mutations that precisely specify what data
+                I need or what changes I want to make.
+            </p>
+
+            <p>
+                The server processes these queries and mutations through
+                resolvers. <span class="heighlight">Resolvers</span> are
+                functions that handle the logic for fetching or updating data
+                based on the queries and mutations received. They act as a
+                bridge between the client’s request and the database or any
+                other data source. For instance, when a mutation to update a
+                user’s name is sent, a corresponding resolver will handle the
+                logic of updating the user’s information in the database and
+                returning the updated data.
+            </p>
+
+            <p>
+                Switching to GraphQL has made my projects easier to handle. It
+                solves the over-fetching and under-fetching problems that slowed
+                down my REST API and keeps my code cleaner. If you’re tired of
+                dealing with these REST issues, I’d definitely recommend giving
+                GraphQL a try. It’s not just a replacement; it actually makes
+                working with APIs simpler and more efficient, especially if
+                you’re building complex apps.
+            </p>
+
+            <p>Inspired by resources like the YouTube tutorial,<span class="heighlight"><a href="https://www.youtube.com/watch?v=NNNcoWZ6Ih0&list=PLB97yPrFwo5i9zDrWfvkohPec3Q6EEC9J"> “Why GraphQL | GraphQL vs REST API | Complete GraphQL tutorial with React and Apollo Client in Hindi”</a></span> from CODERS NEVER QUIT. This tutorial highlights the advantages of GraphQL over REST, particularly the benefits of using a single endpoint and how it simplifies data management in applications.</p>
+        </div>
+    </body>
+</html>
