@@ -26,7 +26,256 @@ const base = import.meta.env.BASE_URL;
 		<meta name="twitter:image" content={image || `${base}img/nis.jpg`} />
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-        <link rel="stylesheet" href={`${base}styles/global.css?v=1`} />
+        <style is:global>
+            @import url("https://fonts.googleapis.com/css?family=Lato:400,700|Lora|Playfair+Display:700i,900");
+
+            /* General body styling */
+            body {
+                background-color: #ecf8f8;
+                color: #2d232e;
+                font-family: serif;
+                margin: 0;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+
+            /* Container for content */
+            .container {
+                max-width: 64rem;
+                margin: 0 auto;
+                padding: 2rem;
+                border-radius: 1rem;
+                min-height: 80vh; 
+            }
+
+            /* Header styling */
+            h1 {
+                color: rgba(0, 0, 0, 0.84);
+                font-size: 3rem;
+                margin-bottom: 0.5rem;
+                text-align: center;
+                font-family: "Playfair Display", serif;
+            }
+
+            /* Section header styling */
+            h2, h3 {
+                color: rgba(0, 0, 0, 0.84);
+                margin-bottom: 0.5rem;
+                margin-top: 2rem;
+                text-align: left;
+                font-size: 2.2rem;
+                font-family: "Lato", sans-serif;
+                letter-spacing: -0.45px;
+                font-weight: 700;
+                line-height: 2.15625rem;
+            }
+
+            p {
+                font-family: "Lora";
+                margin-top: 1.3125rem;
+                font-size: 1.5rem;
+                letter-spacing: -0.03px;
+                line-height: 1.58;
+            }
+
+            /* Profile image styling */
+            .profile-img {
+                display: block;
+                margin-block-start: 1em;
+                margin-block-end: 1em;
+                margin-left: auto;
+                margin-right: auto;
+                unicode-bidi: isolate;
+                width: 40%; /* Matches original style */
+                align-items: center;
+                border-radius: 10%; /* Matches original style */
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+
+            /* Icon bar styling */
+            .icon-bar {
+                margin: 20px 0;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1.5rem;
+                flex-wrap: wrap; 
+            }
+
+            .icon-bar img {
+                width: 50px;
+                height: 50px;
+                transition: transform 0.2s ease;
+            }
+
+            .icon-bar img:hover {
+                transform: scale(1.1);
+            }
+
+            /* Search Icon Styling */
+            .search-icon {
+                font-size: 2rem;
+                color: #15616d;
+                cursor: pointer;
+                transition: color 0.2s;
+            }
+            .search-icon:hover {
+                color: #20a4f3;
+            }
+
+            /* Section styling */
+            .section {
+                text-align: left;
+                margin-bottom: 3rem;
+            }
+
+            /* Unordered list and list item styling */
+            ul {
+                display: block;
+                list-style-type: disc;
+                margin-block-start: 1em;
+                margin-block-end: 1em;
+                margin-inline-start: 0px;
+                margin-inline-end: 0px;
+                padding-inline-start: 40px;
+                unicode-bidi: isolate;
+            }
+
+            li {
+                margin: 10px 0;
+                font-size: 1.5rem;
+                position: relative;
+                padding-bottom: 0.5em;
+                font-family: "Lora";
+            }
+
+            li:hover {
+                color: #20a4f3;
+            }
+
+            .webtitle {
+                color: #15616d;
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+
+            .weblink {
+                color: #43aa8b;
+                font-size: 1.2rem;
+                margin-left: 0.5rem;
+            }
+
+            /* Link styling inside the list items */
+            li a {
+                color: #144552;
+                text-decoration: none;
+                cursor: pointer;
+                transition: color 0.2s;
+            }
+
+            li a:hover {
+                color: #20a4f3;
+            }
+
+            hr {
+                border: 0;
+                height: 1px;
+                background-color: #444;
+                margin: 20px 0;
+            }
+
+            ul li::marker {
+                unicode-bidi: isolate;
+                font-variant-numeric: tabular-nums;
+                text-transform: none;
+                text-indent: 0px !important;
+                text-align: start !important;
+                text-align-last: start !important;
+                color: #a1c181;
+            }
+
+            time {
+                color: gray;
+            }
+
+            /* Code Blocks (Preserving the new dark theme as it's better) */
+            pre {
+                color: #e6edf3;
+                background-color: #1a1e23;
+                padding: 1.5rem;
+                font-size: 1rem;
+                border-radius: 8px;
+                overflow-x: auto;
+                font-family: 'Fira Code', monospace;
+                margin: 2rem 0;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+
+            code {
+                font-family: 'Fira Code', monospace;
+                background-color: rgba(0,0,0,0.05); /* Inline code bg */
+                padding: 0.2rem 0.4rem;
+                border-radius: 4px;
+                font-size: 0.9em;
+            }
+
+            pre code {
+                background-color: transparent;
+                padding: 0;
+            }
+
+            /* Button Reset for Projects (User disliked the shiny buttons) */
+            .project-link {
+                color: #144552;
+                text-decoration: underline;
+                font-weight: bold;
+                margin-right: 1rem;
+            }
+
+            /* Media Queries */
+            @media (max-width: 768px) {
+                .container {
+                    padding: 1rem;
+                    margin: auto;
+                }
+
+                .profile-img {
+                    width: 40%;
+                }
+            }
+
+            @media (max-width: 480px) {
+                h1 {
+                    font-size: 2rem;
+                }
+
+                h2, h3 {
+                    font-size: 1.6rem;
+                }
+
+                p, li, .webtitle {
+                    font-size: 1.3rem;
+                }
+
+                li a {
+                    font-size: 1.3rem;
+                }
+
+                .container {
+                    padding: 1rem; /* Optimal margin for mobile */
+                }
+
+                .profile-img {
+                    width: 60%;
+                }
+                
+                .icon-bar img {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        </style>
 	</head>
 	<body>
         <!-- Semantic Header for Navigation -->
