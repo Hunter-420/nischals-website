@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SocialBar from '../components/SocialBar.astro';
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL;
+const projects = await getCollection('projects');
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout pageTitle="Nischal Khanal's Webpage">
+	<div class="container">
+		<h1>Nischal Khanal's Webpage</h1>
+		<h2>Introduction</h2>
+		<img src={`${base}img/nis.jpg`} alt="Nischal Khanal" class="profile-img" />
+		<p><b>Me.</b></p>
+		<p>
+			I am Nischal Khanal and this is my webpage. There's a lot here,
+			so thanks for stopping by!
+		</p>
+
+		<SocialBar />
+
+		<hr />
+
+		<div class="section">
+			<h3>My Stuff</h3>
+			<ul>
+				<li>
+					<a href={`${base}daily/`}>Daily - <span class="webtitle">Daily updates & thoughts.</span></a>
+				</li>
+				<li>
+					<a href={`${base}my-stuff/programs`}>Programs - <span class="webtitle">Programs I use and recommend.</span></a>
+				</li>
+				<li>
+					<a href="https://www.tankie.tube/a/nischal_khanal/videos">Videos - <span class="webtitle">My videos.</span></a>
+				</li>
+				<li>
+					<a href={`${base}blog/`}>Blog - <span class="webtitle">My essays and articles.</span></a>
+				</li>
+				<li>
+					<a href={`${base}my-stuff/library`}>Library - <span class="webtitle">My personal library.</span></a>
+				</li>
+				<li>
+					<a href={`${base}my-stuff/contact`}>Contact - <span class="webtitle">Contact information.</span></a>
+				</li>
+				<li>
+					<a href="https://www.youtube.com/@NischalKhanal">YouTube - <span class="webtitle">My YouTube channel.</span></a>
+				</li>
+				<li>
+					<a href={`${base}my-stuff/podcasts`}>Not Related! - <span class="webtitle">My much beloved podcast.</span><span class="weblink"></span></a>
+				</li>
+			</ul>
+		</div>
+
+		<hr />
+
+		<div class="section">
+			<h3>My Projects</h3>
+			<ul>
+                {projects.map((project) => (
+                    <li>
+                        <a href={`${base}projects/${project.slug}`}>
+                            {project.data.title} - <span class="webtitle">{project.data.description}</span>
+                            {project.data.repoUrl && (
+                                <span class="weblink project-link"> [View Source]</span>
+                            )}
+                        </a>
+                    </li>
+                ))}
+			</ul>
+		</div>
+
+		<hr />
+
+		<div class="section">
+			<h3>Posts</h3>
+			<ul>
+				{posts.map((post) => (
+                    <li>
+                        <a href={`${base}blog/${post.slug}`}>
+                            <time datetime={post.data.date.toISOString()}>
+                                {post.data.date.toLocaleDateString('en-us', {
+                                    year: 'numeric',
+                                    month: 'short',
+                                    day: 'numeric',
+                                }).replace(',', '')}
+                            </time> 
+                            – {post.data.title}
+                        </a>
+                    </li>
+                ))}
+			</ul>
+		</div>
+	</div>
+</BaseLayout>

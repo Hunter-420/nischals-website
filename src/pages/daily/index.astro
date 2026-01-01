@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('daily')).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout pageTitle="Daily Posts">
+	<div class="container">
+		<h1>Daily Posts</h1>
+        <p>Short updates, thoughts, and moments.</p>
+		<hr />
+		<ul>
+			{
+				posts.map((post) => (
+					<li>
+                        <time datetime={post.data.date.toISOString()} style="min-width: 100px; display: inline-block;">
+							{post.data.date.toLocaleDateString('en-us', {
+								year: 'numeric',
+								month: 'short',
+								day: 'numeric',
+							})}
+						</time>
+						<a href={`${base}daily/${post.slug}/`}>{post.data.title}</a>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</BaseLayout>

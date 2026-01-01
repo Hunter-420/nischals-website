@@ -1,0 +1,45 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+
+const { title, description, date, updatedDate, image } = Astro.props;
+---
+
+<BaseLayout pageTitle={title} description={description} image={image}>
+	<div class="container">
+		<article>
+			<div class="prose">
+				<div class="title">
+					<div class="date">
+						<!-- We will implement FormattedDate later, or just simple text for now -->
+                        <time datetime={date.toISOString()}>
+                            {date.toLocaleDateString('en-us', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric',
+                            })}
+                        </time>
+						{
+							updatedDate && (
+								<div class="last-updated-on">
+									Last updated on <time datetime={updatedDate.toISOString()}>
+                                        {updatedDate.toLocaleDateString('en-us', {
+                                            year: 'numeric',
+                                            month: 'short',
+                                            day: 'numeric',
+                                        })}
+                                    </time>
+								</div>
+							)
+						}
+					</div>
+					<h1>{title}</h1>
+					<hr />
+				</div>
+                
+                <!-- Content injection -->
+				<slot />
+			</div>
+		</article>
+	</div>
+</BaseLayout>

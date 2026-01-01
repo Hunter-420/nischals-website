@@ -1,0 +1,231 @@
+---
+const { pageTitle, description, image } = Astro.props;
+const siteTitle = "Nischal Khanal's Webpage";
+const siteDescription = "Welcome to Nischal Khanal's personal webpage.";
+const base = import.meta.env.BASE_URL;
+// ViewTransitions removed due to build incompatibility
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>{pageTitle || siteTitle}</title>
+
+		<meta property="og:title" content={pageTitle || siteTitle} />
+		<meta property="og:description" content={description || siteDescription} />
+		<meta property="og:image" content={image || `${base}img/nis.jpg`} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={siteTitle} />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={pageTitle || siteTitle} />
+		<meta name="twitter:description" content={description || siteDescription} />
+		<meta name="twitter:image" content={image || `${base}img/nis.jpg`} />
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <link rel="stylesheet" href={`${base}styles/global.css`} />
+	</head>
+	<body>
+        <!-- Semantic Header for Navigation -->
+        <header class="site-header">
+            <nav class="container nav-container">
+                <div class="left-nav">
+                    <button onclick="history.back()" class="back-btn" aria-label="Go Back"><i class="fas fa-arrow-left"></i> Back</button>
+                    <a href={base} class="home-link"><i class="fas fa-home"></i> Home</a>
+                </div>
+                <button id="search-trigger-btn" aria-label="Search" class="search-btn"><i class="fas fa-search"></i> ( / )</button>
+            </nav>
+        </header>
+
+		<slot />
+
+        <!-- Search Modal -->
+        <div id="search-modal" class="search-modal hidden">
+            <div class="search-content">
+                <input type="text" id="global-search-input" placeholder="Search anything... (Press Esc to close)" />
+                <ul id="search-results"></ul>
+                <div class="search-footer">
+                    <button id="close-search">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <script define:vars={{base}}>
+            // Global Search & Shortcut Logic
+            const modal = document.getElementById('search-modal');
+            const input = document.getElementById('global-search-input');
+            const closeBtn = document.getElementById('close-search');
+            const triggerBtn = document.getElementById('search-trigger-btn');
+            const resultsList = document.getElementById('search-results');
+
+            let searchData = null;
+
+            async function fetchSearchData() {
+                if (!searchData) {
+                    try {
+                        const res = await fetch(`${base}search.json`);
+                        searchData = await res.json();
+                    } catch (e) {
+                        console.error("Failed to load search index", e);
+                    }
+                }
+            }
+
+            function openSearch() {
+                modal.classList.remove('hidden');
+                input.focus();
+                fetchSearchData();
+            }
+
+            function closeSearch() {
+                modal.classList.add('hidden');
+                input.value = '';
+                resultsList.innerHTML = '';
+            }
+
+            // Keyboard Shortcut '/'
+            document.addEventListener('keydown', (e) => {
+                if (e.key === '/' && !modal.classList.contains('hidden')) {
+                    // prevent typing '/' if modal is open to avoid double input
+                    // e.preventDefault(); 
+                } else if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    openSearch();
+                } else if (e.key === 'Escape') {
+                    closeSearch();
+                }
+            });
+
+            triggerBtn?.addEventListener('click', openSearch);
+            closeBtn?.addEventListener('click', closeSearch);
+            modal?.addEventListener('click', (e) => {
+                if (e.target === modal) closeSearch();
+            });
+
+            // Search Logic
+            input?.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                resultsList.innerHTML = '';
+                if (query.length < 2 || !searchData) return;
+
+                const results = searchData.filter(item => 
+                    item.title.toLowerCase().includes(query) || 
+                    (item.description && item.description.toLowerCase().includes(query)) ||
+                    (item.tags && item.tags.some(tag => tag.toLowerCase().includes(query)))
+                ).slice(0, 5); // Limit to 5 results
+
+                results.forEach(item => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = `${base}${item.slug}`;
+                    a.innerHTML = `<span style="font-size:0.8em; color:gray; margin-right:5px;">[${item.type}]</span> ${item.title}`;
+                    li.appendChild(a);
+                    resultsList.appendChild(li);
+                });
+            });
+        </script>
+
+        <style>
+            /* Navigation Header */
+            .site-header {
+                padding: 1rem 0;
+            }
+            .nav-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                min-height: auto !important; /* Override global container min-height */
+                padding: 0 1rem;
+            }
+            .home-link, .search-btn, .back-btn {
+                background: none;
+                border: none;
+                font-family: 'Lato', sans-serif;
+                font-size: 1.2rem;
+                color: #15616d;
+                text-decoration: none;
+                cursor: pointer;
+                transition: color 0.2s;
+                margin-right: 1rem;
+            }
+            .home-link:hover, .search-btn:hover, .back-btn:hover {
+                color: #20a4f3;
+            }
+            .left-nav {
+                display: flex;
+                align-items: center;
+            }
+
+            /* Search Modal Styling */
+            .search-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                padding-top: 10%;
+                z-index: 1000;
+                backdrop-filter: blur(2px);
+            }
+            .hidden {
+                display: none;
+            }
+            .search-content {
+                background: white;
+                padding: 2rem;
+                border-radius: 8px;
+                width: 90%;
+                max-width: 600px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            }
+            #global-search-input {
+                width: 100%;
+                padding: 1rem;
+                font-size: 1.2rem;
+                border: 2px solid #ddd;
+                border-radius: 4px;
+                outline: none;
+            }
+            #global-search-input:focus {
+                border-color: #15616d;
+            }
+            #search-results {
+                list-style: none;
+                padding: 0;
+                margin-top: 1rem;
+            }
+            #search-results li {
+                margin: 0.5rem 0;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 0.5rem;
+            }
+            #search-results a {
+                text-decoration: none;
+                color: #2d232e;
+                font-weight: bold;
+                display: block;
+            }
+            #search-results a:hover {
+                color: #20a4f3;
+            }
+            .search-footer {
+                margin-top: 1rem;
+                text-align: right;
+            }
+            #close-search {
+                padding: 0.5rem 1rem;
+                background: #ddd;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+        </style>
+	</body>
+</html>

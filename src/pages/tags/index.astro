@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())].filter(Boolean);
+const base = import.meta.env.BASE_URL;
+
+function getIconForTag(tag) {
+    // Map existing tags to icons or default
+    const map = {
+        economics: 'fa-chart-line',
+        language: 'fa-language',
+        lifestyle: 'fa-user',
+        linux: 'fa-linux',
+        personal: 'fa-smile',
+        philosophy: 'fa-lightbulb',
+        recommended: 'fa-thumbs-up',
+        religion: 'fa-cross',
+        science: 'fa-flask',
+        software: 'fa-laptop-code',
+        technology: 'fa-microchip',
+        tutorial: 'fa-book',
+        updates: 'fa-bell'
+    };
+    return map[tag] || 'fa-tag';
+}
+---
+
+<BaseLayout pageTitle="Topics - Nischal Khanal">
+	<div class="container">
+        <h1>Topics</h1>
+        <p><a href={`${base}blog/`}>Back to Blog</a></p>
+        <div class="topics" style="display: flex; flex-wrap: wrap; gap: 1rem;">
+            {tags.map((tag) => (
+                <a href={`${base}tags/${tag}`} class={`topic ${tag}`} style="text-decoration: none; font-size: 1.2rem; margin-right: 1rem;">
+                    <i class={`fas ${getIconForTag(tag)}`}></i> {tag}
+                </a>
+            ))}
+        </div>
+    </div>
+</BaseLayout>

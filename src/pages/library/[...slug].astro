@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const books = await getCollection('books');
+	return books.map((book) => ({
+		params: { slug: book.slug },
+		props: { book },
+	}));
+}
+
+const { book } = Astro.props;
+const { Content } = await book.render();
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout pageTitle={`Review: ${book.data.title}`}>
+	<div class="container">
+        <p><a href={`${base}my-stuff/library`} style="font-size: 0.8rem;">&larr; Back to Library</a></p>
+		<h1>{book.data.title}</h1>
+        <h3>by {book.data.author}</h3>
+        <p><strong>Rating:</strong> {book.data.rating} / 5</p>
+		<hr />
+        <div class="prose">
+            <Content />
+        </div>
+	</div>
+</BaseLayout>

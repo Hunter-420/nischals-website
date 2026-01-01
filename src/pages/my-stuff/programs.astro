@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout pageTitle="Programs - Nischal Khanal">
+	<div class="container">
+		<h1>Programs</h1>
+        <p><a href={base}>Home</a></p>
+		<hr />
+
+		<div class="section">
+			<h3>Operating System: Arch Linux</h3>
+			<p>
+				I use Arch Linux as my daily driver. It's minimal, lightweight, and gives me
+				full control over my system.
+			</p>
+
+			<h3>Window Manager: DWM</h3>
+			<p>
+				DWM (Dynamic Window Manager) is my window manager of choice. I've customized
+				it to fit my workflow perfectly.
+			</p>
+
+			<h3>Text Editor: Neovim</h3>
+			<p>
+				Neovim is where I spend most of my time coding. With a few plugins, it
+				becomes a powerful IDE.
+			</p>
+
+			<h3>Terminal: Alacritty</h3>
+			<p>
+				Alacritty is a GPU-accelerated terminal emulator. It's fast, simple, and
+				works great with my setup.
+			</p>
+
+			<h3>Browser: Brave</h3>
+			<p>
+				Brave is my primary browser. It blocks ads and trackers by default, keeping
+				my browsing private and fast.
+			</p>
+
+            <h3>File Manager: Ranger and Dolphin</h3>
+            <p>I use Ranger for terminal navigation and Dolphin for a user-friendly graphical interface.</p>
+
+            <h3>Music/Video Player: VLC </h3>
+            <p>VLC supports nearly every media format, making it my go-to player.</p>
+
+            <h3>Torrent Client: Transmission</h3>
+            <p>Transmission is lightweight and straightforward, making file downloads easy to manage.</p>
+
+            <h3>Document Writing: Google Docs and LibreOffice</h3>
+            <p>I use Google Docs for collaboration and LibreOffice for offline document creation.</p>
+		</div>
+	</div>
+</BaseLayout>

@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout pageTitle="Podcasts - Nischal Khanal">
+	<div class="container">
+		<h1>Podcasts</h1>
+        <p><a href={base}>Home</a></p>
+		<hr />
+
+		<div class="section">
+			<p>
+				I listen to a variety of podcasts. Here are my favorites:
+			</p>
+            <ul>
+                <li>Darknet Diaries</li>
+                <li>Lex Fridman Podcast</li>
+                <li>The Changelog</li>
+            </ul>
+		</div>
+	</div>
+</BaseLayout>

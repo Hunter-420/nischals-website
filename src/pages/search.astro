@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout pageTitle="Search">
+	<div class="container">
+		<h1>Search</h1>
+        <p><a href={`${base}blog/`}>Back to Blog</a></p>
+		<input type="text" id="search" placeholder="Search posts..." style="width: 100%; padding: 10px; font-size: 1.2rem; margin-bottom: 20px;" />
+		<ul id="results"></ul>
+	</div>
+</BaseLayout>
+
+<script>
+    // Client-side search logic
+    const searchInput = document.getElementById('search');
+    const resultsList = document.getElementById('results');
+    const base = import.meta.env.BASE_URL;
+
+    let posts = [];
+
+    // Fetch posts index
+    fetch(`${base}search.json`)
+        .then(res => res.json())
+        .then(data => {
+            posts = data;
+        });
+
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        if (query.length < 2) {
+            resultsList.innerHTML = '';
+            return;
+        }
+
+        const filtered = posts.filter(post => 
+            post.title.toLowerCase().includes(query) || 
+            post.description.toLowerCase().includes(query) ||
+            (post.tags && post.tags.some(tag => tag.toLowerCase().includes(query)))
+        );
+
+        resultsList.innerHTML = filtered.map(post => `
+            <li>
+                <a href="${base}blog/${post.slug}">
+                    <strong>${post.title}</strong>
+                    <br/>
+                    <small>${new Date(post.date).toLocaleDateString()}</small>
+                </a>
+            </li>
+        `).join('');
+    });
+</script>

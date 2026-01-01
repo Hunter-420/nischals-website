@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	return projects.map((project) => ({
+		params: { slug: project.slug },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout pageTitle={project.data.title} description={project.data.description}>
+	<div class="container">
+        <p><a href={`${base}#projects`} style="font-size: 0.8rem;">&larr; Back to Projects</a></p>
+		<h1>{project.data.title}</h1>
+        <p class="project-meta">
+            {project.data.repoUrl && <a href={project.data.repoUrl} target="_blank" class="project-link">[View Source]</a>}
+            {project.data.demoUrl && <a href={project.data.demoUrl} target="_blank" class="project-link">[View Demo]</a>}
+        </p>
+        <div class="tags">
+            {project.data.tags && project.data.tags.map(tag => (
+                <span class="tag">#{tag}</span>
+            ))}
+        </div>
+		<hr />
+        <div class="prose">
+            <Content />
+        </div>
+	</div>
+</BaseLayout>
+
+<style>
+    .project-meta {
+        margin: 1rem 0;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+    .tags {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    .tag {
+        background: #e0f7fa;
+        color: #006064;
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        margin: 0 0.2rem;
+        font-size: 0.9rem;
+    }
+</style>

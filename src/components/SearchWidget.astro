@@ -1,0 +1,29 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<a href={`${base}search`} class="search-trigger" aria-label="Search">
+    <i class="fas fa-search"></i>
+</a>
+
+<style>
+    .search-trigger {
+        color: #15616d;
+        font-size: 1.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: color 0.2s, transform 0.2s;
+    }
+    .search-trigger:hover {
+        color: #20a4f3;
+        transform: scale(1.1);
+    }
+    
+    @media (max-width: 480px) {
+        .search-trigger {
+            font-size: 1.5rem;
+        }
+    }
+</style>

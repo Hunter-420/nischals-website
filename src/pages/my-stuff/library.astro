@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const books = await getCollection('books');
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout pageTitle="Library - Nischal Khanal">
+	<div class="container">
+		<h1>Library</h1>
+        <p>Here are some books I've read and recommend:</p>
+		<hr />
+		<ul class="book-list">
+			{
+				books.map((book) => (
+					<li>
+                        <a href={`${base}library/${book.slug}/`}>
+                            <strong>{book.data.title}</strong> <span style="color:gray">by {book.data.author}</span>
+                             - {book.data.rating}/5
+                        </a>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</BaseLayout>
