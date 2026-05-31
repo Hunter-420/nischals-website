@@ -26,23 +26,23 @@ export default async function CertificationsPage() {
 
       <main className="flex-1 mt-8 mb-24 flex flex-col gap-12">
         <header className="flex flex-col gap-2">
-          <h1 className="text-2xl font-semibold tracking-tight">Certifications</h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">Certifications</h1>
+          <p className="text-slate-800 dark:text-slate-200 font-normal text-base leading-relaxed">
             Professional certifications and verified credentials.
           </p>
         </header>
 
         {certifications.length === 0 ? (
-          <p className="text-sm text-gray-400 italic">No certifications yet.</p>
+          <p className="text-slate-500 dark:text-slate-400 italic text-sm">No certifications yet.</p>
         ) : (
-          <section className="flex flex-col gap-0">
+          <section className="flex flex-col gap-4">
             {certifications.map((cert) => (
               <div
                 key={cert._id.toString()}
-                className="flex items-center gap-4 py-5 border-b border-gray-100 dark:border-gray-800 first:pt-0 last:border-0"
+                className="flex items-center gap-4 p-4 rounded-xl border border-slate-200 bg-white shadow-sm dark:bg-slate-900 dark:border-slate-800 transition-shadow hover:shadow-md"
               >
                 {/* Badge */}
-                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center overflow-hidden">
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-50 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
                   {cert.image ? (
                     <Image
                       src={cert.image}
@@ -52,22 +52,22 @@ export default async function CertificationsPage() {
                       className="object-contain p-0.5"
                     />
                   ) : (
-                    <Award className="w-5 h-5 text-gray-400" />
+                    <Award className="w-5 h-5 text-slate-400 dark:text-slate-500" />
                   )}
                 </div>
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                  <p className="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
                     {cert.title}
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                     {cert.issuer}
                     {cert.date && (
-                      <span className="text-gray-400 dark:text-gray-500"> · {formatDate(cert.date)}</span>
+                      <span className="text-slate-400 dark:text-slate-500"> · {formatDate(cert.date)}</span>
                     )}
                     {cert.credentialId && (
-                      <span className="text-gray-400 dark:text-gray-500"> · ID: {cert.credentialId}</span>
+                      <span className="text-slate-400 dark:text-slate-500"> · ID: {cert.credentialId}</span>
                     )}
                   </p>
                   {cert.skills && cert.skills.length > 0 && (
@@ -75,7 +75,7 @@ export default async function CertificationsPage() {
                       {cert.skills.map((skill: string) => (
                         <span
                           key={skill}
-                          className="px-1.5 py-0.5 text-xs bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 rounded"
+                          className="px-1.5 py-0.5 text-xs bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded"
                         >
                           {skill}
                         </span>
@@ -90,7 +90,7 @@ export default async function CertificationsPage() {
                     href={cert.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-shrink-0 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+                    className="flex-shrink-0 text-slate-400 hover:text-slate-700 dark:text-slate-500 dark:hover:text-slate-300 transition-colors"
                     title="View credential"
                   >
                     <ExternalLink className="w-4 h-4" />

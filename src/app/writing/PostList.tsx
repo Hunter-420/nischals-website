@@ -66,8 +66,8 @@ export default function PostList({ posts, categories = [] }: { posts: Post[], ca
               onClick={() => setIsFilterOpen(!isFilterOpen)}
               className={`flex items-center gap-2 text-sm font-medium transition-colors ${
                 isFilterOpen || selectedCategories.length > 0
-                  ? 'text-gray-900 dark:text-gray-100'
-                  : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100'
+                  ? 'text-slate-900 dark:text-slate-100'
+                  : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100'
               }`}
             >
               <Filter className="w-4 h-4" />
@@ -88,10 +88,10 @@ export default function PostList({ posts, categories = [] }: { posts: Post[], ca
                   <button
                     key={cat.name}
                     onClick={() => toggleCategory(cat.name)}
-                    className={`text-sm px-4 py-1.5 rounded-full transition-colors border ${
+                    className={`text-sm px-4 py-1.5 rounded-lg transition-colors border ${
                       isSelected
-                        ? 'bg-black text-white border-black dark:bg-white dark:text-black dark:border-white font-medium'
-                        : 'bg-transparent text-gray-600 border-gray-200 dark:text-gray-400 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
+                        ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100 font-medium'
+                        : 'bg-slate-50 hover:bg-slate-100 border-slate-200/60 text-slate-600 dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-slate-800 dark:text-slate-400'
                     }`}
                   >
                     {cat.name}
@@ -103,7 +103,7 @@ export default function PostList({ posts, categories = [] }: { posts: Post[], ca
               {selectedCategories.length > 0 && (
                 <button
                   onClick={() => setSelectedCategories([])}
-                  className="text-sm px-4 py-1.5 rounded-full transition-colors border bg-transparent text-red-600 border-red-200 hover:bg-red-50 dark:text-red-400 dark:border-red-900/50 dark:hover:bg-red-900/20"
+                  className="text-sm px-4 py-1.5 rounded-lg transition-colors border bg-transparent text-red-600 border-red-200 hover:bg-red-50 dark:text-red-400 dark:border-red-900/50 dark:hover:bg-red-900/20"
                 >
                   Clear
                 </button>
@@ -119,45 +119,47 @@ export default function PostList({ posts, categories = [] }: { posts: Post[], ca
           filteredPosts.map((post) => (
             <article
               key={post._id.toString()}
-              className="group relative flex flex-col gap-2 py-6 border-b border-gray-100 dark:border-gray-800 first:pt-0 last:border-0 hover:bg-transparent"
+              className="group relative flex flex-col gap-3 py-6 border-b border-slate-100 dark:border-slate-800 first:pt-0 last:border-0 hover:bg-transparent"
             >
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4">
-                <h2 className="text-base font-medium text-gray-900 dark:text-gray-100 group-hover:underline leading-snug">
+              <div className="flex flex-col gap-1.5">
+                <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 group-hover:underline leading-snug">
                   <Link href={`/writing/${post.slug}`} className="before:absolute before:inset-0">
                     {post.title}
                   </Link>
                 </h2>
-                <span className="flex-shrink-0 flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 mt-0.5">
-                  <CalendarDays className="w-3.5 h-3.5" />
-                  {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                  })}
-                </span>
+                <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  <span className="flex items-center gap-1.5">
+                    <CalendarDays className="w-3.5 h-3.5" />
+                    {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })}
+                  </span>
+                  {post.tags && post.tags.length > 0 && (
+                    <div className="flex gap-2 flex-wrap">
+                      {post.tags.slice(0, 4).map((tag: string) => (
+                        <Link
+                          key={tag}
+                          href={`/exploring/tag/${encodeURIComponent(tag.replace(/\s+/g, '-'))}`}
+                          className="relative z-10 hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
+                        >
+                          #{tag}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
               {post.excerpt && (
-                <p className="text-sm text-gray-900 dark:text-gray-100 font-normal leading-[1.8] line-clamp-2">
+                <p className="text-slate-800 dark:text-slate-200 font-normal text-base leading-relaxed line-clamp-2">
                   {post.excerpt}
                 </p>
-              )}
-              {post.tags && post.tags.length > 0 && (
-                <div className="flex gap-2 flex-wrap mt-1">
-                  {post.tags.slice(0, 4).map((tag: string) => (
-                    <Link
-                      key={tag}
-                      href={`/exploring/tag/${encodeURIComponent(tag.replace(/\s+/g, '-'))}`}
-                      className="relative z-10 text-xs text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 px-2 py-0.5 rounded-full transition-colors"
-                    >
-                      {tag}
-                    </Link>
-                  ))}
-                </div>
               )}
             </article>
           ))
         ) : (
-          <p className="text-sm text-gray-900 dark:text-gray-100 font-normal leading-[1.8] italic">No posts found for selected topics.</p>
+          <p className="text-slate-800 dark:text-slate-200 font-normal text-base leading-relaxed italic">No posts found for selected topics.</p>
         )}
       </section>
     </div>

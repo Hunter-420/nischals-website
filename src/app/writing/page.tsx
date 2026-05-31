@@ -38,8 +38,8 @@ export default async function WritingPage() {
       
       <main className="flex-1 mt-8 mb-24 flex flex-col gap-12">
         <header className="flex flex-col gap-3">
-          <h1 className="text-2xl font-semibold tracking-tight">Writing</h1>
-          <p className="text-gray-900 dark:text-gray-100 font-normal leading-[1.8]">
+          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">Writing</h1>
+          <p className="text-slate-800 dark:text-slate-200 font-normal text-base leading-relaxed">
             Thoughts on systems engineering, performance, and continuous learning.
           </p>
         </header>

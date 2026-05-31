@@ -68,13 +68,13 @@ export default async function AboutPage() {
       
       <main className="flex-1 mt-8 mb-24 flex flex-col gap-12">
         <header className="flex flex-col gap-4">
-          <h1 className="text-2xl font-semibold tracking-tight">About me</h1>
-          <h2 className="text-xl text-gray-700 dark:text-gray-300">
+          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">About me</h1>
+          <h2 className="text-xl font-bold text-slate-700 dark:text-slate-300">
             {settings?.title || 'Nischal Khanal'}
           </h2>
         </header>
 
-        <section className="prose prose-zinc dark:prose-invert max-w-none text-gray-900 dark:text-gray-100 font-normal leading-[1.8]">
+        <section className="prose prose-slate dark:prose-invert max-w-none text-slate-800 dark:text-slate-200 font-normal text-base leading-relaxed">
           <p className="font-medium text-lg">
             {settings?.description || 'Software Engineer exploring systems, market infrastructure, and performance engineering.'}
           </p>
@@ -94,16 +94,16 @@ export default async function AboutPage() {
             </>
           )}
 
-          <h3 className="text-xl font-semibold mt-8 mb-6">What I Aim to be</h3>
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-6">What I Aim to be</h3>
           
           <div className="flex flex-col gap-8 not-prose">
             {aims.map((aim, idx) => (
               <div key={idx} className="flex flex-col gap-3">
-                <h4 className="text-lg font-semibold tracking-tight text-gray-900 dark:text-gray-100">{aim.title}</h4>
+                <h4 className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100">{aim.title}</h4>
                 <ul className="flex flex-col gap-3">
                   {aim.items.map((item, itemIdx) => (
-                    <li key={itemIdx} className="flex items-start gap-4 text-gray-900 dark:text-gray-100 font-normal leading-[1.8]">
-                      <span className="flex-shrink-0 mt-[10px] w-1.5 h-1.5 rounded-full bg-gray-500 dark:bg-gray-400" />
+                    <li key={itemIdx} className="flex items-start gap-4 text-slate-800 dark:text-slate-200 font-normal text-base leading-relaxed">
+                      <span className="flex-shrink-0 mt-[10px] w-1.5 h-1.5 rounded-full bg-slate-500 dark:bg-slate-400" />
                       {item}
                     </li>
                   ))}
