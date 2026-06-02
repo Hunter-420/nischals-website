@@ -1,37 +1,33 @@
-"use client";
+import { NavLinks } from "./NavLinks";
+import connectToDatabase from "@/lib/db";
+import SiteSettings from "@/models/SiteSettings";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-
-const navItems = [
-  { name: "Home", href: "/" },
-  { name: "Writing", href: "/writing" },
-  { name: "Projects", href: "/projects" },
-  { name: "Exploring", href: "/exploring" },
-  { name: "About", href: "/about" },
-];
-
-export function Navigation() {
-  const pathname = usePathname();
+export async function Navigation() {
+  await connectToDatabase();
+  const settings = await SiteSettings.findOne().lean() as any;
+  const socialLinks = settings?.socialLinks || {};
+  const resumeUrl = settings?.resumeUrl;
 
   return (
-    <nav className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm font-medium tracking-tight mt-8 mb-6">
-      {navItems.map((item) => {
-        const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
-        return (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={`transition-colors border-b-2 hover:text-slate-900 dark:hover:text-slate-100 ${
-              isActive 
-                ? "text-slate-900 font-medium border-slate-900 pb-1 dark:text-slate-100 dark:border-slate-100" 
-                : "text-slate-500 border-transparent pb-1 dark:text-slate-400"
-            }`}
+    <nav className="flex flex-wrap items-center justify-between gap-6 w-full mt-8 mb-6">
+      <NavLinks />
+
+        {resumeUrl ? (
+          <a
+            href="/resume"
+            className="px-4 py-1.5 text-sm font-semibold bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded-lg hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors shadow-sm"
           >
-            {item.name}
-          </Link>
-        );
-      })}
+            Resume
+          </a>
+        ) : (
+          <a
+            href="/resume"
+            className="px-4 py-1.5 text-sm font-semibold border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+          >
+            Resume
+          </a>
+        )}
+
     </nav>
   );
 }

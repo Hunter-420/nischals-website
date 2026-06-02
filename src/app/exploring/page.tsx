@@ -59,44 +59,52 @@ export default async function ExploringPage() {
                     {cat.category}
                   </h2>
 
-                  <ul className="flex flex-col gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {cat.items.map((item: any) => {
                       const tagSlug = toTagSlug(item.title);
                       const count = postCounts[item.title.toLowerCase()] || 0;
                       return (
-                        <li key={item._id?.toString() || item.title}>
+                        <div key={item._id?.toString() || item.title} className="flex flex-col p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 hover:border-slate-300 dark:hover:border-slate-700 transition-colors shadow-sm hover:shadow">
                           <Link
                             href={`/exploring/tag/${tagSlug}`}
-                            className="group flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                            className="group flex flex-col gap-2 flex-1"
                           >
-                            <span className="flex-shrink-0">
-                              {item.completed ? (
-                                <CheckCircle2 className="w-4 h-4 text-green-500" />
-                              ) : (
-                                <Circle className="w-4 h-4 text-slate-300 dark:text-slate-600" />
-                              )}
-                            </span>
-
-                            <span className={`flex-1 text-sm font-medium transition-colors ${
-                              item.completed
-                                ? 'text-slate-400 dark:text-slate-500 line-through'
-                                : 'text-slate-800 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-slate-100'
-                            }`}>
-                              {item.title}
-                            </span>
+                            <div className="flex items-start justify-between gap-3">
+                              <span className={`text-base font-bold transition-colors ${
+                                item.completed
+                                  ? 'text-slate-400 dark:text-slate-500 line-through'
+                                  : 'text-slate-800 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-slate-100'
+                              }`}>
+                                {item.title}
+                              </span>
+                              <span className="flex-shrink-0 mt-0.5">
+                                {item.completed ? (
+                                  <CheckCircle2 className="w-5 h-5 text-green-500" />
+                                ) : (
+                                  <Circle className="w-5 h-5 text-slate-300 dark:text-slate-600" />
+                                )}
+                              </span>
+                            </div>
 
                             {count > 0 && (
-                              <span className="flex-shrink-0 text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded-full">
-                                {count} {count === 1 ? 'post' : 'posts'}
+                              <span className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2.5 py-1 rounded-md w-fit mt-1">
+                                {count} {count === 1 ? 'post' : 'posts'} related &rarr;
                               </span>
                             )}
-
-                            <ArrowRight className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600 group-hover:text-slate-500 dark:group-hover:text-slate-400 transition-colors flex-shrink-0" />
                           </Link>
-                        </li>
+
+                          {item.relatedUrl && (
+                            <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800/60">
+                              <a href={item.relatedUrl} target="_blank" rel="noopener noreferrer" className="group/link text-sm text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 flex items-center gap-1.5 transition-colors">
+                                <span className="truncate border-b border-transparent group-hover/link:border-slate-900 dark:group-hover/link:border-slate-100">{item.relatedUrlText || 'View Related Work'}</span>
+                                <ArrowRight className="w-3.5 h-3.5" />
+                              </a>
+                            </div>
+                          )}
+                        </div>
                       );
                     })}
-                  </ul>
+                  </div>
                 </div>
               ))
             ) : (

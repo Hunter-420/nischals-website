@@ -10,6 +10,8 @@ export interface IProject extends Document {
   githubUrl?: string;
   featured: boolean;
   technologies: string[];
+  coreProblem?: string;
+  resultMetric?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -25,6 +27,8 @@ const ProjectSchema: Schema = new Schema(
     githubUrl: { type: String },
     featured: { type: Boolean, default: false },
     technologies: [{ type: String }],
+    coreProblem: { type: String },
+    resultMetric: { type: String },
   },
   { timestamps: true }
 );

@@ -3,6 +3,8 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface IExploringItem {
   title: string;
   completed: boolean;
+  relatedUrl?: string;
+  relatedUrlText?: string;
 }
 
 export interface IExploring extends Document {
@@ -16,6 +18,8 @@ export interface IExploring extends Document {
 const ExploringItemSchema = new Schema({
   title: { type: String, required: true },
   completed: { type: Boolean, default: false },
+  relatedUrl: { type: String },
+  relatedUrlText: { type: String },
 });
 
 const ExploringSchema: Schema = new Schema(

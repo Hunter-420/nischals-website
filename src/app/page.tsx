@@ -4,23 +4,26 @@ import Link from "next/link";
 import connectToDatabase from "@/lib/db";
 import SiteSettings from "@/models/SiteSettings";
 import Post from "@/models/Post";
+import Project from "@/models/Project";
 
 export const revalidate = 60;
 
 async function getHomeData() {
   await connectToDatabase();
-  const [settings, recentPosts] = await Promise.all([
+  const [settings, recentPosts, featuredProjects] = await Promise.all([
     SiteSettings.findOne().lean(),
     Post.find({ published: true }).sort({ publishedAt: -1 }).limit(3).lean(),
+    Project.find({ featured: true }).sort({ createdAt: -1 }).limit(3).lean(),
   ]);
   return {
     settings: settings as any,
     recentPosts: recentPosts as any[],
+    featuredProjects: featuredProjects as any[],
   };
 }
 
 export default async function Home() {
-  const { settings, recentPosts } = await getHomeData();
+  const { settings, recentPosts, featuredProjects } = await getHomeData();
 
   const socialLinks = settings?.socialLinks || {};
 
@@ -30,22 +33,35 @@ export default async function Home() {
 
       <main className="flex-1 mt-8 mb-24 flex flex-col gap-16">
         {/* Hero */}
-        <section className="flex flex-col gap-5">
-          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-            {settings?.title || 'Nischal Khanal'}
-          </h1>
-          <p className="text-slate-800 dark:text-slate-200 font-normal text-base max-w-xl leading-relaxed">
-            {settings?.description || 'Software Engineer exploring systems, market infrastructure, and performance engineering.'}
-          </p>
+        <section className="flex flex-col gap-6">
+          <div className="flex flex-col gap-2">
+            <h1 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+              {settings?.title || 'Nischal Khanal'}
+            </h1>
+            <p className="text-slate-800 dark:text-slate-200 font-normal text-base max-w-xl leading-relaxed">
+              {settings?.description || 'Software Engineer exploring systems, market infrastructure, and performance engineering.'}
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-2 mb-2">
+            {(settings?.skills?.length ? settings.skills : ['C++', 'Go', 'Rust', 'Python', 'TCP/IP', 'Distributed Systems']).map((tech: string) => (
+              <span key={tech} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-md border border-slate-200 dark:border-slate-700">
+                {tech}
+              </span>
+            ))}
+          </div>
 
           {settings?.aboutText ? (
             <p className="text-slate-800 dark:text-slate-200 font-normal text-base max-w-xl leading-relaxed">
               {settings.aboutText}
             </p>
           ) : (
-            <div className="flex flex-col gap-3 max-w-xl">
+            <div className="flex flex-col gap-4 max-w-xl">
               <p className="text-slate-800 dark:text-slate-200 font-normal text-base leading-relaxed">
-                My interests sit at the intersection of networking, operating systems, distributed systems, and modern market infrastructure. I&apos;m currently focused on understanding how information moves through systems, how bottlenecks emerge, and how engineering decisions influence performance under real-world constraints.
+                My interests sit at the intersection of networking, operating systems, <strong>distributed systems</strong>, and modern <strong>exchange architecture</strong>.
+              </p>
+              <p className="text-slate-800 dark:text-slate-200 font-normal text-base leading-relaxed">
+                I&apos;m currently focused on understanding how information moves through systems, <strong>market microstructure</strong>, how bottlenecks emerge, and how engineering decisions influence performance under real-world constraints.
               </p>
               <p className="text-slate-800 dark:text-slate-200 font-normal text-base leading-relaxed">
                 This website documents what I&apos;m building, what I&apos;m learning, and the questions I&apos;m trying to answer.
@@ -54,64 +70,69 @@ export default async function Home() {
           )}
 
           {/* Quick links */}
-          <div className="flex flex-wrap gap-4 text-sm font-medium">
+          <div className="flex flex-wrap gap-4 text-sm font-medium mt-2">
             <Link href="/about" className="text-blue-600 dark:text-blue-400 hover:underline">
               More about me &rarr;
-            </Link>
-            <Link href="/exploring" className="text-blue-600 dark:text-blue-400 hover:underline">
-              What I&apos;m exploring &rarr;
             </Link>
             <Link href="/what-i-bring" className="text-blue-600 dark:text-blue-400 hover:underline">
               What I Aim to be &rarr;
             </Link>
-            <Link href="/resume" className="text-blue-600 dark:text-blue-400 hover:underline">
-              Resume &rarr;
-            </Link>
           </div>
+        </section>
 
-          {/* Contact / social links */}
-          {(socialLinks.email || socialLinks.github || socialLinks.linkedin || socialLinks.twitter) && (
-            <div className="flex flex-wrap gap-4 text-sm text-slate-500 dark:text-slate-400">
-              {socialLinks.email && (
-                <a
-                  href={`mailto:${socialLinks.email}`}
-                  className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
-                >
-                  {socialLinks.email}
-                </a>
-              )}
-              {socialLinks.github && (
-                <a
-                  href={socialLinks.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
-                >
-                  GitHub
-                </a>
-              )}
-              {socialLinks.linkedin && (
-                <a
-                  href={socialLinks.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
-                >
-                  LinkedIn
-                </a>
-              )}
-              {socialLinks.twitter && (
-                <a
-                  href={socialLinks.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
-                >
-                  Twitter / X
-                </a>
-              )}
-            </div>
-          )}
+        {/* Featured Projects */}
+        <section className="flex flex-col gap-5">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">Featured Projects</h2>
+          <div className="flex flex-col gap-6">
+            {featuredProjects.length > 0 ? (
+              featuredProjects.map((project) => (
+                <div key={project._id.toString()} className="flex flex-col gap-2 p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
+                  <div className="flex items-start justify-between gap-4">
+                    <h3 className="font-bold text-slate-900 dark:text-slate-100 text-lg">
+                      {project.title}
+                    </h3>
+                    {(project.githubUrl || project.liveUrl) && (
+                      <div className="flex gap-3 text-sm">
+                        {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-900 dark:hover:text-slate-100">GitHub</a>}
+                        {project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-900 dark:hover:text-slate-100">Live</a>}
+                      </div>
+                    )}
+                  </div>
+                  
+                  {project.coreProblem && (
+                    <div className="text-sm text-slate-700 dark:text-slate-300">
+                      <span className="font-semibold text-slate-900 dark:text-slate-100">The Problem: </span>
+                      {project.coreProblem}
+                    </div>
+                  )}
+                  
+                  {project.technologies && project.technologies.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mt-1">
+                      {project.technologies.map((tech: string) => (
+                        <span key={tech} className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium rounded">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {project.resultMetric && (
+                    <div className="mt-2 text-sm font-medium text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 px-3 py-2 rounded-lg border border-emerald-100 dark:border-emerald-900/50">
+                      🚀 {project.resultMetric}
+                    </div>
+                  )}
+                </div>
+              ))
+            ) : (
+              <p className="text-slate-500 dark:text-slate-400 italic text-sm">No featured projects yet.</p>
+            )}
+          </div>
+          <Link
+            href="/projects"
+            className="text-sm text-blue-600 dark:text-blue-400 hover:underline transition-colors mt-2"
+          >
+            View all projects &rarr;
+          </Link>
         </section>
 
         <section className="flex flex-col gap-3">
@@ -156,7 +177,7 @@ export default async function Home() {
           </div>
           <Link
             href="/writing"
-            className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
+            className="text-sm text-blue-600 dark:text-blue-400 hover:underline transition-colors"
           >
             View all writing &rarr;
           </Link>

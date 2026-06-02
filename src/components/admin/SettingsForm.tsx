@@ -21,6 +21,8 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
     description: initialData?.description || 'Personal Engineering Portfolio',
     aboutText: initialData?.aboutText || '',
     resumeUrl: initialData?.resumeUrl || '',
+    resumeExperience: initialData?.resumeExperience || '',
+    skills: initialData?.skills || ['C++', 'Go', 'Rust', 'Python', 'TCP/IP', 'Distributed Systems'],
     socialLinks: {
       github: initialData?.socialLinks?.github || '',
       twitter: initialData?.socialLinks?.twitter || '',
@@ -113,7 +115,25 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
           <FormInput label="Site Title" type="text" name="title" value={formData.title} onChange={handleChange} required />
           <FormInput label="Site Description" type="text" name="description" value={formData.description} onChange={handleChange} required />
         </div>
+        <FormInput 
+          label="Skills (comma separated)" 
+          type="text" 
+          name="skills" 
+          value={formData.skills.join(', ')} 
+          onChange={(e) => setFormData(prev => ({ ...prev, skills: e.target.value.split(',').map(s => s.trim()).filter(Boolean) }))} 
+        />
         <FormTextarea label="About Text" name="aboutText" value={formData.aboutText} onChange={handleChange} rows={4} />
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2">Resume Settings</h2>
+        <FormTextarea 
+          label="Experience Details" 
+          name="resumeExperience" 
+          value={formData.resumeExperience} 
+          onChange={handleChange} 
+          rows={6} 
+        />
       </div>
 
       {/* Resume Upload */}
