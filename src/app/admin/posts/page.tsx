@@ -5,6 +5,7 @@ import { Plus, Edit, Trash2 } from 'lucide-react';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { redirect } from 'next/navigation';
+import DeleteAction from '@/components/admin/DeleteAction';
 
 export default async function AdminPostsPage() {
   const session = await getServerSession(authOptions);
@@ -56,7 +57,7 @@ export default async function AdminPostsPage() {
                     <Link href={`/admin/posts/${post._id}`} className="text-indigo-600 hover:text-indigo-900">
                       <Edit className="w-4 h-4" />
                     </Link>
-                    {/* Delete functionality to be added on client side */}
+                    <DeleteAction id={post._id.toString()} endpoint="/api/posts" itemName="post" />
                   </div>
                 </td>
               </tr>

@@ -5,6 +5,7 @@ import { Plus, Edit } from 'lucide-react';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { redirect } from 'next/navigation';
+import DeleteAction from '@/components/admin/DeleteAction';
 
 export default async function AdminCertificationsPage() {
   const session = await getServerSession(authOptions);
@@ -53,6 +54,7 @@ export default async function AdminCertificationsPage() {
                     <Link href={`/admin/certifications/${cert._id}`} className="text-indigo-600 hover:text-indigo-900">
                       <Edit className="w-4 h-4" />
                     </Link>
+                    <DeleteAction id={cert._id.toString()} endpoint="/api/certifications" itemName="certification" />
                   </div>
                 </td>
               </tr>
