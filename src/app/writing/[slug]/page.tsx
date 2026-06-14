@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props) {
   await connectToDatabase();
   const post = await Post.findOne({ slug, published: true }).lean() as any;
   if (!post) return { title: 'Not Found' };
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || 'https://khanalnischal.com.np').replace(/\/$/, '');
   const description = post.keyTakeaway || post.excerpt || '';
   return {
     title: post.title,
