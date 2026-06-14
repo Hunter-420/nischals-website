@@ -8,8 +8,12 @@ import PostList from "./PostList";
 export const revalidate = 60;
 
 export const metadata = {
-  title: 'Writing | Nischal Khanel',
-  description: 'Thoughts on systems engineering, performance, and learning.',
+  title: 'Writing',
+  description: 'Thoughts on systems engineering, performance, and continuous learning.',
+  openGraph: {
+    title: 'Writing | Nischal Khanal',
+    description: 'Thoughts on systems engineering, performance, and continuous learning.',
+  },
 };
 
 export default async function WritingPage() {

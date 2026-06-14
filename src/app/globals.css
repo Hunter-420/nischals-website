@@ -4,6 +4,9 @@
 @theme inline {
   --font-sans: var(--font-inter);
   --font-mono: var(--font-jetbrains-mono);
+  --color-accent-blue: #3B82F6;
+  --color-neon-green: #10B981;
+  --color-deep-dark: #0B0F19;
 }
 
 @layer base {

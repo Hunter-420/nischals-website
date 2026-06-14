@@ -59,27 +59,28 @@ export default async function ExploringPage() {
                     {cat.category}
                   </h2>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {cat.items.map((item: any) => {
                       const tagSlug = toTagSlug(item.title);
                       const count = postCounts[item.title.toLowerCase()] || 0;
+                      const isCompleted = item.completed;
                       return (
-                        <div key={item._id?.toString() || item.title} className="flex flex-col p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 hover:border-slate-300 dark:hover:border-slate-700 transition-colors shadow-sm hover:shadow">
+                        <div key={item._id?.toString() || item.title} className={`group relative flex flex-col p-5 rounded-xl border bg-white dark:bg-slate-900/40 transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-1 ${isCompleted ? 'border-accent-blue dark:border-accent-blue/50 hover:border-accent-blue' : 'border-dashed border-slate-300 dark:border-slate-700 hover:border-neon-green/50'}`}>
                           <Link
                             href={`/exploring/tag/${tagSlug}`}
-                            className="group flex flex-col gap-2 flex-1"
+                            className="flex flex-col gap-2 flex-1"
                           >
                             <div className="flex items-start justify-between gap-3">
                               <span className={`text-base font-bold transition-colors ${
-                                item.completed
-                                  ? 'text-slate-400 dark:text-slate-500 line-through'
-                                  : 'text-slate-800 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-slate-100'
+                                isCompleted
+                                  ? 'text-slate-800 dark:text-slate-200 group-hover:text-accent-blue'
+                                  : 'text-slate-700 dark:text-slate-300 group-hover:text-neon-green'
                               }`}>
                                 {item.title}
                               </span>
                               <span className="flex-shrink-0 mt-0.5">
-                                {item.completed ? (
-                                  <CheckCircle2 className="w-5 h-5 text-green-500" />
+                                {isCompleted ? (
+                                  <CheckCircle2 className="w-5 h-5 text-accent-blue" />
                                 ) : (
                                   <Circle className="w-5 h-5 text-slate-300 dark:text-slate-600" />
                                 )}
@@ -87,17 +88,28 @@ export default async function ExploringPage() {
                             </div>
 
                             {count > 0 && (
-                              <span className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2.5 py-1 rounded-md w-fit mt-1">
-                                {count} {count === 1 ? 'post' : 'posts'} related &rarr;
+                              <span className="text-[10px] font-bold tracking-widest text-accent-blue/80 uppercase mt-1">
+                                {count} {count === 1 ? 'POST' : 'POSTS'} RELATED
                               </span>
                             )}
+                            
+                            {/* Hover Reveal Tool Stack */}
+                            <div className="mt-auto pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                              <div className="flex flex-wrap gap-1.5">
+                                {(item.toolStack && item.toolStack.length > 0 ? item.toolStack : ['Systems', 'Architecture']).map((tool: string) => (
+                                  <span key={tool} className="px-2 py-0.5 bg-slate-100 dark:bg-deep-dark text-slate-600 dark:text-slate-400 text-[10px] font-mono rounded border border-slate-200 dark:border-slate-800">
+                                    {tool}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
                           </Link>
 
                           {item.relatedUrl && (
-                            <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800/60">
-                              <a href={item.relatedUrl} target="_blank" rel="noopener noreferrer" className="group/link text-sm text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 flex items-center gap-1.5 transition-colors">
-                                <span className="truncate border-b border-transparent group-hover/link:border-slate-900 dark:group-hover/link:border-slate-100">{item.relatedUrlText || 'View Related Work'}</span>
-                                <ArrowRight className="w-3.5 h-3.5" />
+                            <div className="absolute top-full left-0 mt-2 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-300 z-10 w-full">
+                              <a href={item.relatedUrl} target="_blank" rel="noopener noreferrer" className="bg-deep-dark text-white border border-slate-800 text-xs px-3 py-2 rounded shadow-lg flex items-center justify-between w-full hover:bg-slate-900 transition-colors">
+                                <span className="truncate">{item.relatedUrlText || 'View Related Work'}</span>
+                                <ArrowRight className="w-3.5 h-3.5 ml-2" />
                               </a>
                             </div>
                           )}

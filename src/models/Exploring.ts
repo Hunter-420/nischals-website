@@ -5,6 +5,7 @@ export interface IExploringItem {
   completed: boolean;
   relatedUrl?: string;
   relatedUrlText?: string;
+  toolStack?: string[];
 }
 
 export interface IExploring extends Document {
@@ -20,6 +21,7 @@ const ExploringItemSchema = new Schema({
   completed: { type: Boolean, default: false },
   relatedUrl: { type: String },
   relatedUrlText: { type: String },
+  toolStack: [{ type: String }],
 });
 
 const ExploringSchema: Schema = new Schema(

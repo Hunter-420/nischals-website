@@ -2,7 +2,8 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { CalendarDays, Filter } from "lucide-react";
+import { Filter } from "lucide-react";
+import { TechnicalArticleCard } from "@/components/ui/TechnicalArticleCard";
 
 type Post = {
   _id: string;
@@ -10,6 +11,8 @@ type Post = {
   title: string;
   publishedAt: string | Date;
   excerpt?: string;
+  keyTakeaway?: string;
+  coverImage?: string;
   tags?: string[];
 };
 
@@ -114,49 +117,10 @@ export default function PostList({ posts, categories = [] }: { posts: Post[], ca
       )}
 
       {/* Post List */}
-      <section className="flex flex-col gap-0">
+      <section className="grid grid-cols-1 gap-4">
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => (
-            <article
-              key={post._id.toString()}
-              className="group relative flex flex-col gap-3 py-6 border-b border-slate-100 dark:border-slate-800 first:pt-0 last:border-0 hover:bg-transparent"
-            >
-              <div className="flex flex-col gap-1.5">
-                <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 group-hover:underline leading-snug">
-                  <Link href={`/writing/${post.slug}`} className="before:absolute before:inset-0">
-                    {post.title}
-                  </Link>
-                </h2>
-                <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                  <span className="flex items-center gap-1.5">
-                    <CalendarDays className="w-3.5 h-3.5" />
-                    {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'short',
-                      day: 'numeric',
-                    })}
-                  </span>
-                  {post.tags && post.tags.length > 0 && (
-                    <div className="flex gap-2 flex-wrap">
-                      {post.tags.slice(0, 4).map((tag: string) => (
-                        <Link
-                          key={tag}
-                          href={`/exploring/tag/${encodeURIComponent(tag.replace(/\s+/g, '-'))}`}
-                          className="relative z-10 hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
-                        >
-                          #{tag}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-              {post.excerpt && (
-                <p className="text-slate-800 dark:text-slate-200 font-normal text-base leading-relaxed line-clamp-2">
-                  {post.excerpt}
-                </p>
-              )}
-            </article>
+            <TechnicalArticleCard key={post._id.toString()} post={post} />
           ))
         ) : (
           <p className="text-slate-800 dark:text-slate-200 font-normal text-base leading-relaxed italic">No posts found for selected topics.</p>

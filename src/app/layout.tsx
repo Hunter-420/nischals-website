@@ -12,9 +12,56 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+
 export const metadata: Metadata = {
-  title: "Nischal's Website",
-  description: "Personal engineering website and blog",
+  metadataBase: new URL(baseUrl),
+  title: {
+    default: "Nischal Khanal | Systems & Performance Engineer",
+    template: "%s | Nischal Khanal",
+  },
+  description:
+    "Software Engineer specialising in high-performance systems, low-latency infrastructure, market microstructure, and performance engineering.",
+  keywords: [
+    "systems engineering",
+    "performance engineering",
+    "low-latency",
+    "market microstructure",
+    "high-performance computing",
+    "Nischal Khanal",
+  ],
+  authors: [{ name: "Nischal Khanal", url: baseUrl }],
+  creator: "Nischal Khanal",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: baseUrl,
+    siteName: "Nischal Khanal",
+    title: "Nischal Khanal | Systems & Performance Engineer",
+    description:
+      "Software Engineer specialising in high-performance systems, low-latency infrastructure, and market microstructure.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nischal Khanal | Systems & Performance Engineer",
+    description:
+      "Software Engineer specialising in high-performance systems, low-latency infrastructure, and market microstructure.",
+    creator: "@nischalkhanal",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: baseUrl,
+  },
 };
 
 export default function RootLayout({
@@ -27,7 +74,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-white text-slate-800 selection:bg-slate-900 selection:text-white dark:bg-slate-950 dark:text-slate-200 dark:selection:bg-slate-200 dark:selection:text-slate-900">
+      <body className="min-h-full flex flex-col font-sans bg-white text-slate-800 selection:bg-slate-900 selection:text-white dark:bg-deep-dark dark:text-slate-200 dark:selection:bg-accent-blue dark:selection:text-deep-dark">
         {children}
       </body>
     </html>

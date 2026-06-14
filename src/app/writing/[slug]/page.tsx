@@ -17,9 +17,25 @@ export async function generateMetadata({ params }: Props) {
   await connectToDatabase();
   const post = await Post.findOne({ slug, published: true }).lean() as any;
   if (!post) return { title: 'Not Found' };
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const description = post.keyTakeaway || post.excerpt || '';
   return {
-    title: `${post.title} | Nischal Khanel`,
-    description: post.excerpt || '',
+    title: post.title,
+    description,
+    alternates: { canonical: `${baseUrl}/writing/${slug}` },
+    openGraph: {
+      title: post.title,
+      description,
+      url: `${baseUrl}/writing/${slug}`,
+      type: 'article',
+      publishedTime: post.publishedAt,
+      tags: post.tags || [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description,
+    },
   };
 }
 

@@ -1,4 +1,4 @@
-import PostForm from '@/components/admin/PostForm';
+import WriterStudio from '@/components/admin/WriterStudio';
 import connectToDatabase from '@/lib/db';
 import Post from '@/models/Post';
 import { notFound, redirect } from 'next/navigation';
@@ -13,19 +13,9 @@ export default async function EditPostPage({ params }: { params: Promise<{ id: s
   const { id } = await params;
   const post = await Post.findById(id);
 
-  if (!post) {
-    notFound();
-  }
+  if (!post) notFound();
 
-  // Convert to plain object for client component
   const postData = JSON.parse(JSON.stringify(post));
 
-  return (
-    <div>
-      <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-8">Edit Post</h1>
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <PostForm initialData={postData} />
-      </div>
-    </div>
-  );
+  return <WriterStudio initialData={postData} />;
 }

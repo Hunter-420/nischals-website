@@ -12,6 +12,7 @@ export interface IProject extends Document {
   technologies: string[];
   coreProblem?: string;
   resultMetric?: string;
+  architectureDiagram?: string[]; // Array of nodes for flow diagram, e.g., ['Source', 'Queue', 'Worker']
   createdAt: Date;
   updatedAt: Date;
 }
@@ -29,6 +30,7 @@ const ProjectSchema: Schema = new Schema(
     technologies: [{ type: String }],
     coreProblem: { type: String },
     resultMetric: { type: String },
+    architectureDiagram: [{ type: String }],
   },
   { timestamps: true }
 );

@@ -5,6 +5,7 @@ export interface IPost extends Document {
   slug: string;
   content: string; // HTML or JSON from Tiptap
   excerpt: string;
+  keyTakeaway?: string;
   coverImage?: string;
   published: boolean;
   publishedAt: Date;
@@ -19,6 +20,7 @@ const PostSchema: Schema = new Schema(
     slug: { type: String, required: true, unique: true },
     content: { type: String, required: true },
     excerpt: { type: String },
+    keyTakeaway: { type: String },
     coverImage: { type: String },
     published: { type: Boolean, default: false },
     publishedAt: { type: Date, default: Date.now },
