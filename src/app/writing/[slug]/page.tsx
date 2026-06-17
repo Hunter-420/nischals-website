@@ -118,11 +118,15 @@ export default async function PostPage({ params }: Props) {
               prose-h2:text-xl prose-h3:text-lg
               prose-p:leading-[1.8] prose-p:font-normal prose-p:text-gray-900 dark:prose-p:text-gray-100
               prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
-              prose-code:font-mono prose-code:text-sm prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+              prose-code:font-inherit prose-code:text-[0.95em] prose-code:bg-transparent prose-code:px-0 prose-code:py-0 prose-code:rounded-none prose-code:before:content-none prose-code:after:content-none
               prose-pre:bg-gray-950 dark:prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800 prose-pre:text-gray-100
               [&_pre_code]:bg-transparent [&_pre_code]:dark:bg-transparent [&_pre_code]:p-0
               prose-blockquote:border-l-4 prose-blockquote:border-gray-300 dark:prose-blockquote:border-gray-600 prose-blockquote:text-gray-600 dark:prose-blockquote:text-gray-400
-              prose-img:rounded-lg prose-img:shadow-md"
+              prose-img:rounded-lg prose-img:shadow-md
+              [&_table]:w-full [&_table]:border-collapse [&_table]:overflow-hidden [&_table]:my-6 [&_table]:text-sm
+              [&_thead_th]:bg-gray-100 [&_thead_th]:dark:bg-gray-800 [&_thead_th]:font-semibold
+              [&_th]:border [&_th]:border-gray-200 [&_th]:dark:border-gray-700 [&_th]:px-4 [&_th]:py-3 [&_th]:text-left
+              [&_td]:border [&_td]:border-gray-200 [&_td]:dark:border-gray-700 [&_td]:px-4 [&_td]:py-3"
             dangerouslySetInnerHTML={{ __html: post.content || '' }}
           />
 

@@ -1,11 +1,48 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { X, Zap, Image as ImageIcon, Maximize2, Minimize2, Code2, List, ListOrdered, Quote, Heading1, Heading2, Heading3, Bold, Italic } from 'lucide-react';
+import {
+  X,
+  Zap,
+  Image as ImageIcon,
+  Maximize2,
+  Minimize2,
+  Code2,
+  List,
+  ListOrdered,
+  Quote,
+  Heading1,
+  Heading2,
+  Heading3,
+  Bold,
+  Italic,
+  Underline as UnderlineIcon,
+  Link as LinkIcon,
+  Palette,
+  Highlighter,
+  Table2,
+  Columns3,
+  Rows3,
+  SplitSquareHorizontal,
+  Trash2,
+  Plus,
+  Minus,
+} from 'lucide-react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
+import { TextStyle } from '@tiptap/extension-text-style';
+import Color from '@tiptap/extension-color';
+import Highlight from '@tiptap/extension-highlight';
+import Link from '@tiptap/extension-link';
+import Underline from '@tiptap/extension-underline';
+import Placeholder from '@tiptap/extension-placeholder';
+import { Table } from '@tiptap/extension-table';
+import TableRow from '@tiptap/extension-table-row';
+import TableHeader from '@tiptap/extension-table-header';
+import TableCell from '@tiptap/extension-table-cell';
+import { Markdown } from 'tiptap-markdown';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface WriterStudioProps {
@@ -31,11 +68,29 @@ const DOMAINS = [
   'Performance Engineering',
 ];
 
+const TEXT_COLORS = [
+  { label: 'Slate', value: '#334155' },
+  { label: 'Blue', value: '#2563eb' },
+  { label: 'Cyan', value: '#0891b2' },
+  { label: 'Emerald', value: '#059669' },
+  { label: 'Amber', value: '#d97706' },
+  { label: 'Rose', value: '#e11d48' },
+];
+
+const HIGHLIGHT_COLORS = [
+  { label: 'Yellow', value: '#fde68a' },
+  { label: 'Pink', value: '#fbcfe8' },
+  { label: 'Mint', value: '#a7f3d0' },
+  { label: 'Sky', value: '#bae6fd' },
+];
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function WriterStudio({ initialData }: WriterStudioProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [showTextColorMenu, setShowTextColorMenu] = useState(false);
+  const [showHighlightMenu, setShowHighlightMenu] = useState(false);
   const [suggestedTags, setSuggestedTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [showTagDropdown, setShowTagDropdown] = useState(false);
@@ -53,10 +108,38 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
 
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        heading: { levels: [1, 2, 3] },
+      }),
+      TextStyle,
+      Color.configure({ types: ['textStyle'] }),
+      Highlight.configure({ multicolor: true }),
+      Underline,
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        linkOnPaste: true,
+        defaultProtocol: 'https',
+      }),
       Image.configure({
         inline: true,
         allowBase64: true,
+      }),
+      Table.configure({
+        resizable: true,
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
+      Placeholder.configure({
+        placeholder: 'Write your post in markdown, then refine it with colors, links, and tables.',
+      }),
+      Markdown.configure({
+        html: true,
+        breaks: true,
+        linkify: true,
+        transformPastedText: true,
+        transformCopiedText: true,
       }),
     ],
     content: formData.content,
@@ -76,6 +159,14 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
       .then(setSuggestedTags)
       .catch(() => {});
   }, []);
+
+  const clearTextStyle = () => {
+    editor?.chain().focus().unsetColor().unsetHighlight().run();
+  };
+
+  const clearLink = () => {
+    editor?.chain().focus().unsetLink().run();
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -325,7 +416,23 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               >
                 <Italic className="w-4 h-4" />
               </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().toggleUnderline().run()}
+                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('underline') ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                title="Underline"
+              >
+                <UnderlineIcon className="w-4 h-4" />
+              </button>
               <div className="w-px h-4 bg-slate-300 dark:bg-slate-700 mx-1" />
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().toggleCode().run()}
+                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('code') ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                title="Inline code"
+              >
+                <Code2 className="w-4 h-4" />
+              </button>
               <button
                 type="button"
                 onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
@@ -381,7 +488,184 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
                 className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('codeBlock') ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
                 title="Code Block"
               >
-                <Code2 className="w-4 h-4" />
+                <span className="text-[10px] font-bold tracking-tight">```</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().toggleHighlight().run()}
+                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('highlight') ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                title="Highlight"
+              >
+                <Highlighter className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const url = window.prompt('Paste a link URL');
+                  if (!url) return;
+                  editor.chain().focus().setLink({ href: url }).run();
+                }}
+                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('link') ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                title="Link"
+              >
+                <LinkIcon className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={clearLink}
+                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                title="Remove link"
+              >
+                <LinkIcon className="w-4 h-4 opacity-60" />
+              </button>
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowHighlightMenu(false);
+                    setShowTextColorMenu(open => !open);
+                  }}
+                  className={`flex items-center gap-2 rounded-md border px-2 py-1 text-xs font-medium transition-colors ${showTextColorMenu ? 'border-blue-500 bg-blue-50 text-blue-700 dark:border-blue-400 dark:bg-blue-500/10 dark:text-blue-200' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:bg-[#111827] dark:text-slate-300 dark:hover:bg-slate-800'}`}
+                  title="Text color"
+                >
+                  <Palette className="w-4 h-4" />
+                  Color
+                </button>
+                {showTextColorMenu && (
+                  <div className="absolute left-0 top-full z-20 mt-2 w-56 rounded-md border border-slate-200 bg-white p-3 shadow-lg dark:border-slate-700 dark:bg-[#111827]">
+                    <div className="grid grid-cols-3 gap-2">
+                      {TEXT_COLORS.map(color => (
+                        <button
+                          key={color.value}
+                          type="button"
+                          onClick={() => editor.chain().focus().setColor(color.value).run()}
+                          className="flex flex-col items-center gap-1 rounded-md border border-slate-200 px-2 py-2 text-[10px] font-medium text-slate-600 hover:border-slate-400 dark:border-slate-700 dark:text-slate-300"
+                          title={color.label}
+                        >
+                          <span className="h-4 w-4 rounded-full border border-white shadow" style={{ backgroundColor: color.value }} />
+                          {color.label}
+                        </button>
+                      ))}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        clearTextStyle();
+                        setShowTextColorMenu(false);
+                      }}
+                      className="mt-3 w-full rounded-md border border-dashed border-slate-300 px-2 py-1 text-[10px] font-medium text-slate-500 hover:border-slate-500 dark:border-slate-600 dark:text-slate-400"
+                    >
+                      Clear color
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowTextColorMenu(false);
+                    setShowHighlightMenu(open => !open);
+                  }}
+                  className={`flex items-center gap-2 rounded-md border px-2 py-1 text-xs font-medium transition-colors ${showHighlightMenu ? 'border-blue-500 bg-blue-50 text-blue-700 dark:border-blue-400 dark:bg-blue-500/10 dark:text-blue-200' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:bg-[#111827] dark:text-slate-300 dark:hover:bg-slate-800'}`}
+                  title="Highlight color"
+                >
+                  <Highlighter className="w-4 h-4" />
+                  Highlight
+                </button>
+                {showHighlightMenu && (
+                  <div className="absolute left-0 top-full z-20 mt-2 w-56 rounded-md border border-slate-200 bg-white p-3 shadow-lg dark:border-slate-700 dark:bg-[#111827]">
+                    <div className="grid grid-cols-2 gap-2">
+                      {HIGHLIGHT_COLORS.map(color => (
+                        <button
+                          key={color.value}
+                          type="button"
+                          onClick={() => editor.chain().focus().toggleHighlight({ color: color.value }).run()}
+                          className="flex items-center gap-2 rounded-md border border-slate-200 px-2 py-2 text-[10px] font-medium text-slate-600 hover:border-slate-400 dark:border-slate-700 dark:text-slate-300"
+                          title={color.label}
+                        >
+                          <span className="h-4 w-4 rounded-full border border-white shadow" style={{ backgroundColor: color.value }} />
+                          {color.label}
+                        </button>
+                      ))}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        editor.chain().focus().unsetHighlight().run();
+                        setShowHighlightMenu(false);
+                      }}
+                      className="mt-3 w-full rounded-md border border-dashed border-slate-300 px-2 py-1 text-[10px] font-medium text-slate-500 hover:border-slate-500 dark:border-slate-600 dark:text-slate-400"
+                    >
+                      Clear highlight
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="w-px h-4 bg-slate-300 dark:bg-slate-700 mx-1" />
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}
+                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                title="Insert table"
+              >
+                <Table2 className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().addColumnBefore().run()}
+                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                title="Add column before"
+              >
+                <Columns3 className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().addColumnAfter().run()}
+                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                title="Add column after"
+              >
+                <Plus className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().deleteColumn().run()}
+                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                title="Delete column"
+              >
+                <Minus className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().addRowBefore().run()}
+                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                title="Add row before"
+              >
+                <Rows3 className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().addRowAfter().run()}
+                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                title="Add row after"
+              >
+                <SplitSquareHorizontal className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().deleteRow().run()}
+                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                title="Delete row"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().deleteTable().run()}
+                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                title="Delete table"
+              >
+                <Table2 className="w-4 h-4" />
               </button>
               <div className="w-px h-4 bg-slate-300 dark:bg-slate-700 mx-1" />
               <button
@@ -452,8 +736,8 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
         
         .ProseMirror pre { background: #0f172a; color: #e2e8f0; border-radius: 8px; padding: 1rem; font-family: monospace; border: 1px solid #1e293b; overflow-x: auto; margin: 1.25rem 0; }
         
-        .ProseMirror code { background: #f1f5f9; color: #db2777; padding: 2px 4px; border-radius: 4px; border: 1px solid #e2e8f0; font-size: 0.9em; }
-        .dark .ProseMirror code { background: #1e293b; color: #f472b6; border-color: #334155; }
+        .ProseMirror code { background: transparent; color: inherit; padding: 0; border: 0; font-size: 0.95em; font-family: inherit; }
+        .dark .ProseMirror code { background: transparent; color: inherit; border: 0; }
         
         .ProseMirror blockquote { border-left: 3px solid #3b82f6; padding: 0.5rem 1rem; color: #64748b; background: #f8fafc; border-radius: 0 6px 6px 0; margin: 1rem 0; }
         .dark .ProseMirror blockquote { background: #0f172a; color: #94a3b8; }
@@ -463,6 +747,14 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
         
         .ProseMirror img { max-width: 100%; border-radius: 8px; margin: 1.5rem auto; display: block; border: 1px solid #e2e8f0; }
         .dark .ProseMirror img { border-color: #1e293b; }
+
+        .ProseMirror table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; overflow: hidden; table-layout: fixed; }
+        .ProseMirror th, .ProseMirror td { border: 1px solid #cbd5e1; padding: 0.75rem; text-align: left; vertical-align: top; min-width: 6rem; }
+        .dark .ProseMirror th, .dark .ProseMirror td { border-color: #334155; }
+        .ProseMirror th { background: #eff6ff; font-weight: 700; }
+        .dark .ProseMirror th { background: #0f172a; }
+        .ProseMirror .tableWrapper { overflow-x: auto; margin: 1rem 0; }
+        .ProseMirror mark { border-radius: 0.25rem; padding: 0 0.15rem; }
       `}</style>
     </form>
   );
