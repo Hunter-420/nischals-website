@@ -158,15 +158,17 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="fixed inset-0 flex flex-col bg-white dark:bg-[#0a0e1a] text-slate-800 dark:text-slate-200 overflow-hidden"
-      style={{ left: isFullScreen ? '0' : 'var(--sidebar-width, 16rem)', zIndex: isFullScreen ? 50 : 'auto' }}
+      className={`fixed inset-0 flex flex-col bg-white dark:bg-[#0a0e1a] text-slate-800 dark:text-slate-200 overflow-hidden ${
+        isFullScreen ? 'left-0' : 'left-0 md:left-[var(--sidebar-width,16rem)]'
+      }`}
+      style={{ zIndex: isFullScreen ? 50 : 'auto' }}
     >
       {/* ── Top: Meta Config Header ─────────────────────────────────────────── */}
       {!isFullScreen && (
-        <div className="flex-shrink-0 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#0d1120] px-6 py-4 space-y-4">
+        <div className="flex-shrink-0 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#0d1120] px-4 py-4 space-y-4 sm:px-6">
           {/* Row 1: Title + Slug + Controls */}
-          <div className="flex items-center gap-4 flex-wrap">
-            <div className="flex-1 min-w-64">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:flex-wrap">
+            <div className="flex-1 min-w-0 lg:min-w-64">
               <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">Article Title</label>
               <input
                 type="text"
@@ -178,7 +180,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
                 className="w-full bg-white dark:bg-[#111827] border border-slate-300 dark:border-slate-700 rounded-md px-3 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:border-blue-500 font-mono"
               />
             </div>
-            <div className="w-64">
+            <div className="w-full lg:w-64">
               <div className="flex justify-between items-center mb-1">
                 <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-500">Slug</label>
                 <button type="button" onClick={generateSlug} className="text-[10px] text-blue-400 hover:text-blue-300 transition-colors">
@@ -194,7 +196,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
                 className="w-full bg-white dark:bg-[#111827] border border-slate-300 dark:border-slate-700 rounded-md px-3 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:border-blue-500 font-mono"
               />
             </div>
-            <div className="w-52">
+            <div className="w-full lg:w-52">
               <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">Primary Domain</label>
               <select
                 name="domain"
@@ -205,7 +207,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
                 {DOMAINS.map(d => <option key={d} value={d}>{d}</option>)}
               </select>
             </div>
-            <div className="flex items-center gap-3 ml-auto">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:ml-auto">
               <label className="flex items-center gap-2 cursor-pointer">
                 <span className="text-xs text-slate-400">Published</span>
                 <input
@@ -232,8 +234,8 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
           </div>
 
           {/* Row 2: Executive Pitch + Tags */}
-          <div className="flex gap-4 flex-wrap items-start">
-            <div className="flex-1 min-w-72">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:flex-wrap">
+            <div className="flex-1 min-w-0 lg:min-w-72">
               <div className="flex justify-between items-center mb-1">
                 <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-500">
                   Executive Pitch <span className="text-slate-600">(TL;DR Recruit Preview Card)</span>
@@ -254,7 +256,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
             </div>
 
             {/* Tech Chips */}
-            <div className="min-w-64 flex-1">
+            <div className="min-w-0 flex-1 lg:min-w-64">
               <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">
                 Tech Chips <span className="text-slate-600">(Index Tags)</span>
               </label>

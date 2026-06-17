@@ -41,7 +41,7 @@ export default async function AdminNowPage() {
         </p>
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6">
         <NowForm 
           initialContent={content} 
           initialSections={sections} 

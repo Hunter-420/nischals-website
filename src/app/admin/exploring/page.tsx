@@ -34,7 +34,7 @@ export default async function AdminExploringPage() {
         </p>
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+      <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm sm:p-6">
         <ExploringForm initialData={initialData} />
       </div>
     </div>

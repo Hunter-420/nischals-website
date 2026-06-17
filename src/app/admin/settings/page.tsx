@@ -17,7 +17,7 @@ export default async function AdminSettingsPage() {
   return (
     <div>
       <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-8">Site Settings</h1>
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
+      <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6">
         <SettingsForm initialData={settingsData} />
       </div>
     </div>

@@ -89,7 +89,7 @@ export default function CertificationForm({ initialData }: CertificationFormProp
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-2">
         <label className="block text-sm font-medium text-gray-700">Badge Image (optional)</label>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
           {formData.image ? (
             <div className="relative w-20 h-20 rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
               <Image src={formData.image} alt="Badge" fill className="object-contain p-1" />

@@ -162,7 +162,7 @@ export default function PostForm({ initialData }: PostFormProps) {
           </div>
         )}
 
-        <div className="flex gap-2 flex-wrap items-start">
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start">
           {availableSuggestions.length > 0 && (
             <div className="relative">
               <button
@@ -193,14 +193,14 @@ export default function PostForm({ initialData }: PostFormProps) {
             </div>
           )}
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
             <input
               type="text"
               value={customTagInput}
               onChange={e => setCustomTagInput(e.target.value)}
               onKeyDown={handleCustomTagKeyDown}
               placeholder="Custom tag, press Enter"
-              className="px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-black focus:border-black w-48"
+              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-black focus:border-black sm:w-48"
             />
             <button
               type="button"
