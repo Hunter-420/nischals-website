@@ -30,7 +30,7 @@ export default async function Image({ params }: Props) {
   const title = post.title || 'Nischal Khanal';
   const description = post.keyTakeaway || post.excerpt || 'Systems engineering, performance, and continuous learning.';
   const tags = Array.isArray(post.tags) ? post.tags.slice(0, 3) : [];
-  const imageUrl = post.coverImage || extractFirstImage(post.content || '');
+  const imageUrl = extractFirstImage(post.content || '') || post.coverImage;
 
   return new ImageResponse(
     <div
