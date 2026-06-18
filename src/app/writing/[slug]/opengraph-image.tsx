@@ -18,8 +18,18 @@ function extractFirstImage(html: string): string | null {
   return match ? match[1] : null;
 }
 
+function resolveImageUrl(src: string | null, baseUrl: string): string | null {
+  if (!src) return null;
+  try {
+    return new URL(src, baseUrl).toString();
+  } catch {
+    return null;
+  }
+}
+
 export default async function Image({ params }: Props) {
   const { slug } = await params;
+  const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || 'https://khanalnischal.com.np').replace(/\/$/, '');
   await connectToDatabase();
   const post = await Post.findOne({ slug, published: true }).lean() as any;
 
@@ -30,7 +40,7 @@ export default async function Image({ params }: Props) {
   const title = post.title || 'Nischal Khanal';
   const description = post.keyTakeaway || post.excerpt || 'Systems engineering, performance, and continuous learning.';
   const tags = Array.isArray(post.tags) ? post.tags.slice(0, 3) : [];
-  const imageUrl = extractFirstImage(post.content || '') || post.coverImage;
+  const imageUrl = resolveImageUrl(extractFirstImage(post.content || '') || post.coverImage || null, baseUrl);
 
   return new ImageResponse(
     <div
