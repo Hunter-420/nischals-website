@@ -17,10 +17,12 @@ export function ProjectFactCard({ project }: ProjectFactCardProps) {
     ? project.architectureDiagram
     : project.technologies?.slice(0, 3) || ["Input", "Process", "Output"];
 
+  const summary = project.coreProblem || project.description || "A project case study with implementation details and results.";
+
   return (
-    <div className="flex flex-col rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 hover:border-slate-300 dark:hover:border-slate-700 transition-colors overflow-hidden">
+    <div className="group flex flex-col rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-slate-950/30 transition-all overflow-hidden">
       {/* Top: Title & Badges */}
-      <div className="p-5 border-b border-slate-100 dark:border-slate-800/60 flex items-start justify-between gap-4">
+      <div className="p-5 border-b border-slate-100 dark:border-slate-800/60 flex items-start justify-between gap-4 bg-gradient-to-b from-slate-50/80 to-transparent dark:from-slate-900/40">
         <div className="flex flex-col gap-2">
           <h3 className="font-bold text-slate-900 dark:text-slate-100 text-lg">
             {project.title}
@@ -56,38 +58,41 @@ export function ProjectFactCard({ project }: ProjectFactCardProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100 dark:divide-slate-800/60">
         
         {/* Left Side: Flow Diagram */}
-        <div className="p-5 flex flex-col gap-3 justify-center items-center bg-slate-50/50 dark:bg-slate-900/20">
-          <div className="w-full flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400 relative">
+        <div className="p-5 flex flex-col gap-3 justify-center items-center bg-slate-50/70 dark:bg-slate-900/20">
+          <div className="w-full flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400 relative gap-2">
             {/* Connecting Line */}
             <div className="absolute top-1/2 left-0 right-0 h-px bg-slate-200 dark:bg-slate-700 -z-10" />
             
             {diagramNodes.map((node: string, idx: number) => (
-              <div key={idx} className="flex flex-col items-center gap-1.5 bg-slate-50 dark:bg-slate-900/20">
+              <div key={idx} className="flex min-w-0 flex-col items-center gap-1.5 bg-slate-50 dark:bg-slate-900/20">
                 <div className="w-2 h-2 rounded-full bg-accent-blue shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
-                <span className="bg-white dark:bg-deep-dark px-1.5 py-0.5 border border-slate-200 dark:border-slate-700 rounded-sm">
+                <span className="max-w-24 truncate bg-white dark:bg-deep-dark px-1.5 py-0.5 border border-slate-200 dark:border-slate-700 rounded-sm">
                   {node}
                 </span>
               </div>
             ))}
           </div>
           {project.coreProblem && (
-            <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 text-center">
-              {project.coreProblem}
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 text-center max-w-prose">
+              {summary}
             </p>
           )}
         </div>
 
         {/* Right Side: Performance Metrics */}
-        <div className="p-5 flex flex-col justify-center items-center text-center gap-2">
+        <div className="p-5 flex flex-col justify-center items-center text-center gap-3">
           <span className="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-500 font-bold">
-            Performance Highlight
+            Preview
           </span>
-          <div className="text-xl md:text-2xl font-black text-neon-green tracking-tight">
+          <div className="text-xl md:text-2xl font-black text-neon-green tracking-tight leading-tight">
             {project.resultMetric || "Optimized Architecture"}
           </div>
+          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm">
+            {summary}
+          </p>
           <Link
             href={`/projects/${project.slug}`}
-            className="mt-2 text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-accent-blue dark:hover:text-accent-blue transition-colors"
+            className="mt-2 inline-flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-700 px-4 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:border-accent-blue hover:text-accent-blue dark:hover:text-accent-blue transition-colors"
           >
             Read Case Study &rarr;
           </Link>
