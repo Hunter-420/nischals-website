@@ -4,7 +4,7 @@ import connectToDatabase from "@/lib/db";
 import Project from "@/models/Project";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, Github } from "lucide-react";
+import { ArrowLeft, ExternalLink, Github as GithubIcon } from "lucide-react";
 
 export const revalidate = 60;
 
@@ -95,7 +95,7 @@ export default async function ProjectPage({ params }: Props) {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 px-4 py-2 text-slate-700 dark:text-slate-200 hover:border-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                   >
-                    <Github className="w-4 h-4" />
+                    <GithubIcon className="w-4 h-4" />
                     GitHub
                   </a>
                 )}
