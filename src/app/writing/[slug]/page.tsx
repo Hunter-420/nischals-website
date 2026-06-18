@@ -19,6 +19,7 @@ export async function generateMetadata({ params }: Props) {
   if (!post) return { title: 'Not Found' };
   const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || 'https://khanalnischal.com.np').replace(/\/$/, '');
   const description = post.keyTakeaway || post.excerpt || '';
+  const imageUrl = `${baseUrl}/writing/${slug}/opengraph-image`;
   return {
     title: post.title,
     description,
@@ -30,11 +31,20 @@ export async function generateMetadata({ params }: Props) {
       type: 'article',
       publishedTime: post.publishedAt,
       tags: post.tags || [],
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description,
+      images: [imageUrl],
     },
   };
 }

@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     
     // Find the first settings document and update it, or create if it doesn't exist
     const settings = await SiteSettings.findOneAndUpdate({}, body, {
-      new: true,
+      returnDocument: 'after',
       upsert: true,
       setDefaultsOnInsert: true
     });

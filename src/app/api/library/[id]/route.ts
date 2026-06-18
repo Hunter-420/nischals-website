@@ -15,7 +15,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     const { id } = await params;
     await connectToDatabase();
     
-    const item = await LibraryItem.findByIdAndUpdate(id, body, { new: true });
+    const item = await LibraryItem.findByIdAndUpdate(id, body, { returnDocument: 'after' });
     
     if (!item) {
       return new NextResponse('Not found', { status: 404 });

@@ -36,7 +36,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
       await Promise.all(removed.map(url => deleteBlobFromAzure(url)));
     }
     
-    const post = await Post.findByIdAndUpdate(id, body, { new: true });
+    const post = await Post.findByIdAndUpdate(id, body, { returnDocument: 'after' });
     
     if (!post) {
       return new NextResponse('Not found', { status: 404 });

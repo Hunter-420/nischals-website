@@ -39,7 +39,7 @@ export async function POST(req: Request) {
           previous: body.previous ?? existing.previous,
           addons: body.addons ?? existing.addons,
         },
-        { new: true }
+        { returnDocument: 'after' }
       );
     } else {
       doc = await Now.create({

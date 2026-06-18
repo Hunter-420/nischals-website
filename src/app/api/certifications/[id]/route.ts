@@ -15,7 +15,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     const { id } = await params;
     await connectToDatabase();
     
-    const cert = await Certification.findByIdAndUpdate(id, body, { new: true });
+    const cert = await Certification.findByIdAndUpdate(id, body, { returnDocument: 'after' });
     
     if (!cert) {
       return new NextResponse('Not found', { status: 404 });
