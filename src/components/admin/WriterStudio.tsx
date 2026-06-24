@@ -117,9 +117,17 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
       Underline,
       Link.configure({
         openOnClick: false,
+        // Autolink only for real http/https URLs — never for bare #anchors.
         autolink: true,
         linkOnPaste: true,
-        defaultProtocol: 'https',
+        // Do NOT set defaultProtocol here; it causes TipTap to resolve
+        // `#heading` against the current page origin → absolute URL.
+        validate: (url: string) => {
+          // Allow mailto: and http(s) links; block anything that's just a
+          // fragment so the Link extension never touches #anchor text.
+          if (url.startsWith('#')) return false;
+          return true;
+        },
       }),
       Image.configure({
         inline: true,

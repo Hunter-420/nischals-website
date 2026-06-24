@@ -16,3 +16,16 @@
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Article prose: prevent long URLs/links from overflowing on mobile ── */
+@layer utilities {
+  .prose a {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* Smooth scroll for same-page anchor navigation */
+  html {
+    scroll-behavior: smooth;
+  }
+}

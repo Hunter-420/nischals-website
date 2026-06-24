@@ -1,5 +1,7 @@
 import { Container } from "@/components/ui/Container";
 import { Navigation } from "@/components/ui/Navigation";
+import { ArticleContent } from "@/components/ui/ArticleContent";
+import { fixAnchorLinks } from "@/lib/fixAnchorLinks";
 import connectToDatabase from "@/lib/db";
 import Post from "@/models/Post";
 import Link from "next/link";
@@ -56,6 +58,10 @@ export default async function PostPage({ params }: Props) {
   const post = await Post.findOne({ slug, published: true }).lean() as any;
 
   if (!post) notFound();
+
+  // Fix internal anchor links (#heading) that TipTap may have absolutised,
+  // and add id attributes to headings so TOC navigation works.
+  const processedContent = fixAnchorLinks(post.content || '');
 
   // Find the next older post (previous chronologically, but next to read)
   const nextPost = await Post.findOne({
@@ -122,12 +128,14 @@ export default async function PostPage({ params }: Props) {
           <div className="border-t border-gray-100 dark:border-gray-800" />
 
           {/* Content rendered from rich text editor */}
-          <div
+          <ArticleContent
+            html={processedContent}
             className="prose prose-zinc dark:prose-invert max-w-none
               prose-headings:font-semibold prose-headings:tracking-tight
               prose-h2:text-xl prose-h3:text-lg
               prose-p:leading-[1.8] prose-p:font-normal prose-p:text-gray-900 dark:prose-p:text-gray-100
               prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
+              [&_a]:break-words [&_a]:overflow-wrap-anywhere
               prose-code:font-inherit prose-code:text-[0.95em] prose-code:bg-transparent prose-code:px-0 prose-code:py-0 prose-code:rounded-none prose-code:before:content-none prose-code:after:content-none
               prose-pre:bg-gray-950 dark:prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800 prose-pre:text-gray-100
               [&_pre_code]:bg-transparent [&_pre_code]:dark:bg-transparent [&_pre_code]:p-0
@@ -137,7 +145,6 @@ export default async function PostPage({ params }: Props) {
               [&_thead_th]:bg-gray-100 [&_thead_th]:dark:bg-gray-800 [&_thead_th]:font-semibold
               [&_th]:border [&_th]:border-gray-200 [&_th]:dark:border-gray-700 [&_th]:px-4 [&_th]:py-3 [&_th]:text-left
               [&_td]:border [&_td]:border-gray-200 [&_td]:dark:border-gray-700 [&_td]:px-4 [&_td]:py-3"
-            dangerouslySetInnerHTML={{ __html: post.content || '' }}
           />
 
           {/* Footer */}
