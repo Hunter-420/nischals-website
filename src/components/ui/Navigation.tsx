@@ -1,4 +1,5 @@
 import { NavLinks } from "./NavLinks";
+import { MobileNavFallback } from "./MobileNavFallback";
 import connectToDatabase from "@/lib/db";
 import SiteSettings from "@/models/SiteSettings";
 import { unstable_cache } from "next/cache";
@@ -26,25 +27,30 @@ export async function Navigation() {
   const { resumeUrl } = await getCachedSettings();
 
   return (
-    <nav className="flex flex-wrap items-center justify-between gap-6 w-full mt-8 mb-6">
-      <NavLinks />
+    <>
+      {/* Desktop Navigation (Hidden on small screens) */}
+      <nav className="hidden md:flex flex-wrap items-center justify-between gap-6 w-full mt-8 mb-6">
+        <NavLinks />
 
-        {resumeUrl ? (
-          <a
-            href="/resume"
-            className="px-4 py-1.5 text-sm font-semibold bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded-lg hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors shadow-sm"
-          >
-            Resume
-          </a>
-        ) : (
-          <a
-            href="/resume"
-            className="px-4 py-1.5 text-sm font-semibold border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
-          >
-            Resume
-          </a>
-        )}
+          {resumeUrl ? (
+            <a
+              href="/resume"
+              className="px-4 py-1.5 text-sm font-semibold bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded-lg hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors shadow-sm"
+            >
+              Resume
+            </a>
+          ) : (
+            <a
+              href="/resume"
+              className="px-4 py-1.5 text-sm font-semibold border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            >
+              Resume
+            </a>
+          )}
+      </nav>
 
-    </nav>
+      {/* Mobile Navigation Fallback (Only shows on non-home pages) */}
+      <MobileNavFallback />
+    </>
   );
 }
