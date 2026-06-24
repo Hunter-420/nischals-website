@@ -20,7 +20,15 @@ const GithubIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export const revalidate = 60;
+export const revalidate = 300;
+export const dynamicParams = true;
+
+// Pre-render all project pages at build time → instant navigation
+export async function generateStaticParams() {
+  await connectToDatabase();
+  const projects = await Project.find().select('slug').lean() as any[];
+  return projects.map((p) => ({ slug: p.slug }));
+}
 
 interface Props {
   params: Promise<{ slug: string }>;

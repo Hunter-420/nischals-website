@@ -3,12 +3,21 @@ import { Navigation } from "@/components/ui/Navigation";
 import { ProjectFactCard } from "@/components/ui/ProjectFactCard";
 import connectToDatabase from "@/lib/db";
 import Project from "@/models/Project";
+import { unstable_cache } from "next/cache";
 
-export const revalidate = 60;
+export const revalidate = 300;
+
+const getProjects = unstable_cache(
+  async () => {
+    await connectToDatabase();
+    return Project.find().sort({ createdAt: -1 }).lean() as Promise<any[]>;
+  },
+  ["projects-list"],
+  { revalidate: 300 }
+);
 
 export default async function ProjectsPage() {
-  await connectToDatabase();
-  const projects = await Project.find().sort({ createdAt: -1 }).lean() as any[];
+  const projects = await getProjects();
 
   return (
     <Container>

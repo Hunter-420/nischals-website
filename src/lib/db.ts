@@ -25,6 +25,10 @@ async function connectToDatabase() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      // Fail fast on cold-start instead of hanging for 30 s (default)
+      serverSelectionTimeoutMS: 5000,
+      // Reuse connections across warm serverless invocations
+      maxPoolSize: 10,
     };
 
     cached.promise = mongoose.connect(MONGODB_URI!, opts).then((mongoose) => {

@@ -8,22 +8,27 @@ import connectToDatabase from "@/lib/db";
 import SiteSettings from "@/models/SiteSettings";
 import Post from "@/models/Post";
 import Project from "@/models/Project";
+import { unstable_cache } from "next/cache";
 
-export const revalidate = 60;
+export const revalidate = 300;
 
-async function getHomeData() {
-  await connectToDatabase();
-  const [settings, recentPosts, featuredProjects] = await Promise.all([
-    SiteSettings.findOne().lean(),
-    Post.find({ published: true }).sort({ publishedAt: -1 }).limit(3).lean(),
-    Project.find({ featured: true }).sort({ createdAt: -1 }).limit(3).lean(),
-  ]);
-  return {
-    settings: settings as any,
-    recentPosts: recentPosts as any[],
-    featuredProjects: featuredProjects as any[],
-  };
-}
+const getHomeData = unstable_cache(
+  async () => {
+    await connectToDatabase();
+    const [settings, recentPosts, featuredProjects] = await Promise.all([
+      SiteSettings.findOne().lean(),
+      Post.find({ published: true }).sort({ publishedAt: -1 }).limit(3).lean(),
+      Project.find({ featured: true }).sort({ createdAt: -1 }).limit(3).lean(),
+    ]);
+    return {
+      settings: settings as any,
+      recentPosts: recentPosts as any[],
+      featuredProjects: featuredProjects as any[],
+    };
+  },
+  ["home-data"],
+  { revalidate: 300 }
+);
 
 export default async function Home() {
   const { settings, recentPosts, featuredProjects } = await getHomeData();

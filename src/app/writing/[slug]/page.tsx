@@ -8,7 +8,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CalendarDays, ArrowLeft, ArrowRight } from "lucide-react";
 
-export const revalidate = 60;
+export const revalidate = 300; // Re-generate at most every 5 minutes
+export const dynamicParams = true; // Serve new slugs via SSR until next build
+
+// Pre-render every published article at build time → zero DB latency on visit
+export async function generateStaticParams() {
+  await connectToDatabase();
+  const posts = await Post.find({ published: true }).select('slug').lean() as any[];
+  return posts.map((p) => ({ slug: p.slug }));
+}
 
 interface Props {
   params: Promise<{ slug: string }>;
