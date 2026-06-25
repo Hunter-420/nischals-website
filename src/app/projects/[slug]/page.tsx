@@ -1,5 +1,7 @@
 import { Container } from "@/components/ui/Container";
 import { Navigation } from "@/components/ui/Navigation";
+import { ArticleContent } from "@/components/ui/ArticleContent";
+import { fixAnchorLinks } from "@/lib/fixAnchorLinks";
 import connectToDatabase from "@/lib/db";
 import Project from "@/models/Project";
 import Link from "next/link";
@@ -75,6 +77,10 @@ export default async function ProjectPage({ params }: Props) {
 
   if (!project) notFound();
 
+  // Fix internal anchor links (#heading) that may have been absolutised,
+  // and add id attributes to headings so TOC navigation works.
+  const processedContent = fixAnchorLinks(project.content || project.description || '');
+
   const publishedDate = project.createdAt || project.updatedAt;
 
   return (
@@ -130,12 +136,14 @@ export default async function ProjectPage({ params }: Props) {
 
           <div className="border-t border-slate-100 dark:border-slate-800" />
 
-          <div
+          <ArticleContent
+            html={processedContent}
             className="prose prose-zinc dark:prose-invert max-w-none
               prose-headings:font-semibold prose-headings:tracking-tight
               prose-h2:text-2xl prose-h3:text-xl
               prose-p:leading-[1.8] prose-p:font-normal prose-p:text-slate-900 dark:prose-p:text-slate-100
               prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
+              [&_a]:break-words [&_a]:overflow-wrap-anywhere
               prose-code:font-inherit prose-code:text-[0.95em] prose-code:bg-transparent prose-code:px-0 prose-code:py-0 prose-code:rounded-none prose-code:before:content-none prose-code:after:content-none
               prose-pre:bg-slate-950 dark:prose-pre:bg-slate-900 prose-pre:border prose-pre:border-slate-800 prose-pre:text-slate-100
               [&_pre_code]:bg-transparent [&_pre_code]:dark:bg-transparent [&_pre_code]:p-0
@@ -145,7 +153,6 @@ export default async function ProjectPage({ params }: Props) {
               [&_thead_th]:bg-slate-100 [&_thead_th]:dark:bg-slate-800 [&_thead_th]:font-semibold
               [&_th]:border [&_th]:border-slate-200 [&_th]:dark:border-slate-700 [&_th]:px-4 [&_th]:py-3 [&_th]:text-left
               [&_td]:border [&_td]:border-slate-200 [&_td]:dark:border-slate-700 [&_td]:px-4 [&_td]:py-3"
-            dangerouslySetInnerHTML={{ __html: project.content || project.description || '' }}
           />
 
           <div className="border-t border-slate-100 dark:border-slate-800 pt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

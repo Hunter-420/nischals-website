@@ -117,7 +117,7 @@ export default function PostList({ posts, categories = [] }: { posts: Post[], ca
       )}
 
       {/* Post List */}
-      <section className="grid grid-cols-1 gap-4">
+      <section className="flex flex-col border-t border-slate-200 dark:border-slate-800">
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => (
             <TechnicalArticleCard key={post._id.toString()} post={post} />
