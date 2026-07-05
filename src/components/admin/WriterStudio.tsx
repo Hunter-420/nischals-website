@@ -140,7 +140,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
       TableHeader,
       TableCell,
       Placeholder.configure({
-        placeholder: 'Write your post in markdown, then refine it with colors, links, and tables.',
+        placeholder: 'Write your post in markdown, then refine it with colors, links, tables, images, and SVG diagrams.',
       }),
       Markdown.configure({
         html: true,
@@ -763,6 +763,10 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
         .dark .ProseMirror th { background: #0f172a; }
         .ProseMirror .tableWrapper { overflow-x: auto; margin: 1rem 0; }
         .ProseMirror mark { border-radius: 0.25rem; padding: 0 0.15rem; }
+
+        /* SVG styling for embedded SVG content */
+        .ProseMirror svg { max-width: 100%; height: auto; margin: 1.5rem auto; display: block; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .dark .ProseMirror svg { border-color: #1e293b; }
       `}</style>
     </form>
   );

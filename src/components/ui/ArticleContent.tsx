@@ -14,6 +14,7 @@ interface ArticleContentProps {
  * 1. Renders sanitised HTML (anchor links already fixed server-side).
  * 2. Intercepts clicks on internal `#anchor` links for smooth scrolling.
  * 3. Adds `id` attributes to headings that are missing them so TOC links work.
+ * 4. Supports SVG content rendering alongside text, images, and other media.
  */
 export function ArticleContent({ html, className }: ArticleContentProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -37,7 +38,20 @@ export function ArticleContent({ html, className }: ArticleContentProps) {
       }
     });
 
-    // ── 2. Smooth-scroll handler for internal anchor links ─────────────────
+    // ── 2. Ensure embedded SVG elements have proper sizing ────────────────
+    const svgElements = container.querySelectorAll('svg');
+    svgElements.forEach((svg) => {
+      // Ensure SVG is responsive
+      if (!svg.getAttribute('class')) {
+        svg.setAttribute('class', 'max-w-full h-auto my-4 rounded-lg border border-gray-200 dark:border-gray-700');
+      }
+      // Preserve aspect ratio
+      if (!svg.hasAttribute('preserveAspectRatio')) {
+        svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      }
+    });
+
+    // ── 3. Smooth-scroll handler for internal anchor links ─────────────────
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const anchor = target.closest('a');

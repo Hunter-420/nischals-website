@@ -44,6 +44,23 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
       attributes: {
         class: 'prose prose-sm sm:prose max-w-none focus:outline-none min-h-[300px] p-4',
       },
+      handlePaste: (view, event) => {
+        const { clipboardData } = event;
+        if (!clipboardData) return false;
+
+        // Check for SVG content in clipboard
+        const html = clipboardData.getData('text/html');
+        if (html && html.includes('<svg')) {
+          event.preventDefault();
+          const { state, dispatch } = view;
+          const { $from } = state.selection;
+          const tr = state.tr.insertText(html, $from.pos);
+          dispatch(tr);
+          return true;
+        }
+
+        return false;
+      },
     },
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
@@ -215,6 +232,18 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
 
       {/* Editor area */}
       <EditorContent editor={editor} />
+      
+      {/* Editor styling for SVG and other content */}
+      <style>{`
+        .ProseMirror svg {
+          max-width: 100%;
+          height: auto;
+          margin: 1rem auto;
+          display: block;
+          border-radius: 0.5rem;
+          border: 1px solid #e5e7eb;
+        }
+      `}</style>
     </div>
   );
 }
