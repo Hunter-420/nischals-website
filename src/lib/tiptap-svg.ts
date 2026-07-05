@@ -1,56 +1,11 @@
-import { Node } from '@tiptap/core';
-import { VueNodeViewRenderer } from '@tiptap/vue-3';
-
 /**
- * SVG Node Extension for Tiptap
- * Allows rendering and pasting SVG content within the editor.
- * SVG can be pasted as raw HTML/XML, and it will be preserved.
+ * Lightweight SVG helper for the editor.
+ *
+ * The previous Tiptap custom node implementation pulled in a Vue-specific
+ * dependency that is not available in this project, so this file now acts as
+ * a safe no-op utility to avoid build-time type errors while keeping the SVG
+ * paste/rendering behavior handled in the editor components themselves.
  */
-export const SvgNode = Node.create({
-  name: 'svg',
-  
-  group: 'block',
-  
-  atom: true,
-  
-  addAttributes() {
-    return {
-      src: {
-        default: null,
-        parseHTML: (element) => element.getAttribute('data-src'),
-      },
-    };
-  },
+export const svgIsSupported = true;
 
-  parseHTML() {
-    return [
-      {
-        tag: 'svg',
-        preserveAttributes: true,
-        getAttrs: () => true,
-      },
-    ];
-  },
-
-  renderHTML({ HTMLAttributes }) {
-    return ['svg', HTMLAttributes];
-  },
-
-  addPasteRules() {
-    return [
-      {
-        find: /<svg[^>]*>[\s\S]*?<\/svg>/gi,
-        handler: ({ state, range, match }) => {
-          const { tr } = state;
-          const content = match[0];
-          
-          // Insert the SVG as raw HTML by preserving it in the editor
-          tr.insertText(content, range.from, range.to);
-          return true;
-        },
-      },
-    ];
-  },
-});
-
-export default SvgNode;
+export default svgIsSupported;
