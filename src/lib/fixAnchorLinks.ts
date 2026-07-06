@@ -14,14 +14,28 @@
  *  - Adds `id` attributes to headings so TOC links resolve correctly.
  *  - Adds `target="_blank" rel="noopener noreferrer"` to real external links.
  *  - Adds `word-break: break-word` style to links so they don't overflow on mobile.
+ *  - Rehydrates escaped HTML/SVG markup so pasted diagrams render as real SVG.
  */
+function decodeEscapedHtmlEntities(value: string): string {
+  if (!value.includes('&lt;')) return value;
+
+  return value
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, '&');
+}
+
 export function fixAnchorLinks(html: string): string {
   if (!html) return html;
+
+  let fixed = decodeEscapedHtmlEntities(html);
 
   // ── Step 1: Restore incorrectly-absolutised anchor links ─────────────────
   // Matches href="https://anything#fragment" and keeps only "#fragment"
   // This handles Claude, GitHub, and any other source URL that got prepended.
-  let fixed = html.replace(
+  fixed = fixed.replace(
     /href="https?:\/\/[^"#]*?(#[^"]+)"/gi,
     'href="$1"'
   );
