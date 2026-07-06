@@ -48,14 +48,13 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
         const { clipboardData } = event;
         if (!clipboardData) return false;
 
-        // Check for SVG content in clipboard
         const html = clipboardData.getData('text/html');
-        if (html && html.includes('<svg')) {
+        const plainText = clipboardData.getData('text/plain');
+        const svgMarkup = html?.includes('<svg') ? html : plainText?.includes('<svg') ? plainText : null;
+
+        if (svgMarkup) {
           event.preventDefault();
-          const { state, dispatch } = view;
-          const { $from } = state.selection;
-          const tr = state.tr.insertText(html, $from.pos);
-          dispatch(tr);
+          editor?.commands.insertContent(svgMarkup);
           return true;
         }
 

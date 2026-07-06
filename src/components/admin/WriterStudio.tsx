@@ -158,6 +158,22 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
       attributes: {
         class: 'prose prose-sm sm:prose-base dark:prose-invert m-5 focus:outline-none max-w-full min-h-[500px]',
       },
+      handlePaste: (view, event) => {
+        const { clipboardData } = event;
+        if (!clipboardData) return false;
+
+        const html = clipboardData.getData('text/html');
+        const plainText = clipboardData.getData('text/plain');
+        const svgMarkup = html?.includes('<svg') ? html : plainText?.includes('<svg') ? plainText : null;
+
+        if (svgMarkup) {
+          event.preventDefault();
+          editor?.commands.insertContent(svgMarkup);
+          return true;
+        }
+
+        return false;
+      },
     },
   });
 
