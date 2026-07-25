@@ -12,6 +12,7 @@ export interface ISiteSettings extends Document {
   aboutText: string;
   resumeUrl?: string;
   resumeExperience?: string;
+  openToWorkText?: string;
   skills?: string[];
   createdAt: Date;
   updatedAt: Date;
@@ -30,6 +31,7 @@ const SiteSettingsSchema: Schema = new Schema(
     aboutText: { type: String, default: '' },
     resumeUrl: { type: String },
     resumeExperience: { type: String, default: '' },
+    openToWorkText: { type: String, default: 'Interested in Systems & Infrastructure Roles' },
     skills: { type: [String], default: [] },
   },
   { timestamps: true }

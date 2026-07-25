@@ -22,35 +22,65 @@ const LinkedinIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+import Link from "next/link";
+
 export async function Footer() {
   await connectToDatabase();
   const settings = await SiteSettings.findOne().lean() as any;
   const links = settings?.socialLinks || {};
 
   return (
-    <footer className="mt-auto py-8 border-t border-slate-200 dark:border-slate-800 text-sm text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
-      <p>© {new Date().getFullYear()} {settings?.title || "Portfolio"}. All rights reserved.</p>
-      <div className="flex items-center gap-4">
-        {links.github && (
-          <a href={links.github} target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 dark:hover:text-white transition-colors">
-            <GithubIcon className="w-5 h-5" />
-          </a>
-        )}
-        {links.twitter && (
-          <a href={links.twitter} target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 dark:hover:text-white transition-colors">
-            <TwitterIcon className="w-5 h-5" />
-          </a>
-        )}
-        {links.linkedin && (
-          <a href={links.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 dark:hover:text-white transition-colors">
-            <LinkedinIcon className="w-5 h-5" />
-          </a>
-        )}
-        {links.email && (
-          <a href={`mailto:${links.email}`} className="hover:text-slate-900 dark:hover:text-white transition-colors">
-            <Mail className="w-5 h-5" />
-          </a>
-        )}
+    <footer className="mt-auto py-12 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-8 w-full text-sm">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div className="flex flex-col gap-1.5">
+          <p className="font-semibold text-slate-900 dark:text-slate-100">{settings?.title || "Nischal Khanal"}</p>
+          <p className="text-slate-500 dark:text-slate-400 flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            {settings?.openToWorkText || "Interested in Systems & Infrastructure Roles"}
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center gap-4 md:gap-6 text-slate-500 dark:text-slate-400 font-medium">
+          <Link href="/" className="hover:text-slate-900 dark:hover:text-white transition-colors">Home</Link>
+          <Link href="/projects" className="hover:text-slate-900 dark:hover:text-white transition-colors">Projects</Link>
+          <Link href="/writing" className="hover:text-slate-900 dark:hover:text-white transition-colors">Blog</Link>
+          <Link href="/exploring" className="hover:text-slate-900 dark:hover:text-white transition-colors">Exploring</Link>
+          <Link href="/about" className="hover:text-slate-900 dark:hover:text-white transition-colors">About</Link>
+          <Link href="/contact" className="hover:text-slate-900 dark:hover:text-white transition-colors">Contact</Link>
+        </div>
+      </div>
+      
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-t border-slate-100 dark:border-slate-800/50 pt-8">
+        <p className="text-slate-500 dark:text-slate-400">© {new Date().getFullYear()} Nischal Khanal. All rights reserved.</p>
+        
+        <div className="flex items-center gap-4 text-slate-500 dark:text-slate-400">
+          {links.github && (
+            <a href={links.github} target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+              <span className="sr-only">GitHub</span>
+              <GithubIcon className="w-5 h-5" />
+            </a>
+          )}
+          {links.twitter && (
+            <a href={links.twitter} target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+              <span className="sr-only">Twitter</span>
+              <TwitterIcon className="w-5 h-5" />
+            </a>
+          )}
+          {links.linkedin && (
+            <a href={links.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+              <span className="sr-only">LinkedIn</span>
+              <LinkedinIcon className="w-5 h-5" />
+            </a>
+          )}
+          {links.email && (
+            <a href={`mailto:${links.email}`} className="hover:text-slate-900 dark:hover:text-white transition-colors">
+              <span className="sr-only">Email</span>
+              <Mail className="w-5 h-5" />
+            </a>
+          )}
+        </div>
       </div>
     </footer>
   );

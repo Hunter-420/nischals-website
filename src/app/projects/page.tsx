@@ -7,6 +7,20 @@ import { unstable_cache } from "next/cache";
 
 export const revalidate = 300;
 
+export const metadata = {
+  title: 'Projects',
+  description: "A selection of projects I've built over the years.",
+  alternates: {
+    canonical: 'https://khanalnischal.com.np/projects',
+  },
+  openGraph: {
+    title: 'Projects | Nischal Khanal',
+    description: "A selection of projects I've built over the years.",
+    url: 'https://khanalnischal.com.np/projects',
+    type: 'website',
+  },
+};
+
 const getProjects = unstable_cache(
   async () => {
     await connectToDatabase();

@@ -64,17 +64,38 @@ export const metadata: Metadata = {
   },
 };
 
+import { JsonLd } from "@/components/ui/JsonLd";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Nischal Khanal",
+    "url": baseUrl,
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": `${baseUrl}/?q={search_term_string}`,
+      "query-input": "required name=search_term_string"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Nischal Khanal",
+      "jobTitle": "Systems & Performance Engineer",
+      "url": baseUrl,
+    }
+  };
+
   return (
     <html
       lang="en"
       className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans bg-white text-slate-800 selection:bg-slate-900 selection:text-white dark:bg-deep-dark dark:text-slate-200 dark:selection:bg-accent-blue dark:selection:text-deep-dark">
+        <JsonLd data={jsonLd} />
         {children}
       </body>
     </html>

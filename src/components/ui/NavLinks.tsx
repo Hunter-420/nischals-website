@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const navItems = [
+export const navItems = [
   { name: "Home", href: "/" },
-  { name: "Writing", href: "/writing" },
   { name: "Projects", href: "/projects" },
+  { name: "Blog", href: "/writing" },
   { name: "Exploring", href: "/exploring" },
   { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
 ];
 
 export function NavLinks() {

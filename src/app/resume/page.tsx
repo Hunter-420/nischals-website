@@ -3,8 +3,17 @@ import { Navigation } from "@/components/ui/Navigation";
 import connectToDatabase from "@/lib/db";
 import SiteSettings from "@/models/SiteSettings";
 import ResumeDownloadButton from "@/components/ui/ResumeDownloadButton";
+import { ArticleContent } from "@/components/ui/ArticleContent";
 
 export const revalidate = 60;
+
+export const metadata = {
+  title: 'Resume',
+  description: 'My professional experience and background.',
+  robots: {
+    index: false,
+  }
+};
 
 async function getResumeData() {
   await connectToDatabase();
@@ -75,9 +84,10 @@ export default async function ResumePage() {
         {resumeExperience && (
           <section className="flex flex-col gap-6 mt-8">
             <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">Experience</h2>
-            <div className="whitespace-pre-wrap text-slate-700 dark:text-slate-300 leading-relaxed text-sm bg-white dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
-              {resumeExperience}
-            </div>
+            <ArticleContent
+              html={resumeExperience}
+              className="prose prose-zinc dark:prose-invert max-w-none text-sm bg-white dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm"
+            />
           </section>
         )}
       </main>

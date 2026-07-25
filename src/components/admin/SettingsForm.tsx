@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Upload, Loader2, FileText, X } from 'lucide-react';
 import { FormInput } from '../ui/FormInput';
 import { FormTextarea } from '../ui/FormTextarea';
+import RichTextEditor from './RichTextEditor';
 
 interface SettingsFormProps {
   initialData?: any;
@@ -22,6 +23,7 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
     aboutText: initialData?.aboutText || '',
     resumeUrl: initialData?.resumeUrl || '',
     resumeExperience: initialData?.resumeExperience || '',
+    openToWorkText: initialData?.openToWorkText || 'Interested in Systems & Infrastructure Roles',
     skills: initialData?.skills || ['C++', 'Go', 'Rust', 'Python', 'TCP/IP', 'Distributed Systems'],
     socialLinks: {
       github: initialData?.socialLinks?.github || '',
@@ -116,6 +118,13 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
           <FormInput label="Site Description" type="text" name="description" value={formData.description} onChange={handleChange} required />
         </div>
         <FormInput 
+          label="Open to Work Text (Banner/Footer)" 
+          type="text" 
+          name="openToWorkText" 
+          value={formData.openToWorkText} 
+          onChange={handleChange} 
+        />
+        <FormInput 
           label="Skills (comma separated)" 
           type="text" 
           name="skills" 
@@ -127,13 +136,13 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
 
       <div className="space-y-4">
         <h2 className="text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2">Resume Settings</h2>
-        <FormTextarea 
-          label="Experience Details" 
-          name="resumeExperience" 
-          value={formData.resumeExperience} 
-          onChange={handleChange} 
-          rows={6} 
-        />
+        <div className="space-y-1">
+          <label className="block text-sm font-medium text-gray-700">Experience Details (Rich Text)</label>
+          <RichTextEditor
+            content={formData.resumeExperience}
+            onChange={(val) => setFormData(prev => ({ ...prev, resumeExperience: val }))}
+          />
+        </div>
       </div>
 
       {/* Resume Upload */}

@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   await connectToDatabase();
 
   // Static routes
-  const routes = ['', '/about', '/projects', '/writing', '/certifications', '/exploring', '/what-i-bring', '/now', '/resume'].map((route) => ({
+  const routes = ['', '/about', '/projects', '/writing', '/certifications', '/exploring', '/what-i-bring', '/now', '/resume', '/contact', '/library'].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,

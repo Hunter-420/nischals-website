@@ -13,6 +13,8 @@ export interface IProject extends Document {
   coreProblem?: string;
   resultMetric?: string;
   architectureDiagram?: string[]; // Array of nodes for flow diagram, e.g., ['Source', 'Queue', 'Worker']
+  likes: number;
+  views: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -31,6 +33,8 @@ const ProjectSchema: Schema = new Schema(
     coreProblem: { type: String },
     resultMetric: { type: String },
     architectureDiagram: [{ type: String }],
+    likes: { type: Number, default: 0 },
+    views: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

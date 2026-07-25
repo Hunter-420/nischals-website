@@ -22,11 +22,16 @@ const getWritingData = unstable_cache(
 );
 
 export const metadata = {
-  title: 'Writing',
+  title: 'Blog',
   description: 'Thoughts on systems engineering, performance, and continuous learning.',
+  alternates: {
+    canonical: 'https://khanalnischal.com.np/writing',
+  },
   openGraph: {
-    title: 'Writing | Nischal Khanal',
+    title: 'Blog | Nischal Khanal',
     description: 'Thoughts on systems engineering, performance, and continuous learning.',
+    url: 'https://khanalnischal.com.np/writing',
+    type: 'website',
   },
 };
 

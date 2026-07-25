@@ -4,9 +4,12 @@ import { ArticleContent } from "@/components/ui/ArticleContent";
 import { fixAnchorLinks } from "@/lib/fixAnchorLinks";
 import connectToDatabase from "@/lib/db";
 import Project from "@/models/Project";
+import Post from "@/models/Post";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, CalendarDays, ExternalLink } from "lucide-react";
+import { ArrowLeft, CalendarDays, ExternalLink, ChevronRight } from "lucide-react";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { ReactButton } from "@/components/ui/ReactButton";
 
 const GithubIcon = ({ className }: { className?: string }) => (
   <svg
@@ -83,18 +86,55 @@ export default async function ProjectPage({ params }: Props) {
 
   const publishedDate = project.createdAt || project.updatedAt;
 
+  // Find related blogs (posts matching project technologies)
+  const relatedPosts = project.technologies && project.technologies.length > 0 
+    ? await Post.find({
+        published: true,
+        tags: { $in: project.technologies }
+      }).sort({ publishedAt: -1 }).limit(2).lean() as any[]
+    : [];
+
+  const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || 'https://khanalnischal.com.np').replace(/\/$/, '');
+  const url = `${baseUrl}/projects/${slug}`;
+
+  const breadcrumbList = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": baseUrl },
+      { "@type": "ListItem", "position": 2, "name": "Projects", "item": `${baseUrl}/projects` },
+      { "@type": "ListItem", "position": 3, "name": project.title, "item": url }
+    ]
+  };
+
+  const softwareApp = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": project.title,
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0"
+    }
+  };
+
   return (
-    <Container>
-      <Navigation />
+    <>
+      <JsonLd data={breadcrumbList} />
+      <JsonLd data={softwareApp} />
+      <Container>
+        <Navigation />
 
       <main className="flex-1 mt-8 mb-24 flex flex-col gap-10">
-        <Link
-          href="/projects"
-          className="inline-flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors self-start"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          All Projects
-        </Link>
+        {/* Breadcrumbs */}
+        <nav className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 self-start">
+          <Link href="/" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Home</Link>
+          <ChevronRight className="w-4 h-4" />
+          <Link href="/projects" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Projects</Link>
+          <ChevronRight className="w-4 h-4" />
+          <span className="text-slate-900 dark:text-slate-100 truncate max-w-[200px] sm:max-w-xs">{project.title}</span>
+        </nav>
 
         <article className="flex flex-col gap-8 max-w-2xl">
           <header className="flex flex-col gap-3">
@@ -107,17 +147,21 @@ export default async function ProjectPage({ params }: Props) {
 
             <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
               {publishedDate && (
-                <span className="flex items-center gap-1.5">
-                  <CalendarDays className="w-4 h-4" />
-                  <time dateTime={publishedDate}>
-                    {new Date(publishedDate).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                  </time>
-                </span>
+                <>
+                  <span className="flex items-center gap-1.5">
+                    <CalendarDays className="w-4 h-4" />
+                    <time dateTime={publishedDate}>
+                      {new Date(publishedDate).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </time>
+                  </span>
+                  <span className="text-slate-300 dark:text-slate-600">·</span>
+                </>
               )}
+              <ReactButton type="project" slug={project.slug} />
             </div>
 
             {project.technologies?.length > 0 && (
@@ -155,7 +199,22 @@ export default async function ProjectPage({ params }: Props) {
               [&_td]:border [&_td]:border-slate-200 [&_td]:dark:border-slate-700 [&_td]:px-4 [&_td]:py-3"
           />
 
-          <div className="border-t border-slate-100 dark:border-slate-800 pt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          {/* Related Blogs */}
+          {relatedPosts && relatedPosts.length > 0 && (
+            <div className="border-t border-slate-100 dark:border-slate-800 pt-8 mt-4">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-4">Related Writing</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {relatedPosts.map((rp) => (
+                  <Link key={rp.slug} href={`/writing/${rp.slug}`} className="block p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 hover:border-slate-200 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    <h4 className="font-medium text-slate-900 dark:text-slate-100 mb-1">{rp.title}</h4>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">{rp.keyTakeaway || rp.excerpt}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="border-t border-slate-100 dark:border-slate-800 pt-8 mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <Link
               href="/projects"
               className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
@@ -191,5 +250,34 @@ export default async function ProjectPage({ params }: Props) {
         </article>
       </main>
     </Container>
+
+      {/* Floating Action Buttons */}
+      {(project.githubUrl || project.liveUrl) && (
+        <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center w-12 h-12 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded-full shadow-lg hover:scale-105 transition-transform"
+              title="View on GitHub"
+            >
+              <GithubIcon className="w-5 h-5" />
+            </a>
+          )}
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center w-12 h-12 bg-blue-600 text-white rounded-full shadow-lg hover:scale-105 transition-transform"
+              title="Visit Live Site"
+            >
+              <ExternalLink className="w-5 h-5" />
+            </a>
+          )}
+        </div>
+      )}
+    </>
   );
 }

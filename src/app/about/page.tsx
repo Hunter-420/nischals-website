@@ -5,6 +5,20 @@ import SiteSettings from "@/models/SiteSettings";
 
 export const revalidate = 60;
 
+export const metadata = {
+  title: 'About',
+  description: 'Software Engineer exploring systems, market infrastructure, and performance engineering.',
+  alternates: {
+    canonical: 'https://khanalnischal.com.np/about',
+  },
+  openGraph: {
+    title: 'About | Nischal Khanal',
+    description: 'Software Engineer exploring systems, market infrastructure, and performance engineering.',
+    url: 'https://khanalnischal.com.np/about',
+    type: 'website',
+  },
+};
+
 const aims = [
   {
     title: "Understanding Systems",

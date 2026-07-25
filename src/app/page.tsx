@@ -42,7 +42,14 @@ export default async function Home() {
       <main className="flex-1 mt-8 mb-24 flex flex-col gap-16">
         {/* Hero */}
         <section className="flex flex-col md:flex-row items-center md:items-start justify-between gap-12 md:gap-8">
-          <div className="flex-1 flex flex-col gap-6 w-full">
+          <div className="flex-1 flex flex-col gap-6 w-full items-start">
+            <Link href="/contact" className="inline-flex items-center gap-2 px-3 py-1 mb-2 rounded-full border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/20 text-xs font-medium text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              {settings?.openToWorkText || 'Interested in Systems & Infrastructure Roles'}
+            </Link>
             <div className="flex flex-col gap-2">
               <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
                 {settings?.title || 'Nischal Khanal'}
