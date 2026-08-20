@@ -27,3 +27,14 @@ export async function POST(req: Request) {
     return new NextResponse('Internal Error', { status: 500 });
   }
 }
+
+export async function GET(req: Request) {
+  try {
+    await connectToDatabase();
+    const settings = await SiteSettings.findOne({});
+    return NextResponse.json(settings || {});
+  } catch (error) {
+    console.error('GET /api/settings error:', error);
+    return new NextResponse('Internal Error', { status: 500 });
+  }
+}

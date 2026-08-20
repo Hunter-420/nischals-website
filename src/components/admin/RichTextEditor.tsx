@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
+import { Markdown } from 'tiptap-markdown';
 import {
   Bold,
   Italic,
@@ -38,6 +39,7 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
           class: 'max-w-full rounded-lg my-4',
         },
       }),
+      Markdown,
     ],
     content,
     editorProps: {

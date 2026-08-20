@@ -35,14 +35,14 @@ export async function Navigation() {
           {resumeUrl ? (
             <a
               href="/resume"
-              className="px-4 py-1.5 text-sm font-semibold bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded-lg hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors shadow-sm"
+              className="px-5 py-2 text-sm font-bold bg-black text-white rounded-full hover:bg-gray-800 hover:scale-105 hover:shadow-lg transition-all duration-300 shadow-md"
             >
               Resume
             </a>
           ) : (
             <a
               href="/resume"
-              className="px-4 py-1.5 text-sm font-semibold border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              className="px-5 py-2 text-sm font-bold border-2 border-black text-black rounded-full hover:bg-black hover:text-white hover:scale-105 transition-all duration-300"
             >
               Resume
             </a>

@@ -22,17 +22,34 @@ export default function PostForm({ initialData }: PostFormProps) {
     excerpt: initialData?.excerpt || '',
     content: initialData?.content || '',
     published: initialData?.published || false,
+    primaryDomain: initialData?.primaryDomain || '',
     tags: (initialData?.tags || []) as string[],
   });
 
   const [suggestedTags, setSuggestedTags] = useState<string[]>([]);
+  const [suggestedDomains, setSuggestedDomains] = useState<string[]>([]);
   const [tagDropdownOpen, setTagDropdownOpen] = useState(false);
+  const [domainDropdownOpen, setDomainDropdownOpen] = useState(false);
   const [customTagInput, setCustomTagInput] = useState('');
 
   useEffect(() => {
+    // Fetch exploring tags
     fetch('/api/exploring/tags')
       .then(res => res.ok ? res.json() : [])
-      .then((tags: string[]) => setSuggestedTags(tags))
+      .then((tags: string[]) => setSuggestedTags(prev => Array.from(new Set([...prev, ...tags]))))
+      .catch(() => {});
+
+    // Fetch site settings for global tags and domains
+    fetch('/api/settings')
+      .then(res => res.ok ? res.json() : {})
+      .then((settings: any) => {
+        if (settings.tags) {
+          setSuggestedTags(prev => Array.from(new Set([...prev, ...settings.tags])));
+        }
+        if (settings.primaryDomains) {
+          setSuggestedDomains(settings.primaryDomains);
+        }
+      })
       .catch(() => {});
   }, []);
 
@@ -135,11 +152,58 @@ export default function PostForm({ initialData }: PostFormProps) {
         <RichTextEditor content={formData.content} onChange={handleContentChange} />
       </div>
 
+      {/* Primary Domain */}
+      <div className="space-y-3">
+        <label className="block text-sm font-medium text-gray-700">
+          Primary Domain
+          <span className="ml-2 text-xs font-normal text-gray-400">(optional)</span>
+        </label>
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start">
+          <input
+            type="text"
+            name="primaryDomain"
+            value={formData.primaryDomain}
+            onChange={handleChange}
+            placeholder="e.g. Cloud Infrastructure"
+            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-black focus:border-black sm:w-64"
+          />
+          {suggestedDomains.length > 0 && (
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setDomainDropdownOpen(o => !o)}
+                className="flex items-center gap-2 px-3 py-2 text-sm font-medium border border-gray-300 rounded-md hover:bg-gray-50 text-gray-700"
+              >
+                <span>Select from Settings</span>
+                <ChevronDown className={`w-4 h-4 transition-transform ${domainDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {domainDropdownOpen && (
+                <div className="absolute z-50 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg py-1 min-w-48 max-h-60 overflow-y-auto">
+                  {suggestedDomains.map(domain => (
+                    <button
+                      key={domain}
+                      type="button"
+                      onClick={() => {
+                        setFormData(prev => ({ ...prev, primaryDomain: domain }));
+                        setDomainDropdownOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                    >
+                      {domain}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Tags */}
       <div className="space-y-3">
         <label className="block text-sm font-medium text-gray-700">
           Tags
-          <span className="ml-2 text-xs font-normal text-gray-400">(pick from exploring items or add custom)</span>
+          <span className="ml-2 text-xs font-normal text-gray-400">(pick from exploring/settings or add custom)</span>
         </label>
 
         {formData.tags.length > 0 && (
@@ -170,7 +234,7 @@ export default function PostForm({ initialData }: PostFormProps) {
                 onClick={() => setTagDropdownOpen(o => !o)}
                 className="flex items-center gap-2 px-3 py-2 text-sm font-medium border border-gray-300 rounded-md hover:bg-gray-50 text-gray-700"
               >
-                <span>+ Add from Exploring</span>
+                <span>+ Add from Suggestions</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${tagDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
               {tagDropdownOpen && (

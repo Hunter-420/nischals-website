@@ -65,6 +65,7 @@ export const metadata: Metadata = {
 };
 
 import { JsonLd } from "@/components/ui/JsonLd";
+import { FloatingContact } from "@/components/ui/FloatingContact";
 
 export default function RootLayout({
   children,
@@ -94,9 +95,10 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-white text-slate-800 selection:bg-slate-900 selection:text-white dark:bg-deep-dark dark:text-slate-200 dark:selection:bg-accent-blue dark:selection:text-deep-dark">
+      <body className="min-h-full flex flex-col font-sans bg-white text-slate-950 selection:bg-black selection:text-white">
         <JsonLd data={jsonLd} />
         {children}
+        <FloatingContact />
       </body>
     </html>
   );

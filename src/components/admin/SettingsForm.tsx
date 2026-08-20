@@ -25,6 +25,8 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
     resumeExperience: initialData?.resumeExperience || '',
     openToWorkText: initialData?.openToWorkText || 'Interested in Systems & Infrastructure Roles',
     skills: initialData?.skills || ['C++', 'Go', 'Rust', 'Python', 'TCP/IP', 'Distributed Systems'],
+    primaryDomains: initialData?.primaryDomains || [],
+    tags: initialData?.tags || [],
     socialLinks: {
       github: initialData?.socialLinks?.github || '',
       twitter: initialData?.socialLinks?.twitter || '',
@@ -130,6 +132,20 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
           name="skills" 
           value={formData.skills.join(', ')} 
           onChange={(e) => setFormData(prev => ({ ...prev, skills: e.target.value.split(',').map(s => s.trim()).filter(Boolean) }))} 
+        />
+        <FormInput 
+          label="Primary Domains (comma separated)" 
+          type="text" 
+          name="primaryDomains" 
+          value={formData.primaryDomains.join(', ')} 
+          onChange={(e) => setFormData(prev => ({ ...prev, primaryDomains: e.target.value.split(',').map(s => s.trim()).filter(Boolean) }))} 
+        />
+        <FormInput 
+          label="Global Tags (comma separated)" 
+          type="text" 
+          name="tags" 
+          value={formData.tags.join(', ')} 
+          onChange={(e) => setFormData(prev => ({ ...prev, tags: e.target.value.split(',').map(s => s.trim()).filter(Boolean) }))} 
         />
         <FormTextarea label="About Text" name="aboutText" value={formData.aboutText} onChange={handleChange} rows={4} />
       </div>

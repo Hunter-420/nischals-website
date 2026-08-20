@@ -15,7 +15,6 @@
   }
 }
 
-@custom-variant dark (&:where(.dark, .dark *));
 
 /* ── Article prose: prevent long URLs/links from overflowing on mobile ── */
 @layer utilities {
