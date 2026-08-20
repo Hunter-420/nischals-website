@@ -12,12 +12,16 @@ import { unstable_cache } from "next/cache";
  */
 const getCachedSettings = unstable_cache(
   async () => {
-    await connectToDatabase();
-    const settings = await SiteSettings.findOne().lean() as any;
-    return {
-      resumeUrl: settings?.resumeUrl ?? null,
-      socialLinks: settings?.socialLinks ?? {},
-    };
+    try {
+      await connectToDatabase();
+      const settings = await SiteSettings.findOne().lean() as any;
+      return {
+        resumeUrl: settings?.resumeUrl ?? null,
+        socialLinks: settings?.socialLinks ?? {},
+      };
+    } catch {
+      return { resumeUrl: null, socialLinks: {} };
+    }
   },
   ["site-settings"],
   { revalidate: 300 } // 5 minutes
