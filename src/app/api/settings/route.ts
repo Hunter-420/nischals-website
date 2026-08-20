@@ -4,6 +4,18 @@ import { authOptions } from '@/lib/auth';
 import connectToDatabase from '@/lib/db';
 import SiteSettings from '@/models/SiteSettings';
 
+export async function GET() {
+  try {
+    await connectToDatabase();
+    const settings = await SiteSettings.findOne({}).lean();
+    if (!settings) return NextResponse.json({});
+    return NextResponse.json(settings);
+  } catch (error) {
+    console.error('GET /api/settings error:', error);
+    return new NextResponse('Internal Error', { status: 500 });
+  }
+}
+
 export async function POST(req: Request) {
   try {
     const session = await getServerSession(authOptions);
@@ -13,28 +25,17 @@ export async function POST(req: Request) {
 
     const body = await req.json();
     await connectToDatabase();
-    
-    // Find the first settings document and update it, or create if it doesn't exist
-    const settings = await SiteSettings.findOneAndUpdate({}, body, {
-      returnDocument: 'after',
-      upsert: true,
-      setDefaultsOnInsert: true
-    });
-    
+
+    // Use $set so array fields (primaryDomains, tags, etc.) are fully replaced
+    const settings = await SiteSettings.findOneAndUpdate(
+      {},
+      { $set: body },
+      { returnDocument: 'after', upsert: true, setDefaultsOnInsert: true, new: true }
+    ).lean();
+
     return NextResponse.json(settings);
   } catch (error) {
     console.error('POST /api/settings error:', error);
-    return new NextResponse('Internal Error', { status: 500 });
-  }
-}
-
-export async function GET(req: Request) {
-  try {
-    await connectToDatabase();
-    const settings = await SiteSettings.findOne({});
-    return NextResponse.json(settings || {});
-  } catch (error) {
-    console.error('GET /api/settings error:', error);
     return new NextResponse('Internal Error', { status: 500 });
   }
 }
