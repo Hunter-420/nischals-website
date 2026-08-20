@@ -30,9 +30,14 @@ export const dynamicParams = true;
 
 // Pre-render all project pages at build time → instant navigation
 export async function generateStaticParams() {
-  await connectToDatabase();
-  const projects = await Project.find().select('slug').lean() as any[];
-  return projects.map((p) => ({ slug: p.slug }));
+  try {
+    await connectToDatabase();
+    const projects = await Project.find().select('slug').lean() as any[];
+    return projects.map((p) => ({ slug: p.slug }));
+  } catch {
+    // No DB at build time (CI) — pages will be rendered on-demand
+    return [];
+  }
 }
 
 interface Props {

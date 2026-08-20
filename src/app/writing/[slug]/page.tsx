@@ -30,9 +30,14 @@ export const dynamicParams = true; // Serve new slugs via SSR until next build
 
 // Pre-render every published article at build time → zero DB latency on visit
 export async function generateStaticParams() {
-  await connectToDatabase();
-  const posts = await Post.find({ published: true }).select('slug').lean() as any[];
-  return posts.map((p) => ({ slug: p.slug }));
+  try {
+    await connectToDatabase();
+    const posts = await Post.find({ published: true }).select('slug').lean() as any[];
+    return posts.map((p) => ({ slug: p.slug }));
+  } catch {
+    // No DB at build time (CI) — pages will be rendered on-demand
+    return [];
+  }
 }
 
 interface Props {
