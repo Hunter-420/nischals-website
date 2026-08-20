@@ -13,7 +13,7 @@ export function FloatingContact() {
   return (
     <Link
       href="/contact"
-      className="fixed bottom-6 left-6 z-50 p-3 bg-black text-white rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-out border border-white/10 group flex items-center justify-center"
+      className="fixed bottom-6 right-6 z-50 p-3 bg-black text-white rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-out border border-white/10 group flex items-center justify-center"
       aria-label="Contact Me"
     >
       <svg 

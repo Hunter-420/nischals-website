@@ -40,35 +40,35 @@ export default async function ContactPage() {
 
       <main className="flex-1 mt-8 mb-24 flex flex-col gap-12 max-w-2xl">
         <header className="flex flex-col gap-4">
-          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">Contact</h1>
-          <p className="text-slate-800 dark:text-slate-200 font-normal text-base leading-relaxed">
-            I am currently <strong className="text-slate-900 dark:text-slate-100">{settings?.openToWorkText?.toLowerCase() || 'interested in systems & infrastructure roles'}</strong>. 
+          <h1 className="text-3xl font-extrabold text-black tracking-tight">Contact</h1>
+          <p className="text-black font-normal text-base leading-relaxed">
+            I am currently <strong className="text-black ">{settings?.openToWorkText?.toLowerCase() || 'interested in systems & infrastructure roles'}</strong>. 
             Whether you have an opportunity or just want to say hi, feel free to reach out.
           </p>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <section className="flex flex-col gap-6">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">Availability</h2>
-            <ul className="flex flex-col gap-4 text-sm text-slate-700 dark:text-slate-300">
+            <h2 className="text-lg font-bold text-black ">Availability</h2>
+            <ul className="flex flex-col gap-4 text-sm text-slate-700 ">
               <li className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
                   <Laptop className="w-4 h-4" />
                 </div>
                 <span>Open to Full-time</span>
               </li>
               <li className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
                   <MapPin className="w-4 h-4" />
                 </div>
                 <span>Remote / Hybrid / On-site</span>
               </li>
               {resumeUrl && (
                 <li className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center flex-shrink-0">
                     <FileText className="w-4 h-4" />
                   </div>
-                  <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400 hover:underline transition-colors">
+                  <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 hover:underline transition-colors">
                     View my Resume &rarr;
                   </a>
                 </li>
@@ -77,34 +77,34 @@ export default async function ContactPage() {
           </section>
 
           <section className="flex flex-col gap-6">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">Connect</h2>
-            <ul className="flex flex-col gap-4 text-sm text-slate-700 dark:text-slate-300">
+            <h2 className="text-lg font-bold text-black ">Connect</h2>
+            <ul className="flex flex-col gap-4 text-sm text-slate-700 ">
               {links.email && (
                 <li className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center flex-shrink-0">
                     <Mail className="w-4 h-4" />
                   </div>
-                  <a href={`mailto:${links.email}`} className="hover:text-blue-600 dark:hover:text-blue-400 hover:underline transition-colors">
+                  <a href={`mailto:${links.email}`} className="hover:text-blue-600 hover:underline transition-colors">
                     {links.email}
                   </a>
                 </li>
               )}
               {links.linkedin && (
                 <li className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center flex-shrink-0">
                     <LinkedinIcon className="w-4 h-4" />
                   </div>
-                  <a href={links.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400 hover:underline transition-colors">
+                  <a href={links.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 hover:underline transition-colors">
                     LinkedIn
                   </a>
                 </li>
               )}
               {links.github && (
                 <li className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center flex-shrink-0">
                     <GithubIcon className="w-4 h-4" />
                   </div>
-                  <a href={links.github} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400 hover:underline transition-colors">
+                  <a href={links.github} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 hover:underline transition-colors">
                     GitHub
                   </a>
                 </li>

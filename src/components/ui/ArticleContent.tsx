@@ -43,7 +43,7 @@ export function ArticleContent({ html, className }: ArticleContentProps) {
     svgElements.forEach((svg) => {
       // Ensure SVG is responsive
       if (!svg.getAttribute('class')) {
-        svg.setAttribute('class', 'max-w-full h-auto my-4 rounded-lg border border-gray-200 dark:border-gray-700');
+        svg.setAttribute('class', 'max-w-full h-auto my-4 rounded-lg border border-gray-200 ');
       }
       // Preserve aspect ratio
       if (!svg.hasAttribute('preserveAspectRatio')) {

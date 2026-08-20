@@ -43,8 +43,8 @@ export default async function ExploringPage() {
         {/* Exploring Section */}
         <div className="flex flex-col gap-12">
           <header className="flex flex-col gap-3">
-            <h1 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">What I&apos;m Exploring</h1>
-            <p className="text-slate-800 dark:text-slate-200 font-normal text-base leading-relaxed max-w-xl">
+            <h1 className="text-3xl font-extrabold text-black tracking-tight">What I&apos;m Exploring</h1>
+            <p className="text-black font-normal text-base leading-relaxed max-w-xl">
               I&apos;m interested in systems where engineering decisions directly affect outcomes.
               My current focus is understanding how information moves through systems, how bottlenecks
               emerge, and why certain architectures perform better under pressure.
@@ -55,7 +55,7 @@ export default async function ExploringPage() {
             {(exploringData as any[]).length > 0 ? (
               (exploringData as any[]).map((cat: any) => (
                 <div key={cat._id.toString()} className="flex flex-col gap-4">
-                  <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                  <h2 className="text-xs font-bold uppercase tracking-widest text-slate-700 ">
                     {cat.category}
                   </h2>
 
@@ -65,7 +65,7 @@ export default async function ExploringPage() {
                       const count = postCounts[item.title.toLowerCase()] || 0;
                       const isCompleted = item.completed;
                       return (
-                        <div key={item._id?.toString() || item.title} className={`group relative flex flex-col p-5 rounded-xl border bg-white dark:bg-slate-900/40 transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-1 ${isCompleted ? 'border-accent-blue dark:border-accent-blue/50 hover:border-accent-blue' : 'border-dashed border-slate-300 dark:border-slate-700 hover:border-neon-green/50'}`}>
+                        <div key={item._id?.toString() || item.title} className={`group relative flex flex-col p-5 rounded-xl border bg-white transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-1 ${isCompleted ? 'border-accent-blue hover:border-accent-blue' : 'border-dashed border-slate-300 hover:border-neon-green/50'}`}>
                           <Link
                             href={`/exploring/tag/${tagSlug}`}
                             className="flex flex-col gap-2 flex-1"
@@ -73,8 +73,8 @@ export default async function ExploringPage() {
                             <div className="flex items-start justify-between gap-3">
                               <span className={`text-base font-bold transition-colors ${
                                 isCompleted
-                                  ? 'text-slate-800 dark:text-slate-200 group-hover:text-accent-blue'
-                                  : 'text-slate-700 dark:text-slate-300 group-hover:text-neon-green'
+                                  ? 'text-black group-hover:text-accent-blue'
+                                  : 'text-slate-700 group-hover:text-neon-green'
                               }`}>
                                 {item.title}
                               </span>
@@ -82,7 +82,7 @@ export default async function ExploringPage() {
                                 {isCompleted ? (
                                   <CheckCircle2 className="w-5 h-5 text-accent-blue" />
                                 ) : (
-                                  <Circle className="w-5 h-5 text-slate-300 dark:text-slate-600" />
+                                  <Circle className="w-5 h-5 text-slate-300 " />
                                 )}
                               </span>
                             </div>
@@ -97,7 +97,7 @@ export default async function ExploringPage() {
                             <div className="mt-auto pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                               <div className="flex flex-wrap gap-1.5">
                                 {(item.toolStack && item.toolStack.length > 0 ? item.toolStack : ['Systems', 'Architecture']).map((tool: string) => (
-                                  <span key={tool} className="px-2 py-0.5 bg-slate-100 dark:bg-deep-dark text-slate-600 dark:text-slate-400 text-[10px] font-mono rounded border border-slate-200 dark:border-slate-800">
+                                  <span key={tool} className="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-mono rounded border border-slate-200 ">
                                     {tool}
                                   </span>
                                 ))}
@@ -120,11 +120,11 @@ export default async function ExploringPage() {
                 </div>
               ))
             ) : (
-              <p className="text-slate-500 dark:text-slate-400 italic text-sm">No exploring areas listed yet.</p>
+              <p className="text-slate-700 italic text-sm">No exploring areas listed yet.</p>
             )}
           </section>
 
-          <p className="text-slate-800 dark:text-slate-200 font-normal text-base leading-relaxed italic border-t border-slate-100 dark:border-slate-800 pt-8">
+          <p className="text-black font-normal text-base leading-relaxed italic border-t border-slate-100 pt-8">
             The common theme across all of these areas is understanding how systems behave when performance,
             scale, and timing become important constraints.
           </p>

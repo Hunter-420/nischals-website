@@ -156,7 +156,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
     },
     editorProps: {
       attributes: {
-        class: 'prose prose-sm sm:prose-base dark:prose-invert m-5 focus:outline-none max-w-full min-h-[500px]',
+        class: 'prose prose-sm sm:prose-base m-5 focus:outline-none max-w-full min-h-[500px]',
       },
       handlePaste: (view, event) => {
         const { clipboardData } = event;
@@ -273,18 +273,18 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className={`fixed inset-0 flex flex-col bg-white dark:bg-[#0a0e1a] text-slate-800 dark:text-slate-200 overflow-hidden ${
+      className={`fixed inset-0 flex flex-col bg-white #0a0e1a] text-black overflow-hidden ${
         isFullScreen ? 'left-0' : 'left-0 md:left-[var(--sidebar-width,16rem)]'
       }`}
       style={{ zIndex: isFullScreen ? 50 : 'auto' }}
     >
       {/* ── Top: Meta Config Header ─────────────────────────────────────────── */}
       {!isFullScreen && (
-        <div className="flex-shrink-0 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#0d1120] px-4 py-4 space-y-4 sm:px-6">
+        <div className="flex-shrink-0 border-b border-slate-200 bg-slate-50 #0d1120] px-4 py-4 space-y-4 sm:px-6">
           {/* Row 1: Title + Slug + Controls */}
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:flex-wrap">
             <div className="flex-1 min-w-0 lg:min-w-64">
-              <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">Article Title</label>
+              <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-700 mb-1">Article Title</label>
               <input
                 type="text"
                 name="title"
@@ -292,12 +292,12 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
                 onChange={handleChange}
                 placeholder="e.g. Lock-Free Queues and the LMAX Disruptor"
                 required
-                className="w-full bg-white dark:bg-[#111827] border border-slate-300 dark:border-slate-700 rounded-md px-3 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:border-blue-500 font-mono"
+                className="w-full bg-white #111827] border border-slate-300 rounded-md px-3 py-2 text-sm text-black placeholder-slate-400 focus:outline-none focus:border-blue-500 font-mono"
               />
             </div>
             <div className="w-full lg:w-64">
               <div className="flex justify-between items-center mb-1">
-                <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-500">Slug</label>
+                <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-700">Slug</label>
                 <button type="button" onClick={generateSlug} className="text-[10px] text-blue-400 hover:text-blue-300 transition-colors">
                   ↺ auto-gen
                 </button>
@@ -308,23 +308,23 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
                 value={formData.slug}
                 onChange={handleChange}
                 required
-                className="w-full bg-white dark:bg-[#111827] border border-slate-300 dark:border-slate-700 rounded-md px-3 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:border-blue-500 font-mono"
+                className="w-full bg-white #111827] border border-slate-300 rounded-md px-3 py-2 text-sm text-black placeholder-slate-400 focus:outline-none focus:border-blue-500 font-mono"
               />
             </div>
             <div className="w-full lg:w-52">
-              <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">Primary Domain</label>
+              <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-700 mb-1">Primary Domain</label>
               <select
                 name="domain"
                 value={formData.domain}
                 onChange={handleChange}
-                className="w-full bg-white dark:bg-[#111827] border border-slate-300 dark:border-slate-700 rounded-md px-3 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 appearance-none"
+                className="w-full bg-white #111827] border border-slate-300 rounded-md px-3 py-2 text-sm text-black focus:outline-none focus:border-blue-500 appearance-none"
               >
                 {DOMAINS.map(d => <option key={d} value={d}>{d}</option>)}
               </select>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:ml-auto">
               <label className="flex items-center gap-2 cursor-pointer">
-                <span className="text-xs text-slate-400">Published</span>
+                <span className="text-xs text-slate-600">Published</span>
                 <input
                   type="checkbox"
                   name="published"
@@ -352,7 +352,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:flex-wrap">
             <div className="flex-1 min-w-0 lg:min-w-72">
               <div className="flex justify-between items-center mb-1">
-                <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-700">
                   Executive Pitch <span className="text-slate-600">(TL;DR Recruit Preview Card)</span>
                 </label>
                 <span className={`text-[10px] font-mono ${formData.keyTakeaway.length > 140 ? 'text-amber-400' : formData.keyTakeaway.length > 155 ? 'text-red-400' : 'text-slate-600'}`}>
@@ -366,13 +366,13 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
                 onChange={handleChange}
                 maxLength={160}
                 placeholder="One sentence: engineering problem solved + measurable result"
-                className="w-full bg-white dark:bg-[#111827] border border-slate-300 dark:border-slate-700 rounded-md px-3 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:border-blue-500 font-mono"
+                className="w-full bg-white #111827] border border-slate-300 rounded-md px-3 py-2 text-sm text-black placeholder-slate-400 focus:outline-none focus:border-blue-500 font-mono"
               />
             </div>
 
             {/* Tech Chips */}
             <div className="min-w-0 flex-1 lg:min-w-64">
-              <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">
+              <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-700 mb-1">
                 Tech Chips <span className="text-slate-600">(Index Tags)</span>
               </label>
               <div className="flex flex-wrap gap-1.5 mb-2">
@@ -396,16 +396,16 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
                       if (e.key === ',') { e.preventDefault(); addTag(tagInput); }
                     }}
                     placeholder="#concurrency"
-                    className="bg-white dark:bg-[#111827] border border-slate-300 dark:border-slate-700 rounded px-2 py-0.5 text-[11px] font-mono text-blue-600 dark:text-blue-300 placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:border-blue-500 w-28"
+                    className="bg-white #111827] border border-slate-300 rounded px-2 py-0.5 text-[11px] font-mono text-blue-600 placeholder-slate-400 focus:outline-none focus:border-blue-500 w-28"
                   />
                   {showTagDropdown && availableSuggestions.length > 0 && (
-                    <div className="absolute top-full left-0 mt-1 bg-white dark:bg-[#111827] border border-slate-300 dark:border-slate-700 rounded-md shadow-xl z-50 max-h-40 overflow-y-auto min-w-40">
+                    <div className="absolute top-full left-0 mt-1 bg-white #111827] border border-slate-300 rounded-md shadow-xl z-50 max-h-40 overflow-y-auto min-w-40">
                       {availableSuggestions.filter(s => s.includes(tagInput)).map(tag => (
                         <button
                           key={tag}
                           type="button"
                           onMouseDown={() => addTag(tag)}
-                          className="w-full text-left px-3 py-1.5 text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-blue-600/20 font-mono"
+                          className="w-full text-left px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-100 font-mono"
                         >
                           #{tag}
                         </button>
@@ -420,14 +420,14 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
       )}
 
       {/* ── Editor Toolbar ─────────────────────────────────────────────────────── */}
-      <div className="flex-shrink-0 flex items-center justify-between px-3 py-2 bg-slate-50 dark:bg-[#0d1120] border-b border-slate-200 dark:border-slate-800">
+      <div className="flex-shrink-0 flex items-center justify-between px-3 py-2 bg-slate-50 #0d1120] border-b border-slate-200 ">
         <div className="flex items-center gap-1 overflow-x-auto">
           {editor && (
             <>
               <button
                 type="button"
                 onClick={() => editor.chain().focus().toggleBold().run()}
-                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('bold') ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                className={`p-1.5 rounded hover:bg-slate-200 ${editor.isActive('bold') ? 'bg-slate-200 text-blue-500' : 'text-slate-600 '}`}
                 title="Bold"
               >
                 <Bold className="w-4 h-4" />
@@ -435,7 +435,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={() => editor.chain().focus().toggleItalic().run()}
-                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('italic') ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                className={`p-1.5 rounded hover:bg-slate-200 ${editor.isActive('italic') ? 'bg-slate-200 text-blue-500' : 'text-slate-600 '}`}
                 title="Italic"
               >
                 <Italic className="w-4 h-4" />
@@ -443,16 +443,16 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={() => editor.chain().focus().toggleUnderline().run()}
-                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('underline') ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                className={`p-1.5 rounded hover:bg-slate-200 ${editor.isActive('underline') ? 'bg-slate-200 text-blue-500' : 'text-slate-600 '}`}
                 title="Underline"
               >
                 <UnderlineIcon className="w-4 h-4" />
               </button>
-              <div className="w-px h-4 bg-slate-300 dark:bg-slate-700 mx-1" />
+              <div className="w-px h-4 bg-slate-300 mx-1" />
               <button
                 type="button"
                 onClick={() => editor.chain().focus().toggleCode().run()}
-                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('code') ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                className={`p-1.5 rounded hover:bg-slate-200 ${editor.isActive('code') ? 'bg-slate-200 text-blue-500' : 'text-slate-600 '}`}
                 title="Inline code"
               >
                 <Code2 className="w-4 h-4" />
@@ -460,7 +460,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('heading', { level: 1 }) ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                className={`p-1.5 rounded hover:bg-slate-200 ${editor.isActive('heading', { level: 1 }) ? 'bg-slate-200 text-blue-500' : 'text-slate-600 '}`}
                 title="Heading 1"
               >
                 <Heading1 className="w-4 h-4" />
@@ -468,7 +468,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('heading', { level: 2 }) ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                className={`p-1.5 rounded hover:bg-slate-200 ${editor.isActive('heading', { level: 2 }) ? 'bg-slate-200 text-blue-500' : 'text-slate-600 '}`}
                 title="Heading 2"
               >
                 <Heading2 className="w-4 h-4" />
@@ -476,16 +476,16 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('heading', { level: 3 }) ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                className={`p-1.5 rounded hover:bg-slate-200 ${editor.isActive('heading', { level: 3 }) ? 'bg-slate-200 text-blue-500' : 'text-slate-600 '}`}
                 title="Heading 3"
               >
                 <Heading3 className="w-4 h-4" />
               </button>
-              <div className="w-px h-4 bg-slate-300 dark:bg-slate-700 mx-1" />
+              <div className="w-px h-4 bg-slate-300 mx-1" />
               <button
                 type="button"
                 onClick={() => editor.chain().focus().toggleBulletList().run()}
-                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('bulletList') ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                className={`p-1.5 rounded hover:bg-slate-200 ${editor.isActive('bulletList') ? 'bg-slate-200 text-blue-500' : 'text-slate-600 '}`}
                 title="Bullet List"
               >
                 <List className="w-4 h-4" />
@@ -493,7 +493,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={() => editor.chain().focus().toggleOrderedList().run()}
-                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('orderedList') ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                className={`p-1.5 rounded hover:bg-slate-200 ${editor.isActive('orderedList') ? 'bg-slate-200 text-blue-500' : 'text-slate-600 '}`}
                 title="Ordered List"
               >
                 <ListOrdered className="w-4 h-4" />
@@ -501,7 +501,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={() => editor.chain().focus().toggleBlockquote().run()}
-                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('blockquote') ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                className={`p-1.5 rounded hover:bg-slate-200 ${editor.isActive('blockquote') ? 'bg-slate-200 text-blue-500' : 'text-slate-600 '}`}
                 title="Blockquote"
               >
                 <Quote className="w-4 h-4" />
@@ -509,7 +509,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('codeBlock') ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                className={`p-1.5 rounded hover:bg-slate-200 ${editor.isActive('codeBlock') ? 'bg-slate-200 text-blue-500' : 'text-slate-600 '}`}
                 title="Code Block"
               >
                 <span className="text-[10px] font-bold tracking-tight">```</span>
@@ -517,7 +517,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={() => editor.chain().focus().toggleHighlight().run()}
-                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('highlight') ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                className={`p-1.5 rounded hover:bg-slate-200 ${editor.isActive('highlight') ? 'bg-slate-200 text-blue-500' : 'text-slate-600 '}`}
                 title="Highlight"
               >
                 <Highlighter className="w-4 h-4" />
@@ -529,7 +529,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
                   if (!url) return;
                   editor.chain().focus().setLink({ href: url }).run();
                 }}
-                className={`p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 ${editor.isActive('link') ? 'bg-slate-200 dark:bg-slate-800 text-blue-500' : 'text-slate-600 dark:text-slate-400'}`}
+                className={`p-1.5 rounded hover:bg-slate-200 ${editor.isActive('link') ? 'bg-slate-200 text-blue-500' : 'text-slate-600 '}`}
                 title="Link"
               >
                 <LinkIcon className="w-4 h-4" />
@@ -537,7 +537,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={clearLink}
-                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                className="p-1.5 rounded hover:bg-slate-200 text-slate-600 "
                 title="Remove link"
               >
                 <LinkIcon className="w-4 h-4 opacity-60" />
@@ -549,21 +549,21 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
                     setShowHighlightMenu(false);
                     setShowTextColorMenu(open => !open);
                   }}
-                  className={`flex items-center gap-2 rounded-md border px-2 py-1 text-xs font-medium transition-colors ${showTextColorMenu ? 'border-blue-500 bg-blue-50 text-blue-700 dark:border-blue-400 dark:bg-blue-500/10 dark:text-blue-200' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:bg-[#111827] dark:text-slate-300 dark:hover:bg-slate-800'}`}
+                  className={`flex items-center gap-2 rounded-md border px-2 py-1 text-xs font-medium transition-colors ${showTextColorMenu ? 'border-blue-500 bg-blue-50 text-blue-700 ' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 #111827] '}`}
                   title="Text color"
                 >
                   <Palette className="w-4 h-4" />
                   Color
                 </button>
                 {showTextColorMenu && (
-                  <div className="absolute left-0 top-full z-20 mt-2 w-56 rounded-md border border-slate-200 bg-white p-3 shadow-lg dark:border-slate-700 dark:bg-[#111827]">
+                  <div className="absolute left-0 top-full z-20 mt-2 w-56 rounded-md border border-slate-200 bg-white p-3 shadow-lg #111827]">
                     <div className="grid grid-cols-3 gap-2">
                       {TEXT_COLORS.map(color => (
                         <button
                           key={color.value}
                           type="button"
                           onClick={() => editor.chain().focus().setColor(color.value).run()}
-                          className="flex flex-col items-center gap-1 rounded-md border border-slate-200 px-2 py-2 text-[10px] font-medium text-slate-600 hover:border-slate-400 dark:border-slate-700 dark:text-slate-300"
+                          className="flex flex-col items-center gap-1 rounded-md border border-slate-200 px-2 py-2 text-[10px] font-medium text-slate-600 hover:border-slate-400 "
                           title={color.label}
                         >
                           <span className="h-4 w-4 rounded-full border border-white shadow" style={{ backgroundColor: color.value }} />
@@ -577,7 +577,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
                         clearTextStyle();
                         setShowTextColorMenu(false);
                       }}
-                      className="mt-3 w-full rounded-md border border-dashed border-slate-300 px-2 py-1 text-[10px] font-medium text-slate-500 hover:border-slate-500 dark:border-slate-600 dark:text-slate-400"
+                      className="mt-3 w-full rounded-md border border-dashed border-slate-300 px-2 py-1 text-[10px] font-medium text-slate-700 hover:border-slate-500 "
                     >
                       Clear color
                     </button>
@@ -591,21 +591,21 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
                     setShowTextColorMenu(false);
                     setShowHighlightMenu(open => !open);
                   }}
-                  className={`flex items-center gap-2 rounded-md border px-2 py-1 text-xs font-medium transition-colors ${showHighlightMenu ? 'border-blue-500 bg-blue-50 text-blue-700 dark:border-blue-400 dark:bg-blue-500/10 dark:text-blue-200' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:bg-[#111827] dark:text-slate-300 dark:hover:bg-slate-800'}`}
+                  className={`flex items-center gap-2 rounded-md border px-2 py-1 text-xs font-medium transition-colors ${showHighlightMenu ? 'border-blue-500 bg-blue-50 text-blue-700 ' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 #111827] '}`}
                   title="Highlight color"
                 >
                   <Highlighter className="w-4 h-4" />
                   Highlight
                 </button>
                 {showHighlightMenu && (
-                  <div className="absolute left-0 top-full z-20 mt-2 w-56 rounded-md border border-slate-200 bg-white p-3 shadow-lg dark:border-slate-700 dark:bg-[#111827]">
+                  <div className="absolute left-0 top-full z-20 mt-2 w-56 rounded-md border border-slate-200 bg-white p-3 shadow-lg #111827]">
                     <div className="grid grid-cols-2 gap-2">
                       {HIGHLIGHT_COLORS.map(color => (
                         <button
                           key={color.value}
                           type="button"
                           onClick={() => editor.chain().focus().toggleHighlight({ color: color.value }).run()}
-                          className="flex items-center gap-2 rounded-md border border-slate-200 px-2 py-2 text-[10px] font-medium text-slate-600 hover:border-slate-400 dark:border-slate-700 dark:text-slate-300"
+                          className="flex items-center gap-2 rounded-md border border-slate-200 px-2 py-2 text-[10px] font-medium text-slate-600 hover:border-slate-400 "
                           title={color.label}
                         >
                           <span className="h-4 w-4 rounded-full border border-white shadow" style={{ backgroundColor: color.value }} />
@@ -619,18 +619,18 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
                         editor.chain().focus().unsetHighlight().run();
                         setShowHighlightMenu(false);
                       }}
-                      className="mt-3 w-full rounded-md border border-dashed border-slate-300 px-2 py-1 text-[10px] font-medium text-slate-500 hover:border-slate-500 dark:border-slate-600 dark:text-slate-400"
+                      className="mt-3 w-full rounded-md border border-dashed border-slate-300 px-2 py-1 text-[10px] font-medium text-slate-700 hover:border-slate-500 "
                     >
                       Clear highlight
                     </button>
                   </div>
                 )}
               </div>
-              <div className="w-px h-4 bg-slate-300 dark:bg-slate-700 mx-1" />
+              <div className="w-px h-4 bg-slate-300 mx-1" />
               <button
                 type="button"
                 onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}
-                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                className="p-1.5 rounded hover:bg-slate-200 text-slate-600 "
                 title="Insert table"
               >
                 <Table2 className="w-4 h-4" />
@@ -638,7 +638,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={() => editor.chain().focus().addColumnBefore().run()}
-                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                className="p-1.5 rounded hover:bg-slate-200 text-slate-600 "
                 title="Add column before"
               >
                 <Columns3 className="w-4 h-4" />
@@ -646,7 +646,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={() => editor.chain().focus().addColumnAfter().run()}
-                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                className="p-1.5 rounded hover:bg-slate-200 text-slate-600 "
                 title="Add column after"
               >
                 <Plus className="w-4 h-4" />
@@ -654,7 +654,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={() => editor.chain().focus().deleteColumn().run()}
-                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                className="p-1.5 rounded hover:bg-slate-200 text-slate-600 "
                 title="Delete column"
               >
                 <Minus className="w-4 h-4" />
@@ -662,7 +662,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={() => editor.chain().focus().addRowBefore().run()}
-                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                className="p-1.5 rounded hover:bg-slate-200 text-slate-600 "
                 title="Add row before"
               >
                 <Rows3 className="w-4 h-4" />
@@ -670,7 +670,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={() => editor.chain().focus().addRowAfter().run()}
-                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                className="p-1.5 rounded hover:bg-slate-200 text-slate-600 "
                 title="Add row after"
               >
                 <SplitSquareHorizontal className="w-4 h-4" />
@@ -678,7 +678,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={() => editor.chain().focus().deleteRow().run()}
-                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                className="p-1.5 rounded hover:bg-slate-200 text-slate-600 "
                 title="Delete row"
               >
                 <Trash2 className="w-4 h-4" />
@@ -686,16 +686,16 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
               <button
                 type="button"
                 onClick={() => editor.chain().focus().deleteTable().run()}
-                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                className="p-1.5 rounded hover:bg-slate-200 text-slate-600 "
                 title="Delete table"
               >
                 <Table2 className="w-4 h-4" />
               </button>
-              <div className="w-px h-4 bg-slate-300 dark:bg-slate-700 mx-1" />
+              <div className="w-px h-4 bg-slate-300 mx-1" />
               <button
                 type="button"
                 onClick={handleImageUpload}
-                className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 flex items-center gap-1 text-xs font-medium"
+                className="p-1.5 rounded hover:bg-slate-200 text-slate-600 flex items-center gap-1 text-xs font-medium"
                 title="Upload Image"
               >
                 <ImageIcon className="w-4 h-4" />
@@ -717,7 +717,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
           <button
             type="button"
             onClick={() => setIsFullScreen(!isFullScreen)}
-            className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+            className="p-1.5 rounded hover:bg-slate-200 text-slate-600 "
             title={isFullScreen ? "Exit Full Screen" : "Full Screen"}
           >
             {isFullScreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
@@ -726,7 +726,7 @@ export default function WriterStudio({ initialData }: WriterStudioProps) {
       </div>
 
       {/* ── Editor Area ────────────────────────────────────────────────────────── */}
-      <div className="flex-1 overflow-y-auto bg-white dark:bg-[#0f1623]">
+      <div className="flex-1 overflow-y-auto bg-white #0f1623]">
         <div className="max-w-4xl mx-auto py-8 px-8 lg:px-0">
           <EditorContent editor={editor} />
         </div>

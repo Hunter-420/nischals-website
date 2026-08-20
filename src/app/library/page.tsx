@@ -49,7 +49,7 @@ function StarRating({ rating }: { rating?: number }) {
           className={`w-3.5 h-3.5 ${
             i < rating
               ? "text-amber-400 fill-amber-400"
-              : "text-slate-200 dark:text-slate-700 fill-slate-200 dark:fill-slate-700"
+              : "text-slate-200 fill-slate-200 "
           }`}
           viewBox="0 0 20 20"
           aria-hidden="true"
@@ -87,31 +87,31 @@ export default async function LibraryPage() {
 
       <main className="flex-1 mt-8 mb-24 flex flex-col gap-12">
         <header className="flex flex-col gap-3">
-          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+          <h1 className="text-3xl font-extrabold text-black tracking-tight">
             Library
           </h1>
-          <p className="text-slate-800 dark:text-slate-200 font-normal text-base leading-relaxed">
+          <p className="text-black font-normal text-base leading-relaxed">
             Books, podcasts, and articles I recommend.
           </p>
         </header>
 
         {!hasItems ? (
-          <p className="text-sm text-slate-500 dark:text-slate-400 italic">
+          <p className="text-sm text-slate-700 italic">
             No library items yet — check back soon.
           </p>
         ) : (
           <div className="flex flex-col gap-14">
             {TYPE_ORDER.filter((t) => grouped[t]?.length).map((type) => (
               <section key={type} className="flex flex-col gap-0">
-                <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-5">
+                <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600 mb-5">
                   {TYPE_LABELS[type]}
                 </h2>
 
-                <div className="flex flex-col border-t border-slate-200 dark:border-slate-800">
+                <div className="flex flex-col border-t border-slate-200 ">
                   {grouped[type].map((item) => (
                     <div
                       key={item._id}
-                      className="py-6 border-b border-slate-200 dark:border-slate-800 flex flex-col gap-2"
+                      className="py-6 border-b border-slate-200 flex flex-col gap-2"
                     >
                       <div className="flex items-start justify-between gap-6">
                         <div className="flex flex-col gap-0.5 min-w-0 flex-1">
@@ -120,30 +120,30 @@ export default async function LibraryPage() {
                               href={item.link}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="font-bold text-base text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors leading-snug"
+                              className="font-bold text-base text-black hover:text-blue-600 transition-colors leading-snug"
                             >
                               {item.title}
                             </a>
                           ) : (
-                            <span className="font-bold text-base text-slate-900 dark:text-slate-100 leading-snug">
+                            <span className="font-bold text-base text-black leading-snug">
                               {item.title}
                             </span>
                           )}
-                          <span className="text-sm text-slate-500 dark:text-slate-400">
+                          <span className="text-sm text-slate-700 ">
                             {item.author}
                           </span>
                         </div>
 
                         <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
                           <StarRating rating={item.rating} />
-                          <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500 whitespace-nowrap">
+                          <span className="text-[11px] font-mono text-slate-600 whitespace-nowrap">
                             {STATUS_LABELS[item.status] ?? item.status}
                           </span>
                         </div>
                       </div>
 
                       {item.review && (
-                        <p className="text-sm text-slate-600 dark:text-slate-400 leading-[1.75]">
+                        <p className="text-sm text-slate-600 leading-[1.75]">
                           {item.review}
                         </p>
                       )}

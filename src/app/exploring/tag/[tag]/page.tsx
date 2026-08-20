@@ -32,7 +32,7 @@ export default async function ExploringTagPage({ params }: Props) {
         {/* Back link */}
         <Link
           href="/exploring"
-          className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors self-start"
+          className="flex items-center gap-2 text-sm text-gray-500 hover:text-black transition-colors self-start"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Exploring
@@ -41,12 +41,12 @@ export default async function ExploringTagPage({ params }: Props) {
         {/* Header */}
         <header className="flex flex-col gap-3">
           <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+            <span className="text-xs font-semibold uppercase tracking-widest text-gray-400 ">
               Tagged
             </span>
           </div>
           <h1 className="text-2xl font-semibold tracking-tight capitalize">{tag}</h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-gray-500 ">
             {posts.length === 0
               ? 'No posts written about this topic yet.'
               : `${posts.length} ${posts.length === 1 ? 'post' : 'posts'} on this topic`}
@@ -60,18 +60,18 @@ export default async function ExploringTagPage({ params }: Props) {
               <Link
                 key={post._id.toString()}
                 href={`/writing/${post.slug}`}
-                className="group flex flex-col gap-2 border-b border-gray-100 dark:border-gray-800 pb-6 last:border-0 last:pb-0"
+                className="group flex flex-col gap-2 border-b border-gray-100 pb-6 last:border-0 last:pb-0"
               >
-                <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100 group-hover:underline leading-snug">
+                <h2 className="text-base font-semibold text-gray-900 group-hover:underline leading-snug">
                   {post.title}
                 </h2>
                 {post.excerpt && (
-                  <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 leading-relaxed">
+                  <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed">
                     {post.excerpt}
                   </p>
                 )}
                 <div className="flex items-center gap-4 mt-1">
-                  <span className="flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500">
+                  <span className="flex items-center gap-1.5 text-xs text-gray-400 ">
                     <CalendarDays className="w-3.5 h-3.5" />
                     {new Date(post.publishedAt).toLocaleDateString('en-US', {
                       year: 'numeric',
@@ -88,7 +88,7 @@ export default async function ExploringTagPage({ params }: Props) {
                         .map((t: string) => (
                           <span
                             key={t}
-                            className="text-xs text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full"
+                            className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full"
                           >
                             {t}
                           </span>

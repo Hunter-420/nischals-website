@@ -67,11 +67,11 @@ export default function WhatIBringPage() {
         <section className="flex flex-col gap-10 max-w-2xl">
           {aims.map((aim, idx) => (
             <div key={idx} className="flex flex-col gap-3">
-              <h2 className="text-lg font-semibold tracking-tight text-gray-900 dark:text-gray-100">{aim.title}</h2>
+              <h2 className="text-lg font-semibold tracking-tight text-gray-900 ">{aim.title}</h2>
               <ul className="flex flex-col gap-3">
                 {aim.items.map((item, itemIdx) => (
-                  <li key={itemIdx} className="flex items-start gap-4 text-gray-900 dark:text-gray-100 font-normal leading-[1.8]">
-                    <span className="flex-shrink-0 mt-[10px] w-1.5 h-1.5 rounded-full bg-gray-500 dark:bg-gray-400" />
+                  <li key={itemIdx} className="flex items-start gap-4 text-gray-900 font-normal leading-[1.8]">
+                    <span className="flex-shrink-0 mt-[10px] w-1.5 h-1.5 rounded-full bg-gray-500 " />
                     {item}
                   </li>
                 ))}

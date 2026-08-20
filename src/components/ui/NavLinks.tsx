@@ -23,10 +23,10 @@ export function NavLinks() {
           <Link
             key={item.href}
             href={item.href}
-            className={`transition-colors border-b-2 hover:text-slate-900 dark:hover:text-slate-100 ${
+            className={`transition-colors border-b-2 hover:text-black ${
               isActive 
-                ? "text-slate-900 font-medium border-slate-900 pb-1 dark:text-slate-100 dark:border-slate-100" 
-                : "text-slate-500 border-transparent pb-1 dark:text-slate-400"
+                ? "text-black font-medium border-slate-900 pb-1 " 
+                : "text-slate-700 border-transparent pb-1 "
             }`}
           >
             {item.name}

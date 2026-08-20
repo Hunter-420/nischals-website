@@ -17,7 +17,7 @@
 
 
 /* Completely disable dark mode variants */
-@custom-variant dark (&:where(.never-match));
+
 
 /* ── Article prose: prevent long URLs/links from overflowing on mobile ── */
 @layer utilities {

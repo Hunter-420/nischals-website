@@ -128,24 +128,24 @@ export default async function ProjectPage({ params }: Props) {
 
       <main className="flex-1 mt-8 mb-24 flex flex-col gap-10">
         {/* Breadcrumbs */}
-        <nav className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 self-start">
-          <Link href="/" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Home</Link>
+        <nav className="flex items-center gap-2 text-sm text-slate-700 self-start">
+          <Link href="/" className="hover:text-black transition-colors">Home</Link>
           <ChevronRight className="w-4 h-4" />
-          <Link href="/projects" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Projects</Link>
+          <Link href="/projects" className="hover:text-black transition-colors">Projects</Link>
           <ChevronRight className="w-4 h-4" />
-          <span className="text-slate-900 dark:text-slate-100 truncate max-w-[200px] sm:max-w-xs">{project.title}</span>
+          <span className="text-black truncate max-w-[200px] sm:max-w-xs">{project.title}</span>
         </nav>
 
         <article className="flex flex-col gap-8 max-w-2xl">
           <header className="flex flex-col gap-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-700 ">
               Project Case Study
             </p>
-            <h1 className="text-2xl font-semibold tracking-tight leading-snug text-slate-900 dark:text-slate-100">
+            <h1 className="text-2xl font-semibold tracking-tight leading-snug text-black ">
               {project.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-3 text-sm text-slate-700 ">
               {publishedDate && (
                 <>
                   <span className="flex items-center gap-1.5">
@@ -158,7 +158,7 @@ export default async function ProjectPage({ params }: Props) {
                       })}
                     </time>
                   </span>
-                  <span className="text-slate-300 dark:text-slate-600">·</span>
+                  <span className="text-slate-300 ">·</span>
                 </>
               )}
               <ReactButton type="project" slug={project.slug} />
@@ -169,7 +169,7 @@ export default async function ProjectPage({ params }: Props) {
                 {project.technologies.map((tech: string) => (
                   <span
                     key={tech}
-                    className="rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1 text-xs font-medium text-slate-500 dark:text-slate-400"
+                    className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-700 "
                   >
                     {tech}
                   </span>
@@ -178,46 +178,44 @@ export default async function ProjectPage({ params }: Props) {
             )}
           </header>
 
-          <div className="border-t border-slate-100 dark:border-slate-800" />
+          <div className="border-t border-slate-100 " />
 
           <ArticleContent
             html={processedContent}
-            className="prose prose-zinc dark:prose-invert max-w-none
+            className="prose prose-zinc max-w-none
               prose-headings:font-semibold prose-headings:tracking-tight
               prose-h2:text-2xl prose-h3:text-xl
-              prose-p:leading-[1.8] prose-p:font-normal prose-p:text-slate-900 dark:prose-p:text-slate-100
-              prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
+              prose-p:leading-[1.8] prose-p:font-normal prose-p:text-black               prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
               [&_a]:break-words [&_a]:overflow-wrap-anywhere
               prose-code:font-inherit prose-code:text-[0.95em] prose-code:bg-transparent prose-code:px-0 prose-code:py-0 prose-code:rounded-none prose-code:before:content-none prose-code:after:content-none
-              prose-pre:bg-slate-950 dark:prose-pre:bg-slate-900 prose-pre:border prose-pre:border-slate-800 prose-pre:text-slate-100
-              [&_pre_code]:bg-transparent [&_pre_code]:dark:bg-transparent [&_pre_code]:p-0
-              prose-blockquote:border-l-4 prose-blockquote:border-slate-300 dark:prose-blockquote:border-slate-600 prose-blockquote:text-slate-600 dark:prose-blockquote:text-slate-400
-              prose-img:rounded-lg prose-img:shadow-md
+              prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800 prose-pre:text-slate-100
+              [&_pre_code]:bg-transparent [&_pre_code]:[&_pre_code]:p-0
+              prose-blockquote:border-l-4 prose-blockquote:border-slate-300 prose-blockquote:text-slate-600               prose-img:rounded-lg prose-img:shadow-md
               [&_table]:w-full [&_table]:border-collapse [&_table]:overflow-hidden [&_table]:my-6 [&_table]:text-sm
-              [&_thead_th]:bg-slate-100 [&_thead_th]:dark:bg-slate-800 [&_thead_th]:font-semibold
-              [&_th]:border [&_th]:border-slate-200 [&_th]:dark:border-slate-700 [&_th]:px-4 [&_th]:py-3 [&_th]:text-left
-              [&_td]:border [&_td]:border-slate-200 [&_td]:dark:border-slate-700 [&_td]:px-4 [&_td]:py-3"
+              [&_thead_th]:bg-slate-100 [&_thead_th]:[&_thead_th]:font-semibold
+              [&_th]:border [&_th]:border-slate-200 [&_th]:[&_th]:px-4 [&_th]:py-3 [&_th]:text-left
+              [&_td]:border [&_td]:border-slate-200 [&_td]:[&_td]:px-4 [&_td]:py-3"
           />
 
           {/* Related Blogs */}
           {relatedPosts && relatedPosts.length > 0 && (
-            <div className="border-t border-slate-100 dark:border-slate-800 pt-8 mt-4">
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-4">Related Writing</h3>
+            <div className="border-t border-slate-100 pt-8 mt-4">
+              <h3 className="text-lg font-semibold text-black mb-4">Related Writing</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {relatedPosts.map((rp) => (
-                  <Link key={rp.slug} href={`/writing/${rp.slug}`} className="block p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 hover:border-slate-200 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                    <h4 className="font-medium text-slate-900 dark:text-slate-100 mb-1">{rp.title}</h4>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">{rp.keyTakeaway || rp.excerpt}</p>
+                  <Link key={rp.slug} href={`/writing/${rp.slug}`} className="block p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:border-slate-200 hover:bg-slate-50 transition-colors">
+                    <h4 className="font-medium text-black mb-1">{rp.title}</h4>
+                    <p className="text-sm text-slate-700 line-clamp-2">{rp.keyTakeaway || rp.excerpt}</p>
                   </Link>
                 ))}
               </div>
             </div>
           )}
 
-          <div className="border-t border-slate-100 dark:border-slate-800 pt-8 mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="border-t border-slate-100 pt-8 mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <Link
               href="/projects"
-              className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
+              className="text-sm text-slate-700 hover:text-black transition-colors"
             >
               ← Back to all projects
             </Link>
@@ -228,7 +226,7 @@ export default async function ProjectPage({ params }: Props) {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 px-4 py-2 text-slate-700 dark:text-slate-200 hover:border-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-slate-700 hover:border-slate-400 hover:text-black transition-colors"
                 >
                   <GithubIcon className="w-4 h-4" />
                   GitHub
@@ -239,7 +237,7 @@ export default async function ProjectPage({ params }: Props) {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 px-4 py-2 text-slate-700 dark:text-slate-200 hover:border-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-slate-700 hover:border-slate-400 hover:text-black transition-colors"
                 >
                   <ExternalLink className="w-4 h-4" />
                   Live Site
@@ -253,13 +251,13 @@ export default async function ProjectPage({ params }: Props) {
 
       {/* Floating Action Buttons */}
       {(project.githubUrl || project.liveUrl) && (
-        <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
+        <div className="fixed bottom-24 right-6 flex flex-col gap-3 z-50">
           {project.githubUrl && (
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center w-12 h-12 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded-full shadow-lg hover:scale-105 transition-transform"
+              className="flex items-center justify-center w-12 h-12 bg-slate-900 text-white rounded-full shadow-lg hover:scale-105 transition-transform"
               title="View on GitHub"
             >
               <GithubIcon className="w-5 h-5" />

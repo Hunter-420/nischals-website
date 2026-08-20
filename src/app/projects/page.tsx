@@ -39,8 +39,8 @@ export default async function ProjectsPage() {
       
       <main className="flex-1 mt-8 mb-24 flex flex-col gap-12">
         <header className="flex flex-col gap-4">
-          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">Projects</h1>
-          <p className="text-slate-800 dark:text-slate-200 font-normal text-base leading-relaxed">
+          <h1 className="text-3xl font-extrabold text-black tracking-tight">Projects</h1>
+          <p className="text-black font-normal text-base leading-relaxed">
             A selection of projects I&apos;ve built over the years.
           </p>
         </header>
@@ -51,7 +51,7 @@ export default async function ProjectsPage() {
               <ProjectFactCard key={project._id.toString()} project={project} />
             ))
           ) : (
-            <p className="text-slate-500 dark:text-slate-400 italic text-base">Projects will be listed here.</p>
+            <p className="text-slate-700 italic text-base">Projects will be listed here.</p>
           )}
         </section>
       </main>

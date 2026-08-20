@@ -43,7 +43,7 @@ export default async function Home() {
         {/* Hero */}
         <section className="flex flex-col md:flex-row items-center md:items-start justify-between gap-12 md:gap-8">
           <div className="flex-1 flex flex-col gap-6 w-full items-start">
-            <Link href="/contact" className="inline-flex items-center gap-2 px-3 py-1 mb-2 rounded-full border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/20 text-xs font-medium text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors">
+            <Link href="/contact" className="inline-flex items-center gap-2 px-3 py-1 mb-2 rounded-full border border-emerald-200 bg-emerald-50 text-xs font-medium text-emerald-700 hover:bg-emerald-100 transition-colors">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -51,7 +51,7 @@ export default async function Home() {
               {settings?.openToWorkText || 'Interested in Systems & Infrastructure Roles'}
             </Link>
             <div className="flex flex-col gap-2">
-              <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+              <h1 className="text-4xl md:text-5xl font-extrabold text-black tracking-tight">
                 {settings?.title || 'Nischal Khanal'}
               </h1>
               <h2 className="text-xl md:text-2xl font-bold text-accent-blue tracking-tight">
@@ -59,7 +59,7 @@ export default async function Home() {
               </h2>
             </div>
 
-            <p className="text-slate-800 dark:text-slate-200 font-normal text-base max-w-xl leading-relaxed">
+            <p className="text-black font-normal text-base max-w-xl leading-relaxed">
               {settings?.description || 'Software Engineer exploring systems, market infrastructure, and performance engineering. Focused on understanding how information moves through systems, market microstructure, and how bottlenecks emerge.'}
             </p>
 
@@ -67,23 +67,23 @@ export default async function Home() {
               <a href="/api/resume/download" target="_blank" rel="noopener noreferrer" className="inline-flex justify-center items-center px-5 py-2.5 bg-blue-600 text-white font-bold text-sm rounded-lg hover:opacity-90 transition-opacity">
                 Download Resume (PDF)
               </a>
-              <a href={socialLinks?.github || "https://github.com"} target="_blank" rel="noopener noreferrer" className="inline-flex justify-center items-center px-5 py-2.5 border-2 border-blue-500 text-blue-600 dark:text-blue-400 font-bold text-sm rounded-lg hover:bg-blue-500/10 transition-colors">
+              <a href={socialLinks?.github || "https://github.com"} target="_blank" rel="noopener noreferrer" className="inline-flex justify-center items-center px-5 py-2.5 border-2 border-blue-500 text-blue-600 font-bold text-sm rounded-lg hover:bg-blue-500/10 transition-colors">
                 View GitHub
               </a>
             </div>
             
             {/* Quick links */}
             <div className="flex flex-wrap gap-4 text-sm font-medium mt-4">
-              <Link href="/about" className="text-slate-500 dark:text-slate-400 hover:text-accent-blue transition-colors">
+              <Link href="/about" className="text-slate-700 hover:text-accent-blue transition-colors">
                 More about me &rarr;
               </Link>
-              <Link href="/what-i-bring" className="text-slate-500 dark:text-slate-400 hover:text-accent-blue transition-colors">
+              <Link href="/what-i-bring" className="text-slate-700 hover:text-accent-blue transition-colors">
                 What I Aim to be &rarr;
               </Link>
-              <Link href="/exploring" className="text-slate-500 dark:text-slate-400 hover:text-accent-blue transition-colors">
+              <Link href="/exploring" className="text-slate-700 hover:text-accent-blue transition-colors">
                 What I&apos;m exploring &rarr;
               </Link>
-              <Link href="/certifications" className="text-slate-500 dark:text-slate-400 hover:text-accent-blue transition-colors">
+              <Link href="/certifications" className="text-slate-700 hover:text-accent-blue transition-colors">
                 Certifications &rarr;
               </Link>
             </div>
@@ -96,29 +96,29 @@ export default async function Home() {
 
         {/* Featured Projects */}
         <section className="flex flex-col gap-6">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 tracking-tight border-b border-slate-200 dark:border-slate-800 pb-2">Featured Projects</h2>
+          <h2 className="text-2xl font-bold text-black tracking-tight border-b border-slate-200 pb-2">Featured Projects</h2>
           <div className="grid grid-cols-1 gap-8">
             {featuredProjects.length > 0 ? (
               featuredProjects.map((project) => (
                 <ProjectFactCard key={project._id.toString()} project={project} />
               ))
             ) : (
-              <p className="text-slate-500 dark:text-slate-400 italic text-sm">No featured projects yet.</p>
+              <p className="text-slate-700 italic text-sm">No featured projects yet.</p>
             )}
           </div>
           <Link
             href="/projects"
-            className="text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-accent-blue transition-colors mt-2"
+            className="text-sm font-medium text-slate-700 hover:text-accent-blue transition-colors mt-2"
           >
             View all projects &rarr;
           </Link>
         </section>
 
         <section className="flex flex-col gap-3">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">What I&apos;m up to now?</h2>
+          <h2 className="text-lg font-bold text-black tracking-tight">What I&apos;m up to now?</h2>
           <Link
             href="/now"
-            className="text-sm text-blue-600 dark:text-blue-400 hover:underline transition-colors"
+            className="text-sm text-blue-600 hover:underline transition-colors"
           >
             View what I&apos;m focused on right now &rarr;
           </Link>
@@ -126,19 +126,19 @@ export default async function Home() {
 
         {/* Recent Writing */}
         <section className="flex flex-col gap-6">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 tracking-tight border-b border-slate-200 dark:border-slate-800 pb-2">Recent Writing</h2>
+          <h2 className="text-2xl font-bold text-black tracking-tight border-b border-slate-200 pb-2">Recent Writing</h2>
           <div className="grid grid-cols-1 gap-4">
             {recentPosts.length > 0 ? (
               recentPosts.map((post) => (
                 <TechnicalArticleCard key={post._id.toString()} post={post} />
               ))
             ) : (
-              <p className="text-slate-500 dark:text-slate-400 italic text-sm">No posts yet.</p>
+              <p className="text-slate-700 italic text-sm">No posts yet.</p>
             )}
           </div>
           <Link
             href="/writing"
-            className="text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-accent-blue transition-colors"
+            className="text-sm font-medium text-slate-700 hover:text-accent-blue transition-colors"
           >
             View all writing &rarr;
           </Link>
@@ -146,19 +146,19 @@ export default async function Home() {
 
         {/* Other Areas */}
         <section className="flex flex-col gap-5">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">Other Areas</h2>
+          <h2 className="text-lg font-bold text-black tracking-tight">Other Areas</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
             <Link href="/library" className="group flex flex-col gap-0.5">
-              <span className="font-medium group-hover:underline text-slate-800 dark:text-slate-200">Library</span>
-              <span className="text-xs text-slate-500 dark:text-slate-400">Books I recommend</span>
+              <span className="font-medium group-hover:underline text-black ">Library</span>
+              <span className="text-xs text-slate-700 ">Books I recommend</span>
             </Link>
             <Link href="/certifications" className="group flex flex-col gap-0.5">
-              <span className="font-medium group-hover:underline text-slate-800 dark:text-slate-200">Certifications</span>
-              <span className="text-xs text-slate-500 dark:text-slate-400">Professional certs</span>
+              <span className="font-medium group-hover:underline text-black ">Certifications</span>
+              <span className="text-xs text-slate-700 ">Professional certs</span>
             </Link>
             <Link href="/resume" className="group flex flex-col gap-0.5">
-              <span className="font-medium group-hover:underline text-slate-800 dark:text-slate-200">Resume</span>
-              <span className="text-xs text-slate-500 dark:text-slate-400">My experience</span>
+              <span className="font-medium group-hover:underline text-black ">Resume</span>
+              <span className="text-xs text-slate-700 ">My experience</span>
             </Link>
           </div>
         </section>

@@ -2,7 +2,7 @@ export function HeroDiagram() {
   return (
     <div className="relative w-full aspect-square max-w-md mx-auto flex items-center justify-center p-8">
       {/* Background glow */}
-      <div className="absolute inset-0 bg-accent-blue/5 dark:bg-accent-blue/10 blur-3xl rounded-full mix-blend-screen" />
+      <div className="absolute inset-0 bg-accent-blue/5 blur-3xl rounded-full mix-blend-screen" />
       
       <svg
         viewBox="0 0 400 400"
@@ -11,10 +11,10 @@ export function HeroDiagram() {
         className="w-full h-full relative z-10"
       >
         {/* Core Ring */}
-        <circle cx="200" cy="160" r="130" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" className="text-slate-200 dark:text-slate-800 animate-[spin_60s_linear_infinite]" />
+        <circle cx="200" cy="160" r="130" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" className="text-slate-200 animate-[spin_60s_linear_infinite]" />
         
         {/* Connections / Paths */}
-        <g stroke="var(--color-accent-blue)" strokeWidth="1.5" strokeDasharray="4 4" fill="none" className="opacity-50 dark:opacity-60">
+        <g stroke="var(--color-accent-blue)" strokeWidth="1.5" strokeDasharray="4 4" fill="none" className="opacity-50 ">
           <path d="M200 62 L200 133" /> {/* MARKETS -> SYSTEMS */}
           <path d="M82 160 L173 160" /> {/* NETWORKING -> SYSTEMS */}
           <path d="M318 160 L227 160" /> {/* PERFORMANCE -> SYSTEMS */}
@@ -49,41 +49,41 @@ export function HeroDiagram() {
         </circle>
 
         {/* Nodes */}
-        <g className="text-slate-800 dark:text-slate-200">
+        <g className="text-black ">
           {/* MARKETS */}
           <circle cx="200" cy="50" r="10" fill="currentColor" />
           <circle cx="200" cy="50" r="16" stroke="var(--color-accent-blue)" strokeWidth="2" className="opacity-50 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite]" />
-          <text x="200" y="30" textAnchor="middle" className="text-[10px] font-mono fill-slate-500 dark:fill-slate-400">MARKETS</text>
+          <text x="200" y="30" textAnchor="middle" className="text-[10px] font-mono fill-slate-500 ">MARKETS</text>
 
           {/* NETWORKING */}
           <circle cx="70" cy="160" r="10" fill="currentColor" />
-          <text x="70" y="140" textAnchor="middle" className="text-[10px] font-mono fill-slate-500 dark:fill-slate-400">NETWORKING</text>
+          <text x="70" y="140" textAnchor="middle" className="text-[10px] font-mono fill-slate-500 ">NETWORKING</text>
 
           {/* PERFORMANCE */}
           <circle cx="330" cy="160" r="10" fill="currentColor" />
-          <text x="330" y="140" textAnchor="middle" className="text-[10px] font-mono fill-slate-500 dark:fill-slate-400">PERFORMANCE</text>
+          <text x="330" y="140" textAnchor="middle" className="text-[10px] font-mono fill-slate-500 ">PERFORMANCE</text>
 
           {/* OPERATING SYSTEMS */}
           <circle cx="70" cy="270" r="10" fill="currentColor" />
-          <text x="70" y="295" textAnchor="middle" className="text-[10px] font-mono fill-slate-500 dark:fill-slate-400">OPERATING SYSTEMS</text>
+          <text x="70" y="295" textAnchor="middle" className="text-[10px] font-mono fill-slate-500 ">OPERATING SYSTEMS</text>
 
           {/* DISTRIBUTED SYSTEMS */}
           <circle cx="200" cy="270" r="10" fill="currentColor" />
-          <text x="200" y="295" textAnchor="middle" className="text-[10px] font-mono fill-slate-500 dark:fill-slate-400">DISTRIBUTED SYSTEMS</text>
+          <text x="200" y="295" textAnchor="middle" className="text-[10px] font-mono fill-slate-500 ">DISTRIBUTED SYSTEMS</text>
         </g>
 
         {/* Center Process - SYSTEMS */}
         <g>
-          <rect x="175" y="135" width="50" height="50" rx="12" className="fill-white dark:fill-deep-dark stroke-slate-300 dark:stroke-slate-700" strokeWidth="2" />
+          <rect x="175" y="135" width="50" height="50" rx="12" className="fill-white stroke-slate-300 " strokeWidth="2" />
           {/* Inner details for SYSTEMS node */}
-          <circle cx="200" cy="160" r="8" className="fill-slate-100 dark:fill-slate-800" />
+          <circle cx="200" cy="160" r="8" className="fill-slate-100 " />
           <circle cx="200" cy="160" r="3" fill="var(--color-neon-green)" />
-          <text x="200" y="205" textAnchor="middle" className="text-[11px] font-bold font-mono fill-slate-800 dark:fill-slate-200">SYSTEMS</text>
+          <text x="200" y="205" textAnchor="middle" className="text-[11px] font-bold font-mono fill-slate-800 ">SYSTEMS</text>
         </g>
 
         {/* CONTINUOUS LEARNING */}
         <g>
-          <text x="200" y="355" textAnchor="middle" className="text-xs font-mono font-bold tracking-[0.2em] fill-blue-600 dark:fill-blue-400 opacity-90">
+          <text x="200" y="355" textAnchor="middle" className="text-xs font-mono font-bold tracking-[0.2em] fill-blue-600 opacity-90">
             CONTINUOUS LEARNING
           </text>
           {/* Subtle underline or glow */}

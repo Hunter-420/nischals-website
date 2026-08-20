@@ -25,16 +25,16 @@ export function TechnicalArticleCard({ post }: TechnicalArticleCardProps) {
   return (
     <Link
       href={`/writing/${post.slug}`}
-      className="group block w-full px-0 py-7 border-b border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 transition-colors"
+      className="group block w-full px-0 py-7 border-b border-slate-200 hover:border-slate-400 transition-colors"
     >
       {/* Row: headline + date */}
       <div className="flex items-start justify-between gap-6 w-full mb-3">
-        <h3 className="font-bold text-lg sm:text-xl leading-snug text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors flex-1 min-w-0">
+        <h3 className="font-bold text-lg sm:text-xl leading-snug text-black group-hover:text-blue-600 transition-colors flex-1 min-w-0">
           {post.title}
         </h3>
         <time
           dateTime={new Date(post.publishedAt).toISOString()}
-          className="flex-shrink-0 text-sm font-mono text-slate-400 dark:text-slate-500 mt-0.5 whitespace-nowrap"
+          className="flex-shrink-0 text-sm font-mono text-slate-600 mt-0.5 whitespace-nowrap"
         >
           {formatDate(post.publishedAt)}
         </time>
@@ -42,7 +42,7 @@ export function TechnicalArticleCard({ post }: TechnicalArticleCardProps) {
 
       {/* Full-width excerpt */}
       {excerpt && (
-        <p className="text-[0.97rem] text-slate-600 dark:text-slate-400 leading-[1.75] w-full">
+        <p className="text-[0.97rem] text-slate-600 leading-[1.75] w-full">
           {excerpt}
         </p>
       )}

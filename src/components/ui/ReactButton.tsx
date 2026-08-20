@@ -85,7 +85,7 @@ export function ReactButton({ type, slug }: ReactButtonProps) {
 
   if (loading) {
     return (
-      <div className="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400 animate-pulse">
+      <div className="flex items-center gap-4 text-sm text-slate-700 animate-pulse">
         <div className="flex items-center gap-1.5"><Heart className="w-4 h-4" /> --</div>
         <div className="flex items-center gap-1.5"><Eye className="w-4 h-4" /> --</div>
       </div>
@@ -97,13 +97,13 @@ export function ReactButton({ type, slug }: ReactButtonProps) {
       <button 
         onClick={handleLike}
         disabled={hasLiked}
-        className={`flex items-center gap-1.5 transition-colors ${hasLiked ? 'text-red-500 dark:text-red-400 cursor-default' : 'text-slate-500 dark:text-slate-400 hover:text-red-500 dark:hover:text-red-400'}`}
+        className={`flex items-center gap-1.5 transition-colors ${hasLiked ? 'text-red-500 cursor-default' : 'text-slate-700 hover:text-red-500 '}`}
         title={hasLiked ? 'You liked this' : 'Like this'}
       >
         <Heart className={`w-4 h-4 ${hasLiked ? 'fill-current' : ''}`} />
         <span>{likes}</span>
       </button>
-      <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400" title="Views">
+      <div className="flex items-center gap-1.5 text-slate-700 " title="Views">
         <Eye className="w-4 h-4" />
         <span>{views}</span>
       </div>
