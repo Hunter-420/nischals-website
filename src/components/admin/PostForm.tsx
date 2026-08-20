@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import RichTextEditor from './RichTextEditor';
-import { X, ChevronDown } from 'lucide-react';
+import { X } from 'lucide-react';
 import { FormInput } from '../ui/FormInput';
 import { FormTextarea } from '../ui/FormTextarea';
 import { FormCheckbox } from '../ui/FormCheckbox';
@@ -28,8 +28,6 @@ export default function PostForm({ initialData }: PostFormProps) {
 
   const [suggestedTags, setSuggestedTags] = useState<string[]>([]);
   const [suggestedDomains, setSuggestedDomains] = useState<string[]>([]);
-  const [tagDropdownOpen, setTagDropdownOpen] = useState(false);
-  const [domainDropdownOpen, setDomainDropdownOpen] = useState(false);
   const [customTagInput, setCustomTagInput] = useState('');
 
   useEffect(() => {
@@ -158,42 +156,37 @@ export default function PostForm({ initialData }: PostFormProps) {
           Primary Domain
           <span className="ml-2 text-xs font-normal text-gray-400">(optional)</span>
         </label>
-        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start">
+        <div className="flex flex-col gap-2">
           <input
             type="text"
             name="primaryDomain"
             value={formData.primaryDomain}
             onChange={handleChange}
-            placeholder="e.g. Cloud Infrastructure"
-            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-black focus:border-black sm:w-64"
+            placeholder="Type or pick from list…"
+            list="domain-suggestions"
+            className="w-full sm:w-80 px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-black focus:border-black"
           />
+          <datalist id="domain-suggestions">
+            {suggestedDomains.map(d => (
+              <option key={d} value={d} />
+            ))}
+          </datalist>
           {suggestedDomains.length > 0 && (
-            <div className="relative">
-              <button
-                type="button"
-                onClick={() => setDomainDropdownOpen(o => !o)}
-                className="flex items-center gap-2 px-3 py-2 text-sm font-medium border border-gray-300 rounded-md hover:bg-gray-50 text-gray-700"
-              >
-                <span>Select from Settings</span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${domainDropdownOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {domainDropdownOpen && (
-                <div className="absolute z-50 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg py-1 min-w-48 max-h-60 overflow-y-auto">
-                  {suggestedDomains.map(domain => (
-                    <button
-                      key={domain}
-                      type="button"
-                      onClick={() => {
-                        setFormData(prev => ({ ...prev, primaryDomain: domain }));
-                        setDomainDropdownOpen(false);
-                      }}
-                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-                    >
-                      {domain}
-                    </button>
-                  ))}
-                </div>
-              )}
+            <div className="flex flex-wrap gap-2 mt-1">
+              {suggestedDomains.map(domain => (
+                <button
+                  key={domain}
+                  type="button"
+                  onClick={() => setFormData(prev => ({ ...prev, primaryDomain: domain }))}
+                  className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                    formData.primaryDomain === domain
+                      ? 'bg-black text-white border-black'
+                      : 'bg-white text-gray-700 border-gray-300 hover:border-gray-500 hover:bg-gray-50'
+                  }`}
+                >
+                  {domain}
+                </button>
+              ))}
             </div>
           )}
         </div>
@@ -203,9 +196,10 @@ export default function PostForm({ initialData }: PostFormProps) {
       <div className="space-y-3">
         <label className="block text-sm font-medium text-gray-700">
           Tags
-          <span className="ml-2 text-xs font-normal text-gray-400">(pick from exploring/settings or add custom)</span>
+          <span className="ml-2 text-xs font-normal text-gray-400">(pick from suggestions or add custom)</span>
         </label>
 
+        {/* Selected tags */}
         {formData.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {formData.tags.map(tag => (
@@ -226,54 +220,39 @@ export default function PostForm({ initialData }: PostFormProps) {
           </div>
         )}
 
-        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start">
-          {availableSuggestions.length > 0 && (
-            <div className="relative">
+        {/* Suggestion chips */}
+        {availableSuggestions.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {availableSuggestions.map(tag => (
               <button
+                key={tag}
                 type="button"
-                onClick={() => setTagDropdownOpen(o => !o)}
-                className="flex items-center gap-2 px-3 py-2 text-sm font-medium border border-gray-300 rounded-md hover:bg-gray-50 text-gray-700"
+                onClick={() => addTag(tag)}
+                className="px-3 py-1 text-xs rounded-full border border-gray-300 text-gray-600 hover:border-gray-600 hover:bg-gray-50 transition-colors"
               >
-                <span>+ Add from Suggestions</span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${tagDropdownOpen ? 'rotate-180' : ''}`} />
+                + {tag}
               </button>
-              {tagDropdownOpen && (
-                <div className="absolute z-50 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg py-1 min-w-48 max-h-60 overflow-y-auto">
-                  {availableSuggestions.map(tag => (
-                    <button
-                      key={tag}
-                      type="button"
-                      onClick={() => {
-                        addTag(tag);
-                        setTagDropdownOpen(false);
-                      }}
-                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-            <input
-              type="text"
-              value={customTagInput}
-              onChange={e => setCustomTagInput(e.target.value)}
-              onKeyDown={handleCustomTagKeyDown}
-              placeholder="Custom tag, press Enter"
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-black focus:border-black sm:w-48"
-            />
-            <button
-              type="button"
-              onClick={() => { addTag(customTagInput); setCustomTagInput(''); }}
-              className="px-3 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50 text-gray-700"
-            >
-              Add
-            </button>
+            ))}
           </div>
+        )}
+
+        {/* Custom tag input */}
+        <div className="flex gap-2 items-center">
+          <input
+            type="text"
+            value={customTagInput}
+            onChange={e => setCustomTagInput(e.target.value)}
+            onKeyDown={handleCustomTagKeyDown}
+            placeholder="Custom tag, press Enter"
+            className="w-full sm:w-48 px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-black focus:border-black"
+          />
+          <button
+            type="button"
+            onClick={() => { addTag(customTagInput); setCustomTagInput(''); }}
+            className="px-3 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50 text-gray-700"
+          >
+            Add
+          </button>
         </div>
       </div>
 
